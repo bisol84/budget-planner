@@ -1,1 +1,1 @@
-# budget-tracker
+# budget-planner
