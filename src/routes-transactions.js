@@ -3,7 +3,19 @@ const db = require('./db');
 
 // List all transactions
 router.get("/", function (req, res) {
-  res.send("List all transactions");
+  let sql = 'SELECT * FROM transactions';
+  const response = [];
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      throw err;
+    }
+    rows.forEach((row) => {
+      console.log(row);
+      response.push(row);
+    });
+    res.send(response)
+  });
+  //db.close()
 });
 
 router.post("/", function (req, res) {
@@ -12,8 +24,15 @@ router.post("/", function (req, res) {
 
   // Parse JSON
   jsonData.forEach(transaction => {
-    console.log(transaction.Amount)
-    console.log(transaction.Description)
+    db.run("INSERT INTO transactions(date, amount, category, description, compte) VALUES(?,?,?,?,?)", [
+      transaction.Date,
+      transaction.Amount,
+      transaction.Category,
+      transaction.Description,
+      0
+    ]);
+    //console.log(transaction)
+    //db.close()
   });
 });
 

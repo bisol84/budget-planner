@@ -1,10 +1,11 @@
 const fs = require("fs");
 const sqlite3 = require("sqlite3").verbose();
-const filepath = "./budget-planner.db";
+const filepath = "../budget-planner.db";
 
 function createDbConnection() {
     if (fs.existsSync(filepath)) {
       return new sqlite3.Database(filepath);
+      console.log('ok')
     } else {
       const db = new sqlite3.Database(filepath, (error) => {
         if (error) {
