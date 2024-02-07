@@ -10,7 +10,6 @@ router.get("/", function (req, res) {
       throw err;
     }
     rows.forEach((row) => {
-      console.log(row);
       response.push(row);
     });
     res.send(response)
