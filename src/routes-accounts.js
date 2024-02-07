@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const db = require('./db');
 
-// List all transactions
-router.get("/transactions/", function (req, res) {
-  let sql = 'SELECT * FROM transactions';
+// List all accounts
+router.get("/accounts/", function (req, res) {
+  let sql = 'SELECT * FROM accounts';
   const response = [];
   db.all(sql, [], (err, rows) => {
     if (err) {
@@ -18,7 +18,7 @@ router.get("/transactions/", function (req, res) {
 });
 
 //Add transactions in bulk
-router.post("/transactions/", function (req, res) {
+/*router.post("/transactions/", function (req, res) {
   const jsonData = req.body.data
   res.json({ message: 'JSON received on server' });
 
@@ -38,6 +38,6 @@ router.post("/transactions/", function (req, res) {
 // Delete a transaction
 router.delete("/transactions/:id", function (req, res) {
   db.run('DELETE FROM transactions WHERE ID = ?', req.params.id)
-});
+});*/
 
 module.exports = router;

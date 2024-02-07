@@ -15,7 +15,9 @@ const corsOptions = {
 };
 app.use(cors(corsOptions)); 
 //app.use(express.json())
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+  limit: '50mb'
+}));
 app.use(helmet());
 
 app.listen(PORT, () => {
@@ -24,4 +26,8 @@ app.listen(PORT, () => {
 
 // Routes transactions
 const routesTransactions = require("./routes-transactions.js")
-app.use("/transactions", routesTransactions);
+app.use("/", routesTransactions);
+
+// Routes transactions
+const routesAccounts = require("./routes-accounts.js")
+app.use("/", routesAccounts);

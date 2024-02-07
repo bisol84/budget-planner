@@ -10,11 +10,12 @@ fetch('http://localhost:3000/transactions', {
     .then(response => response.json())
     .then(data => {
         data.forEach(transaction => {
+            const transactionId = transaction.ID;
             const transactionDate = transaction.date;
             const transactionAmount = transaction.amount;
             const transactionCategory = transaction.category;
             const transactionDescription = transaction.description;
-            const transactionCompte = transaction.compte;
+            const transactionAccount = transaction.account;
 
             // Create a new row for each transaction
             const row = document.createElement('tr');
@@ -51,10 +52,10 @@ fetch('http://localhost:3000/transactions', {
             descriptionCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
             row.appendChild(descriptionCell);
 
-            const compteCell = document.createElement('td');
-            compteCell.textContent = transactionCompte;
-            compteCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
-            row.appendChild(compteCell);
+            const accountCell = document.createElement('td');
+            accountCell.textContent = transactionAccount;
+            accountCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
+            row.appendChild(accountCell);
 
             const editCell = document.createElement('td');
             const editLink = document.createElement('a');
@@ -66,11 +67,20 @@ fetch('http://localhost:3000/transactions', {
             row.appendChild(editCell);
 
             const deleteCell = document.createElement('td');
-            const deleteLink = document.createElement('a');
-            deleteLink.textContent = 'Delete';
-            deleteLink.href = '#'; // Placeholder link
-            deleteLink.classList.add('inline-flex', 'items-center', 'gap-x-1', 'text-sm', 'text-blue-600', 'decoration-2', 'hover:underline', 'font-medium', 'dark:focus:outline-none', 'dark:focus:ring-1', 'dark:focus:ring-gray-600');
-            deleteCell.appendChild(deleteLink);
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.id = transactionId;
+            deleteButton.classList.add('inline-flex', 'items-center', 'gap-x-1', 'text-sm', 'text-blue-600', 'decoration-2', 'hover:underline', 'font-medium', 'dark:focus:outline-none', 'dark:focus:ring-1', 'dark:focus:ring-gray-600');
+            deleteButton.onclick = function(e) {
+                const buttonId = e.target.id;
+                fetch('http://localhost:3000/transactions/' + buttonId, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+            }
+            deleteCell.appendChild(deleteButton);
             deleteCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-1.5');
             row.appendChild(deleteCell);
 
@@ -81,3 +91,5 @@ fetch('http://localhost:3000/transactions', {
     .catch(error => {
         console.error('Erreur lors de la réception des transactions :', error);
     });
+
+    // Delete the transaction
