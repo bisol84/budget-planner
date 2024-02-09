@@ -1,5 +1,8 @@
-#General (Mac)
+# General (Mac)
 .DS_Store
+
+# Database
+budget-planner.db
 
 # Logs
 logs
