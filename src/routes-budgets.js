@@ -2,8 +2,8 @@ const router = require("express").Router();
 const db = require('./db');
 
 // List all accounts
-router.get("/accounts/", function (req, res) {
-  let sql = 'SELECT * FROM accounts';
+router.get("/budgets/categories", function (req, res) {
+  let sql = 'SELECT * FROM categories';
   const response = [];
   db.all(sql, [], (err, rows) => {
     if (err) {
@@ -18,7 +18,7 @@ router.get("/accounts/", function (req, res) {
 });
 
 //Add account
-router.post("/accounts/", function (req, res) {
+/*router.post("/accounts/", function (req, res) {
   const jsonData = req.body.data
 
   // Parse JSON

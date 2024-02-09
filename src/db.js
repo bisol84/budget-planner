@@ -29,12 +29,48 @@ function createTable(db) {
         account       INTEGER
       );`)
     db.exec(`
+      CREATE TABLE budgets
+      (
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        category      VARCHAR(255),
+        amount   VARCHAR(255),
+        period    VARCHAR(255)
+      );`)
+
+    db.exec(`
       CREATE TABLE categories
       (
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
         category      VARCHAR(255),
         description   VARCHAR(255)
       );`)
+
+      // Catégories
+      const categories = [
+        { category: 'Voiture', description: '' },
+        { category: 'Train', description: '' },
+        { category: 'Assurance automobile', description: '' },
+        { category: 'Assurance santé', description: '' },
+        { category: 'Courses', description: '' },
+        { category: 'Restaurants', description: '' },
+        { category: 'Habits', description: '' },
+        { category: 'Vacances', description: '' }
+      ];
+
+      // Define the SQL query
+      const sql = 'INSERT INTO categories (category, description) VALUES (?, ?)';
+
+      // Insert each row using a loop
+      categories.forEach(row => {
+        db.run(sql, [row.category, row.description], function(err) {
+            if (err) {
+                console.error(err.message);
+            } else {
+                console.log(`Row ${row.category} inserted with ID: ${this.lastID}`);
+            }
+        });
+      });
+
     db.exec(`
       CREATE TABLE accounts
       (

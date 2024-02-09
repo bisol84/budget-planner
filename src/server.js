@@ -28,6 +28,10 @@ app.listen(PORT, () => {
 const routesTransactions = require("./routes-transactions.js")
 app.use("/", routesTransactions);
 
-// Routes transactions
+// Routes accounts
 const routesAccounts = require("./routes-accounts.js")
 app.use("/", routesAccounts);
+
+// Routes budgets
+const routesBudgets = require("./routes-budgets.js")
+app.use("/", routesBudgets);
