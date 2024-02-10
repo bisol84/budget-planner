@@ -23,18 +23,21 @@ function createTable(db) {
       (
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
         date          DATE,
-        amount        INTEGER,
-        category      VARCHAR(255),
+        amount        REAL,
+        import_category  VARCHAR(255),
+        id_category   INTEGER NULL,
         description   VARCHAR(255),
-        account       INTEGER
+        account       INTEGER,
+        FOREIGN KEY (id_category) REFERENCES categories(ID)
       );`)
     db.exec(`
       CREATE TABLE budgets
       (
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
-        category      VARCHAR(255),
-        amount   VARCHAR(255),
-        period    VARCHAR(255)
+        id_category       INTEGER,
+        amount            REAL,
+        period            VARCHAR(255),
+        FOREIGN KEY (id_category) REFERENCES categories(ID)
       );`)
 
     db.exec(`
@@ -44,17 +47,44 @@ function createTable(db) {
         category      VARCHAR(255),
         description   VARCHAR(255)
       );`)
+    db.exec(`
+      CREATE TABLE accounts
+      (
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        name          VARCHAR(255),
+        description   VARCHAR(255),
+        amount        REAL,
+        type          VARCHAR(255)
+      );`)
 
       // Catégories
       const categories = [
-        { category: 'Voiture', description: '' },
-        { category: 'Train', description: '' },
+        { category: 'A classer', description: 'Sans catégorie' },
         { category: 'Assurance automobile', description: '' },
         { category: 'Assurance santé', description: '' },
+        { category: 'Train', description: '' },
         { category: 'Courses', description: '' },
         { category: 'Restaurants', description: '' },
+        { category: 'Parkings', description: '' },
+        { category: 'Impots', description: '' },
+        { category: 'Loyer', description: '' },
+        { category: 'Eléctricité', description: '' },
+        { category: 'Eau', description: '' },
+        { category: 'Téléphone', description: '' },
+        { category: 'Internet', description: '' },
+        { category: 'Télévision', description: '' },
+        { category: 'Médicaments', description: '' },
+        { category: 'Loisirs', description: '' },
         { category: 'Habits', description: '' },
-        { category: 'Vacances', description: '' }
+        { category: 'Epargne', description: '' },
+        { category: 'Livres', description: '' },
+        { category: 'Cinéma', description: '' },
+        { category: 'Théâtre', description: '' },
+        { category: 'Ménage', description: '' },
+        { category: 'Dons', description: '' },
+        { category: 'Cadeaux', description: '' },
+        { category: 'Vacances', description: '' },
+        { category: 'Voiture', description: '' }
       ];
 
       // Define the SQL query
@@ -70,16 +100,6 @@ function createTable(db) {
             }
         });
       });
-
-    db.exec(`
-      CREATE TABLE accounts
-      (
-        ID INTEGER PRIMARY KEY AUTOINCREMENT,
-        name      VARCHAR(255),
-        description   VARCHAR(255),
-        amount   VARCHAR(255),
-        type   VARCHAR(255)
-      );`)
 }
 
 module.exports = createDbConnection();

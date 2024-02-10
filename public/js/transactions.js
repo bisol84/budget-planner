@@ -11,9 +11,11 @@ fetch('http://localhost:3000/transactions', {
     .then(data => {
         data.forEach(transaction => {
             const transactionId = transaction.ID;
-            const transactionDate = transaction.date;
+            const transactionDate = new Date(transaction.date)
+            const formattedDate = transactionDate.toLocaleDateString("fr-CH");
             const transactionAmount = transaction.amount;
-            const transactionCategory = transaction.category;
+            const transactionImportCategory = transaction.import_category;
+            const transactionSelectedCategory = transaction.category;
             const transactionDescription = transaction.description;
             const transactionAccount = transaction.account;
 
@@ -33,7 +35,7 @@ fetch('http://localhost:3000/transactions', {
             row.appendChild(checkboxCell);
 
             const dateCell = document.createElement('td');
-            dateCell.textContent = transactionDate;
+            dateCell.textContent = formattedDate;
             dateCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'ps-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
             row.appendChild(dateCell);
 
@@ -42,10 +44,44 @@ fetch('http://localhost:3000/transactions', {
             amountCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
             row.appendChild(amountCell);
 
-            const categoryCell = document.createElement('td');
-            categoryCell.textContent = transactionCategory;
-            categoryCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
-            row.appendChild(categoryCell);
+            const importCategoryCell = document.createElement('td');
+            importCategoryCell.textContent = transactionImportCategory;
+            importCategoryCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
+            row.appendChild(importCategoryCell);
+
+            console.log(transactionSelectedCategory)
+            if (transactionSelectedCategory) {
+                const selectedCategoryCell = document.createElement('td');
+                selectedCategoryCell.textContent = transactionSelectedCategory;
+                selectedCategoryCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
+                row.appendChild(selectedCategoryCell);
+            } else {
+                const selectedCategoryCell = document.createElement('td');
+                const selectElement = document.createElement('select');
+                selectElement.classList.add('block', 'w-full', 'rounded-md', 'border-0', 'py-1.5', 'text-gray-900', 
+                'shadow-sm', 'ring-1', 'ring-inset', 'ring-gray-300', 'focus:ring-2', 
+                'focus:ring-inset', 'focus:ring-indigo-600', 'sm:max-w-xs', 'sm:text-sm', 
+                'sm:leading-6');
+                
+                fetch('http://localhost:3000/budgets/categories', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(category => {    
+                            const optionElement = document.createElement('option');
+                            optionElement.value = category.ID;
+                            optionElement.textContent = category.category;
+                            selectElement.appendChild(optionElement);
+                        });
+                        selectedCategoryCell.appendChild(selectElement);
+                        
+                });     
+                row.appendChild(selectedCategoryCell);
+            }
 
             const descriptionCell = document.createElement('td');
             descriptionCell.textContent = transactionDescription;
@@ -57,18 +93,29 @@ fetch('http://localhost:3000/transactions', {
             accountCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
             row.appendChild(accountCell);
 
-            const editCell = document.createElement('td');
-            const editLink = document.createElement('a');
-            editLink.textContent = 'Edit';
-            editLink.href = '#'; // Placeholder link
-            editLink.classList.add('inline-flex', 'items-center', 'gap-x-1', 'text-sm', 'text-blue-600', 'decoration-2', 'hover:underline', 'font-medium', 'dark:focus:outline-none', 'dark:focus:ring-1', 'dark:focus:ring-gray-600');
-            editCell.appendChild(editLink);
-            editCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-1.5');
-            row.appendChild(editCell);
+            const saveCell = document.createElement('td');
+            const saveButton = document.createElement('button');
+            saveButton.textContent = 'Sauvegarder';
+            saveButton.href = '#'; 
+            saveButton.id = transactionId;
+            saveButton.classList.add('inline-flex', 'items-center', 'gap-x-1', 'text-sm', 'text-blue-600', 'decoration-2', 'hover:underline', 'font-medium', 'dark:focus:outline-none', 'dark:focus:ring-1', 'dark:focus:ring-gray-600');
+            saveCell.appendChild(saveButton);
+            saveCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-1.5');
+            saveButton.onclick = function(e) {
+              /*fetch('http://localhost:3000/transactions/' + buttonId, {
+                  method: 'DELETE',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  }
+              })*/
+              saveTransaction(e)
+            }
+            row.appendChild(saveCell);
 
             const deleteCell = document.createElement('td');
             const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete';
+            deleteButton.textContent = 'Supprimer';
+            deleteButton.href = '#'; 
             deleteButton.id = transactionId;
             deleteButton.classList.add('inline-flex', 'items-center', 'gap-x-1', 'text-sm', 'text-blue-600', 'decoration-2', 'hover:underline', 'font-medium', 'dark:focus:outline-none', 'dark:focus:ring-1', 'dark:focus:ring-gray-600');
             deleteButton.onclick = function(e) {
@@ -92,4 +139,29 @@ fetch('http://localhost:3000/transactions', {
         console.error('Erreur lors de la réception des transactions :', error);
     });
 
-    // Delete the transaction
+// Save transactions category
+function saveTransaction(e) {
+  const row = e.target.closest('tr');
+  const buttonId = e.target.id;
+  console.log(buttonId)
+  const selectElement = row.querySelector('select');
+  const categoryId = selectElement.value;
+  if (categoryId != 1) {
+    const jsonData = categoryId;
+    fetch('http://localhost:3000/transactions/' + buttonId, {
+            method: 'POST',
+            body: JSON.stringify({ data: jsonData }, null, 2),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('message').classList.remove('invisible')
+            document.getElementById('message').innerHTML = data.message
+        })
+        .catch(error => {
+            console.error('Erreur lors de l\'envoi du JSON au serveur:', error);
+        });
+  }
+}
