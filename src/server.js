@@ -2,7 +2,6 @@ const express = require('express')
 const cors = require('cors');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
-
 const PORT = 3000
 
 const app = express ()
@@ -11,10 +10,9 @@ const app = express ()
 const corsOptions = {
   credentials: true,
   // To delete
-  origin: ['http://localhost:3000', 'http://localhost:80', 'http://localhost:5500', 'http://127.0.0.1:5500'] // Whitelist the domains you want to allow
+  origin: ['http://localhost:3000', 'http://localhost:5500', 'http://127.0.0.1:5500'] // Whitelist the domains you want to allow
 };
 app.use(cors(corsOptions)); 
-//app.use(express.json())
 app.use(bodyParser.json({
   limit: '50mb'
 }));
