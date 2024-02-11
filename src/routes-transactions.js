@@ -10,9 +10,11 @@ router.get("/transactions/", function (req, res) {
     t.amount,
     t.import_category,
     t.description,
-    c.category
+    c.category,
+    a.name
   FROM transactions t
   left outer JOIN categories c on t.id_category = c.ID
+  left outer JOIN accounts a on t.id_account = a.ID
   `;
   const response = [];
   db.all(sql, [], (err, rows) => {
@@ -44,14 +46,15 @@ router.post("/transactions/", function (req, res) {
   });
 });
 
-// Update transaction
+// Update transaction category and account
 router.post("/transactions/:id", function (req, res) {
   const jsonData = req.body.data
   res.json({ message: 'JSON received on server' });
   // Parse JSON
-  db.run("UPDATE transactions SET id_category = ? WHERE ID = ?", [
-    jsonData,
-    req.params.id
+  db.run("UPDATE transactions SET id_category = ?, id_account = ? WHERE ID = ?", [
+    jsonData.id_category, // id_category
+    jsonData.id_account,  // id_account
+    req.params.id // id_transaction
   ]);
     //db.close()
 });

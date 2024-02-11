@@ -56,8 +56,6 @@ addAccountBtn.addEventListener('click', function() {
     accountType: accountType
   }
 
-  console.log(JSON.stringify({ data: jsonData }, null, 2));
-
   fetch('http://localhost:3000/accounts', {
     method: 'POST',
     headers: {

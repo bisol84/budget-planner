@@ -15,7 +15,6 @@ sendFileForm.addEventListener('submit', function(e) {
     reader.onload = function(e) {
         const csvContent = e.target.result
         const jsonData = parseCSV(csvContent)
-        console.log(JSON.stringify(jsonData, null, 2))
         // Send to API
         fetch('http://localhost:3000/transactions', {
             method: 'POST',

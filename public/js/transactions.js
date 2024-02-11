@@ -17,7 +17,7 @@ fetch('http://localhost:3000/transactions', {
             const transactionImportCategory = transaction.import_category;
             const transactionSelectedCategory = transaction.category;
             const transactionDescription = transaction.description;
-            const transactionAccount = transaction.account;
+            const transactionAccount = transaction.name;
 
             // Create a new row for each transaction
             const row = document.createElement('tr');
@@ -49,7 +49,6 @@ fetch('http://localhost:3000/transactions', {
             importCategoryCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
             row.appendChild(importCategoryCell);
 
-            console.log(transactionSelectedCategory)
             if (transactionSelectedCategory) {
                 const selectedCategoryCell = document.createElement('td');
                 selectedCategoryCell.textContent = transactionSelectedCategory;
@@ -58,7 +57,7 @@ fetch('http://localhost:3000/transactions', {
             } else {
                 const selectedCategoryCell = document.createElement('td');
                 const selectElement = document.createElement('select');
-                selectElement.classList.add('block', 'w-full', 'rounded-md', 'border-0', 'py-1.5', 'text-gray-900', 
+                selectElement.classList.add('selected-category', 'block', 'w-full', 'rounded-md', 'border-0', 'py-1.5', 'text-gray-900', 
                 'shadow-sm', 'ring-1', 'ring-inset', 'ring-gray-300', 'focus:ring-2', 
                 'focus:ring-inset', 'focus:ring-indigo-600', 'sm:max-w-xs', 'sm:text-sm', 
                 'sm:leading-6');
@@ -81,17 +80,46 @@ fetch('http://localhost:3000/transactions', {
                         
                 });     
                 row.appendChild(selectedCategoryCell);
-            }
+              }
 
             const descriptionCell = document.createElement('td');
             descriptionCell.textContent = transactionDescription;
             descriptionCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
             row.appendChild(descriptionCell);
-
-            const accountCell = document.createElement('td');
-            accountCell.textContent = transactionAccount;
-            accountCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
-            row.appendChild(accountCell);
+            
+            // Accounts
+            if (transactionAccount) {
+              const accountCell = document.createElement('td');
+              accountCell.textContent = transactionSelectedCategory;
+              accountCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
+              row.appendChild(accountCell);
+            } else {
+              const accountCell = document.createElement('td');
+              const selectElement = document.createElement('select');
+              selectElement.classList.add('account', 'block', 'w-full', 'rounded-md', 'border-0', 'py-1.5', 'text-gray-900', 
+              'shadow-sm', 'ring-1', 'ring-inset', 'ring-gray-300', 'focus:ring-2', 
+              'focus:ring-inset', 'focus:ring-indigo-600', 'sm:max-w-xs', 'sm:text-sm', 
+              'sm:leading-6');
+              
+              fetch('http://localhost:3000/accounts', {
+                  method: 'GET',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  }
+              })
+                  .then(response => response.json())
+                  .then(data => {
+                      data.forEach(account => {    
+                          const optionElement = document.createElement('option');
+                          optionElement.value = account.ID;
+                          optionElement.textContent = account.name;
+                          selectElement.appendChild(optionElement);
+                      });
+                      accountCell.appendChild(selectElement);
+                      
+              });     
+              row.appendChild(accountCell);
+            }
 
             const saveCell = document.createElement('td');
             const saveButton = document.createElement('button');
@@ -102,12 +130,6 @@ fetch('http://localhost:3000/transactions', {
             saveCell.appendChild(saveButton);
             saveCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-1.5');
             saveButton.onclick = function(e) {
-              /*fetch('http://localhost:3000/transactions/' + buttonId, {
-                  method: 'DELETE',
-                  headers: {
-                      'Content-Type': 'application/json'
-                  }
-              })*/
               saveTransaction(e)
             }
             row.appendChild(saveCell);
@@ -139,16 +161,21 @@ fetch('http://localhost:3000/transactions', {
         console.error('Erreur lors de la réception des transactions :', error);
     });
 
-// Save transactions category
+// Save transactions category 
 function saveTransaction(e) {
   const row = e.target.closest('tr');
-  const buttonId = e.target.id;
-  console.log(buttonId)
-  const selectElement = row.querySelector('select');
-  const categoryId = selectElement.value;
-  if (categoryId != 1) {
-    const jsonData = categoryId;
-    fetch('http://localhost:3000/transactions/' + buttonId, {
+  const transactionId = e.target.id;
+  const selectCategory = row.querySelector('.selected-category');
+  const selectAccount = row.querySelector('.account');
+  const jsonData = {}
+  if (selectCategory.value || selectAccount.value) {
+    if (selectAccount.value) {
+      jsonData.id_account = selectAccount.value;
+    }
+    if (selectCategory.value) {
+      jsonData.id_category = selectCategory.value
+    }
+    fetch('http://localhost:3000/transactions/' + transactionId, {
             method: 'POST',
             body: JSON.stringify({ data: jsonData }, null, 2),
             headers: {

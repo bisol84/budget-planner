@@ -25,10 +25,11 @@ function createTable(db) {
         date          DATE,
         amount        REAL,
         import_category  VARCHAR(255),
-        id_category   INTEGER NULL,
         description   VARCHAR(255),
-        account       INTEGER,
+        id_category   INTEGER NULL,
+        id_account    INTEGER NULL,
         FOREIGN KEY (id_category) REFERENCES categories(ID)
+        FOREIGN KEY (id_account) REFERENCES accounts(ID)
       );`)
     db.exec(`
       CREATE TABLE budgets
@@ -95,8 +96,6 @@ function createTable(db) {
         db.run(sql, [row.category, row.description], function(err) {
             if (err) {
                 console.error(err.message);
-            } else {
-                console.log(`Row ${row.category} inserted with ID: ${this.lastID}`);
             }
         });
       });
