@@ -11,9 +11,9 @@ window.addEventListener('DOMContentLoaded', function() {
         data.forEach(budget => {
           const categoryId = budget.ID
           const budgetCategory = budget.category;
-          const budgetAmount = budget.amount
+          const budgetAmount = budget.amount || 0
           const budgetPeriod = budget.period
-          const budgetTransactions = budget.transactions
+          const budgetTransactions = budget.transactions_amount || 0
             
           const budgetTable = document.getElementById('budget-table');
           
@@ -70,29 +70,38 @@ window.addEventListener('DOMContentLoaded', function() {
           // Ajouter le tr au conteneur
           budgetTable.appendChild(tr);
 
-          // Créer un nouvel élément td
+          // Transactions
           const tdTransactions = document.createElement('td');
           tdTransactions.classList.add('h-px', 'w-px', 'whitespace-nowrap');
-
-          // Créer un nouvel élément div
           const divTransactions = document.createElement('div');
           divTransactions.classList.add('px-6', 'py-2');
-
-          // Créer un nouvel élément span
           const spanTransactions = document.createElement('span');
           spanTransactions.classList.add('text-sm', 'text-gray-600', 'dark:text-gray-400');
-          spanTransactions.textContent = 'te';
-
-          // Ajouter le span au div
+          spanTransactions.textContent = budgetTransactions.toFixed(2);
           divTransactions.appendChild(spanTransactions);
-
-          // Ajouter le div au td
           tdTransactions.appendChild(divTransactions);
-
-          // Ajouter le td au tr
           tr.appendChild(tdTransactions);
-
-          // Ajouter le tr au conteneur
+          budgetTable.appendChild(tr);
+          
+          // Restant
+          const tdAmountLeft = document.createElement('td');
+          tdAmountLeft.classList.add('h-px', 'w-px', 'whitespace-nowrap');
+          const divAmountLeft = document.createElement('div');
+          divAmountLeft.classList.add('px-6', 'py-2');
+          const spanAmountLeft = document.createElement('span');
+          spanAmountLeft.classList.add('text-sm');
+          const amountLeft = Math.sign(budgetTransactions) === Math.sign(budgetAmount) ? budgetTransactions - budgetAmount : budgetTransactions + budgetAmount;
+          if (amountLeft == 0) {
+            spanAmountLeft.classList.add('text-gray-600')
+          } else if(amountLeft < 0) {
+            spanAmountLeft.classList.add('text-red-600')
+          } else {
+            spanAmountLeft.classList.add('text-green-600')
+          }
+          spanAmountLeft.textContent = amountLeft.toFixed(2);
+          divAmountLeft.appendChild(spanAmountLeft);
+          tdAmountLeft.appendChild(divAmountLeft);
+          tr.appendChild(tdAmountLeft);
           budgetTable.appendChild(tr);
 
           const editCell = document.createElement('td');
@@ -113,40 +122,6 @@ window.addEventListener('DOMContentLoaded', function() {
         console.error('Erreur lors de la réception des budgets :', error);
     })
 })
-
-// Add account
-const addAccountBtn = document.getElementById('input-account-btn')
-
-if (addAccountBtn) {
-  addAccountBtn.addEventListener('click', function() {  
-    const accountName = document.getElementById('input-account-name').value
-    const accountDescription = document.getElementById('input-account-description').value
-    const accountAmount = document.getElementById('input-account-amount').value
-    const accountType = document.getElementById('input-account-type').value
-
-    const jsonData = {
-      accountName: accountName,
-      accountDescription: accountDescription,
-      accountAmount: accountAmount,
-      accountType: accountType
-    }
-
-    fetch('http://localhost:3000/accounts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ data: jsonData })
-    })
-      .then(response => response.json())
-      .then(data => {
-        
-      })
-      .catch(error => {
-        console.error('Une erreur s\'est produite:', error);
-        })
-  })
-}
 
 // Modal to modify budget
 function editBudget(categoryId) {

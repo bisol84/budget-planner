@@ -3,7 +3,7 @@ const db = require('./db');
 
 // List all budget categories
 router.get("/budgets/categories", function (req, res) {
-  let sql = 'SELECT * FROM categories';
+  let sql = 'SELECT * FROM categories order by 2';
   const response = [];
   db.all(sql, [], (err, rows) => {
     if (err) {
@@ -17,16 +17,20 @@ router.get("/budgets/categories", function (req, res) {
   //db.close()
 });
 
-// List all budgets and categories informations
+// List all budgets by categories 
 router.get("/budgets", function (req, res) {
   let sql = `
   SELECT 
     c.ID,
     c.category,
     b.amount,
-    b.period
+    b.period,
+    sum(t.amount) as "transactions_amount"
   FROM categories c
   LEFT OUTER JOIN budgets b on b.id_category = c.ID
+  LEFT OUTER JOIN transactions t on t.id_category = c.ID
+  GROUP BY
+	  c.category
   `;
   const response = [];
   db.all(sql, [], (err, rows) => {
@@ -45,13 +49,11 @@ router.get("/budgets", function (req, res) {
 router.post("/budgets/:id", function (req, res) {
   const jsonData = req.body.data
   const categoryId = req.params.id
-  console.log(jsonData)
-  console.log(categoryId)
   res.json({ message: 'JSON received on server' });
   // Parse JSON
-  db.run("INSERT INTO budgets(id_category, amount) VALUES(?, ?)", [
-    categoryId, // id_category
-    jsonData.amount  // amount
+  db.run("UPDATE budgets SET amount = ? WHERE id_category = ?", [
+    jsonData.amount,  // amount
+    categoryId // id_category
   ]);
     //db.close()
 });

@@ -49,7 +49,7 @@ fetch('http://localhost:3000/transactions', {
             importCategoryCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
             row.appendChild(importCategoryCell);
 
-            if (transactionSelectedCategory) {
+            if (transactionSelectedCategory != 'A classer') {
                 const selectedCategoryCell = document.createElement('td');
                 selectedCategoryCell.textContent = transactionSelectedCategory;
                 selectedCategoryCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
@@ -90,7 +90,7 @@ fetch('http://localhost:3000/transactions', {
             // Accounts
             if (transactionAccount) {
               const accountCell = document.createElement('td');
-              accountCell.textContent = transactionSelectedCategory;
+              accountCell.textContent = transactionAccount;
               accountCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
               row.appendChild(accountCell);
             } else {

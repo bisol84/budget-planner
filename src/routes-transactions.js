@@ -36,11 +36,12 @@ router.post("/transactions/", function (req, res) {
 
   // Parse JSON
   jsonData.forEach(transaction => {
-    db.run("INSERT INTO transactions(date, amount, import_category, description) VALUES(?,?,?,?)", [
+    db.run("INSERT INTO transactions(date, amount, import_category, description, id_category) VALUES(?,?,?,?,?)", [
       transaction.Date,
       transaction.Amount,
       transaction.Category,
-      transaction.Description
+      transaction.Description,
+      1
     ]);
     //db.close()
   });

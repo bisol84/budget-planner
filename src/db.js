@@ -31,6 +31,7 @@ function createTable(db) {
         FOREIGN KEY (id_category) REFERENCES categories(ID)
         FOREIGN KEY (id_account) REFERENCES accounts(ID)
       );`)
+      console.log('Table Transactions : OK')
     db.exec(`
       CREATE TABLE budgets
       (
@@ -40,7 +41,7 @@ function createTable(db) {
         period            VARCHAR(255),
         FOREIGN KEY (id_category) REFERENCES categories(ID)
       );`)
-
+      console.log('Table Budgets : OK')
     db.exec(`
       CREATE TABLE categories
       (
@@ -48,6 +49,7 @@ function createTable(db) {
         category      VARCHAR(255),
         description   VARCHAR(255)
       );`)
+      console.log('Table Categories : OK')
     db.exec(`
       CREATE TABLE accounts
       (
@@ -57,10 +59,20 @@ function createTable(db) {
         amount        REAL,
         type          VARCHAR(255)
       );`)
+      console.log('Table Accounts : OK')
+      // Transactions : catégories A classer
+      const firstTransactionCategory = { category: 'A classer', description: 'Sans catégorie' }
+      
+      console.log(firstTransactionCategory)
 
-      // Catégories
+      const sqlCategories = 'INSERT INTO categories (category, description) VALUES (?, ?)';
+
+      // Insert each row using a loop
+      db.run(sqlCategories, [firstTransactionCategory.category, firstTransactionCategory.description])
+      console.log('Catégorie A classer : OK')
+
+      // Transactions : autres caétgories
       const categories = [
-        { category: 'A classer', description: 'Sans catégorie' },
         { category: 'Assurance automobile', description: '' },
         { category: 'Assurance santé', description: '' },
         { category: 'Train', description: '' },
@@ -88,17 +100,32 @@ function createTable(db) {
         { category: 'Voiture', description: '' }
       ];
 
-      // Define the SQL query
-      const sql = 'INSERT INTO categories (category, description) VALUES (?, ?)';
-
       // Insert each row using a loop
       categories.forEach(row => {
-        db.run(sql, [row.category, row.description], function(err) {
+        db.run(sqlCategories, [row.category, row.description], function(err) {
             if (err) {
                 console.error(err.message);
+            } else {
+              // Budgets : insertion des catégories
+              const firstBudgetCategory = [
+                { amount: 0 }
+              ]
+
+              const sqlBudget = 'INSERT INTO budgets (id_category, amount) VALUES (?, ?)';
+
+              // Insert each row using a loop
+              firstBudgetCategory.forEach(row => {
+                db.run(sqlBudget, [this.lastID, row.amount], function(err) {
+                    if (err) {
+                        console.error(err.message);
+                    }
+                });
+              });
+              console.log('Catégorie Budget : OK')
             }
         });
       });
+      console.log('Autres catégories : OK')
 }
 
 module.exports = createDbConnection();
