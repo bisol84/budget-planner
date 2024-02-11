@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const db = require('./db');
 
-// List all budget categories
+// List all budgets categories
 router.get("/budgets/categories", function (req, res) {
   let sql = 'SELECT * FROM categories order by 2';
   const response = [];
@@ -17,7 +17,7 @@ router.get("/budgets/categories", function (req, res) {
   //db.close()
 });
 
-// List all budgets by categories 
+// List all budgets by categories with transactions amount by category
 router.get("/budgets", function (req, res) {
   let sql = `
   SELECT 
@@ -45,12 +45,11 @@ router.get("/budgets", function (req, res) {
   //db.close()
 });
 
-// Update budget amount for this category
+// Update budget amount for a category
 router.post("/budgets/:id", function (req, res) {
   const jsonData = req.body.data
   const categoryId = req.params.id
   res.json({ message: 'JSON received on server' });
-  // Parse JSON
   db.run("UPDATE budgets SET amount = ? WHERE id_category = ?", [
     jsonData.amount,  // amount
     categoryId // id_category

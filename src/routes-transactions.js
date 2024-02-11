@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { json } = require("body-parser");
 const db = require('./db');
 
-// List all transactions
+// List all transactions with category and amount
 router.get("/transactions/", function (req, res) {
   let sql = `SELECT 
     t.ID,
@@ -29,7 +29,7 @@ router.get("/transactions/", function (req, res) {
   //db.close()
 });
 
-//Add transactions in bulk
+// Add transactions in bulk
 router.post("/transactions/", function (req, res) {
   const jsonData = req.body.data
   res.json({ message: 'JSON received on server' });
@@ -41,7 +41,7 @@ router.post("/transactions/", function (req, res) {
       transaction.Amount,
       transaction.Category,
       transaction.Description,
-      1
+      1 // Hardocded - equal to "A classer" category ID
     ]);
     //db.close()
   });

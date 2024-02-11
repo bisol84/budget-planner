@@ -34,10 +34,4 @@ router.post("/accounts/", function (req, res) {
 
   });
 
-
-// Delete a transaction
-/*router.delete("/transactions/:id", function (req, res) {
-  db.run('DELETE FROM transactions WHERE ID = ?', req.params.id)
-});*/
-
 module.exports = router;
