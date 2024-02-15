@@ -1,4 +1,36 @@
+import { createTableLine, createTableCell, createElementWithClasses, addTextContent, addNumericContent, addNumericContentWithColor, addButton } from './utils/array.js';
+
 const transactionsList = document.querySelector('#transactions-list tbody');
+
+  // Display transaction table
+  function displayTransactionTable(transactions) {
+    const transactionTable = document.getElementById('transaction-table');
+    transactions.forEach(transaction => {
+      const transactionLine = createtransactionTableLine(transactionTable)
+      const divTransactionDate = createTableCell(transactionLine)
+      addTextContent(divTransactionDate, transaction.date)
+      const divTransactionAmount = createTableCell(transactionLine)
+      addNumericContent(divTransactionAmount, transaction.amount)
+      const divTransactionImportCategory = createTableCell(transactionLine)
+      addNumericContent(divTransactionImportCategory, transaction.import_category)
+      const divTransactionSelectedCategory = createTableCell(transactionLine)
+      addNumericContent(divTransactionImportCategory, transaction.category)
+      const divTransactionDescription = createTableCell(transactionLine)
+      addNumericContent(divTransactionDescription, transaction.description)
+      const divTransactionAccount = createTableCell(transactionLine)
+      addNumericContent(divTransactionAccount, transaction.name)
+
+  
+      // Special because of button onClick event
+      const divtransactionSaveButton = createTableCell(transactionLine)
+      addModifyButton(divtransactionSaveButton, transaction.ID)
+    })
+  }
+
+
+
+
+
 
 // Get the transactions
 fetch('http://localhost:3000/transactions', {
@@ -22,37 +54,25 @@ fetch('http://localhost:3000/transactions', {
             // Create a new row for each transaction
             const row = document.createElement('tr');
 
-            // Create and append cells for each column in the row
-            const checkboxCell = document.createElement('td');
-            const checkboxLabel = document.createElement('label');
-            const checkboxInput = document.createElement('input');
-            checkboxInput.type = 'checkbox';
-            checkboxInput.classList.add('shrink-0', 'border-gray-300', 'rounded', 'text-blue-600', 'focus:ring-blue-500', 'disabled:opacity-50', 'disabled:pointer-events-none', 'dark:bg-slate-900', 'dark:border-gray-600', 'dark:checked:bg-blue-500', 'dark:checked:border-blue-500', 'dark:focus:ring-offset-gray-800');
-            checkboxLabel.appendChild(checkboxInput);
-            checkboxLabel.classList.add('flex');
-            checkboxCell.appendChild(checkboxLabel);
-            checkboxCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'ps-6', 'py-3');
-            row.appendChild(checkboxCell);
-
             const dateCell = document.createElement('td');
             dateCell.textContent = formattedDate;
-            dateCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'ps-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
+            dateCell.classList.add('text-sm', 'text-gray-600', 'dark:text-gray-400', 'h-px', 'w-px', 'whitespace-nowrap');
             row.appendChild(dateCell);
 
             const amountCell = document.createElement('td');
             amountCell.textContent = transactionAmount;
-            amountCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
+            amountCell.classList.add('text-sm', 'text-gray-600', 'dark:text-gray-400', 'h-px', 'w-px', 'whitespace-nowrap');
             row.appendChild(amountCell);
 
             const importCategoryCell = document.createElement('td');
             importCategoryCell.textContent = transactionImportCategory;
-            importCategoryCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
+            importCategoryCell.classList.add('text-sm', 'text-gray-600', 'dark:text-gray-400', 'h-px', 'w-px', 'whitespace-nowrap');
             row.appendChild(importCategoryCell);
 
             if (transactionSelectedCategory != 'A classer') {
                 const selectedCategoryCell = document.createElement('td');
                 selectedCategoryCell.textContent = transactionSelectedCategory;
-                selectedCategoryCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
+                selectedCategoryCell.classList.add('text-sm', 'text-gray-600', 'dark:text-gray-400', 'h-px', 'w-px', 'whitespace-nowrap');
                 row.appendChild(selectedCategoryCell);
             } else {
                 const selectedCategoryCell = document.createElement('td');
@@ -84,14 +104,14 @@ fetch('http://localhost:3000/transactions', {
 
             const descriptionCell = document.createElement('td');
             descriptionCell.textContent = transactionDescription;
-            descriptionCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
+            descriptionCell.classList.add('text-sm', 'text-gray-600', 'dark:text-gray-400');
             row.appendChild(descriptionCell);
             
             // Accounts
             if (transactionAccount) {
               const accountCell = document.createElement('td');
               accountCell.textContent = transactionAccount;
-              accountCell.classList.add('h-px', 'w-px', 'whitespace-nowrap', 'px-6', 'py-3', 'text-xs', 'font-semibold', 'uppercase', 'tracking-wide', 'text-gray-800', 'dark:text-gray-200');
+              accountCell.classList.add('text-sm', 'text-gray-600', 'dark:text-gray-400');
               row.appendChild(accountCell);
             } else {
               const accountCell = document.createElement('td');
