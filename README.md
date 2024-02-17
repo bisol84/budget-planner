@@ -17,3 +17,6 @@ Budget planner is an application designed to track one's budget on a monthly, qu
 Client: Javascript, TailwindCSS
 
 Server: Node, Express
+
+## Support
+<a href="https://www.buymeacoffee.com/bisol" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
