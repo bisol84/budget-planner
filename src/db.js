@@ -39,7 +39,8 @@ function createTable(db) {
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
         id_category       INTEGER,
         amount            REAL,
-        period            VARCHAR(255),
+        start_date        DATE,
+        end_date          DATE,
         FOREIGN KEY (id_category) REFERENCES categories(ID)
       );`)
       console.log('Table Budgets : OK')
@@ -114,14 +115,14 @@ function createData(db) {
         } else {
           // Budgets : insertion des catégories
           const firstBudgetCategory = [
-            { amount: 0 }
+            { amount: 0, start_date: '1970-01-01', end_date: '9999-12-31' }
           ]
 
-          const sqlBudget = 'INSERT INTO budgets (id_category, amount) VALUES (?, ?)';
+          const sqlBudget = 'INSERT INTO budgets (id_category, amount, start_date, end_date) VALUES (?, ?, ?, ?)';
 
           // Insert each row using a loop
           firstBudgetCategory.forEach(row => {
-            db.run(sqlBudget, [this.lastID, row.amount], function(err) {
+            db.run(sqlBudget, [this.lastID, row.amount, row.start_date, row.end_date], function(err) {
                 if (err) {
                     console.error(err.message);
                 }

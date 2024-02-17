@@ -1,12 +1,20 @@
 import { createTableLine, createTableCell, addTextContent, addTag, addNumericContent, addNumericContentWithColor, addButton } from './utils/array.js';
 
+const budgetMonth = document.getElementById('budget-month')
+
 // Display the budgets categories, the amount and the transaction amount when page loads
 window.addEventListener('DOMContentLoaded', function() {
-  // Load budgets
-  getBudgets()
+  // Set actuel month to budget date
+  const formatedDate = new Date().toISOString().slice(0, 10)
+  budgetMonth.valueAsDate = new Date();
 
-  // Set actuel month
-  document.getElementById('budget-month').valueAsDate = new Date();
+  // Load budgets
+  getBudgets(formatedDate)
+})
+
+// Change tbe date
+budgetMonth.addEventListener('change', function(e) {
+  console.log(budgetMonth.valueAsDate)
 })
 
 // Display budget table
@@ -41,7 +49,6 @@ function editBudget(budgetId) {
   const inputAmount = document.getElementById('input-account-amount')
   const btnSaveModal = document.getElementById('save-modal')
   const btnCloseModal = document.getElementById('close-modal')
-  const budgetColor = getBudgetColor(budgetId);
   editMmodal.classList.remove('hidden');
   inputAmount.focus()
   btnSaveModal.addEventListener('click', function (e) {
@@ -75,8 +82,8 @@ function saveBudget(budgetId) {
 }
 
 // getBudgets
-function getBudgets() {
-  fetch('http://localhost:3000/budgets/', {
+function getBudgets(dateFilter) {
+  fetch('http://localhost:3000/budgets/' + dateFilter, {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json'
@@ -106,3 +113,5 @@ function getBudgetColor(budgetId) {
         console.error('Erreur lors de la réception des budgets :', error);
     })
 }
+
+// Get month
