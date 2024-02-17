@@ -33,3 +33,7 @@ app.use("/", routesAccounts);
 // Routes budgets
 const routesBudgets = require("./routes-budgets.js")
 app.use("/", routesBudgets);
+
+// Routes categories
+const routesCategories = require("./routes-categories.js")
+app.use("/", routesCategories);

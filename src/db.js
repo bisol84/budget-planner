@@ -49,7 +49,7 @@ function createTable(db) {
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
         category      VARCHAR(255),
         description   VARCHAR(255),
-        color         VARCHAR(50)
+        color         VARCHAR(7)
       );`)
       console.log('Table Categories : OK')
     db.exec(`
@@ -58,7 +58,7 @@ function createTable(db) {
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
         name          VARCHAR(255),
         description   VARCHAR(255),
-        color         VARCHAR(50),
+        color         VARCHAR(7),
         amount        REAL,
         type          VARCHAR(255)
       );`)
@@ -67,7 +67,7 @@ function createTable(db) {
 
 function createData(db) {
   // Transactions : catégories A classer
-  const firstTransactionCategory = { category: 'A classer', description: 'Sans catégorie', color: 'indigo' }
+  const firstTransactionCategory = { category: 'A classer', description: 'Sans catégorie', color: '#4338ca' }
       
   console.log(firstTransactionCategory)
 

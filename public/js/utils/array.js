@@ -65,7 +65,10 @@ export function addNumericContentWithColor(div, value) {
 
 // Add Tag to cell
 export function addTag(div, color, value) {
-  const span = createElementWithClasses('span', [`bg-${color}-100`, `text-${color}-800`, 'text-xs', 'font-medium', 'me-2', 'px-2.5', 'py-0.5', 'rounded']);
+  console.log(color)
+  const bgcolor = color
+  const txtcolor = getTextColor(color)
+  const span = createElementWithClasses('span', [`bg-[${bgcolor}]`, `text-[${txtcolor}]`, 'text-xs', 'font-medium', 'me-2', 'px-2.5', 'py-0.5', 'rounded']);
   span.textContent = value;
   div.appendChild(span);
   return span
@@ -78,4 +81,27 @@ export function addButton(div, textContent,categoryId) {
   button.id = categoryId;
   div.appendChild(button);
   return button
+}
+
+// Check if color is dark
+function getTextColor(hexColor) {
+  if (hexColor) {
+    const decimalColor = parseInt(hexColor.replace(/^#/, ''), 16);
+
+    const r = (decimalColor >> 16) & 255;
+    const g = (decimalColor >> 8) & 255;
+    const b = decimalColor & 255;
+
+    const brightness = Math.sqrt(
+        0.299 * (r ** 2) + 0.587 * (g ** 2) + 0.114 * (b ** 2)
+    );
+
+    if (brightness < 127.5) {
+      return '#ffffff'
+    } else {
+      return '#000000'
+    }
+  } else {
+    return '#000000'
+  }
 }

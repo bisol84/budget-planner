@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { json } = require("body-parser");
 const db = require('./db');
 
 // List all budgets categories

@@ -42,16 +42,17 @@ function displayBudgetTable(budgets) {
 }
 
 // Modal to modify budget
-function editBudget(categoryId) {
+function editBudget(budgetId) {
   const editMmodal = document.getElementById('edit-modal');
   const inputAmount = document.getElementById('input-account-amount')
   const btnSaveModal = document.getElementById('save-modal')
   const btnCloseModal = document.getElementById('close-modal')
+  const budgetColor = getBudgetColor(budgetId);
   editMmodal.classList.remove('hidden');
   inputAmount.focus()
   btnSaveModal.addEventListener('click', function (e) {
     e.preventDefault()
-    saveBudget(categoryId)
+    saveBudget(budgetId)
   })
   btnCloseModal.addEventListener('click', function (e) {
     e.preventDefault()
@@ -59,13 +60,17 @@ function editBudget(categoryId) {
   })
 }
 
-function saveBudget(categoryId) {
+// Save the budget
+function saveBudget(budgetId) {
   const amount = document.getElementById('input-account-amount').value
+  const color = document.getElementById('input-account-color').value
+  console.log(color)
   const editMmodal = document.getElementById('edit-modal');
   editMmodal.classList.add('hidden');
   const jsonData = {}
   jsonData.amount = amount
-  fetch('http://localhost:3000/budgets/' + categoryId, {
+  jsonData.color = color
+  fetch('http://localhost:3000/budgets/' + budgetId, {
             method: 'POST',
             body: JSON.stringify({ data: jsonData }, null, 2),
             headers: {
@@ -73,10 +78,25 @@ function saveBudget(categoryId) {
             }
         })
         .then(response => response.json())
-        /*.then(data => {
-  
-        })*/
         .catch(error => {
             console.error('Erreur lors de l\'envoi du JSON au serveur:', error);
         });
+}
+
+// Get the budget color
+function getBudgetColor(budgetId) {
+  fetch('http://localhost:3000/budgets/', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      return data.color
+    }
+    )
+    .catch(error => {
+        console.error('Erreur lors de la réception des budgets :', error);
+    })
 }
