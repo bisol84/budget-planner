@@ -95,7 +95,8 @@ function getTextColor(hexColor) {
         0.299 * (r ** 2) + 0.587 * (g ** 2) + 0.114 * (b ** 2)
     );
 
-    if (brightness < 127.5) {
+    //if (brightness < 127.5) {
+    if (brightness < 130.5) {
       return '#ffffff'
     } else {
       return '#000000'

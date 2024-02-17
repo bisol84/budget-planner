@@ -25,7 +25,7 @@ function displayCategoriesTable(categories) {
 
     // Special because of calculation
     const divCategoryColor = createTableCell(categoryLine)
-    addTextContent(divCategoryColor, category.color)
+    addTag(divCategoryColor, category.color, '')
 
     // Special because of button onClick event
     const divCategoryModifyButton = createTableCell(categoryLine)
@@ -44,7 +44,7 @@ function editCategory(categoryId, categoryName, categoryColor) {
 
   editMmodal.classList.remove('hidden');
 
-  // Fill the fields with existing valie
+  // Fill the fields with existing value
   document.getElementById('input-category-name').value = categoryName
   document.getElementById('input-category-color').value = categoryColor
 
@@ -78,9 +78,4 @@ function saveCategory(categoryId) {
         .catch(error => {
             console.error('Erreur lors de l\'envoi du JSON au serveur:', error);
         });
-}
-
-// Get actual color of this category
-function getCategoryColor() {
-  console.log(`couleur : `)
 }

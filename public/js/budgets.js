@@ -2,17 +2,11 @@ import { createTableLine, createTableCell, addTextContent, addTag, addNumericCon
 
 // Display the budgets categories, the amount and the transaction amount when page loads
 window.addEventListener('DOMContentLoaded', function() {
-  fetch('http://localhost:3000/budgets/', {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json'
-    }
-  })
-    .then(response => response.json())
-    .then(data => displayBudgetTable(data))
-    .catch(error => {
-        console.error('Erreur lors de la réception des budgets :', error);
-    })
+  // Load budgets
+  getBudgets()
+
+  // Set actuel month
+  document.getElementById('budget-month').valueAsDate = new Date();
 })
 
 // Display budget table
@@ -63,12 +57,10 @@ function editBudget(budgetId) {
 // Save the budget
 function saveBudget(budgetId) {
   const amount = document.getElementById('input-account-amount').value
-  const color = document.getElementById('input-account-color').value
   const editMmodal = document.getElementById('edit-modal');
   editMmodal.classList.add('hidden');
   const jsonData = {}
   jsonData.amount = amount
-  jsonData.color = color
   fetch('http://localhost:3000/budgets/' + budgetId, {
             method: 'POST',
             body: JSON.stringify({ data: jsonData }, null, 2),
@@ -80,6 +72,21 @@ function saveBudget(budgetId) {
         .catch(error => {
             console.error('Erreur lors de l\'envoi du JSON au serveur:', error);
         });
+}
+
+// getBudgets
+function getBudgets() {
+  fetch('http://localhost:3000/budgets/', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(data => displayBudgetTable(data))
+    .catch(error => {
+        console.error('Erreur lors de la réception des budgets :', error);
+    })
 }
 
 // Get the budget color

@@ -2,7 +2,7 @@
 
 Budget planner is an application designed to track one's budget on a monthly, quarterly, or yearly basis, as well as by categories. Additionally, this application will be capable of monitoring investments.
 
-*Note : This project serves as a means for me to learn and practice programming. Therefore, it may not be flawless, and any feedback is appreciated.*
+*__Note__ : This project serves as a means for me to learn and practice programming. Therefore, it may not be flawless, and any feedback is appreciated.*
 
 ## Features
 
