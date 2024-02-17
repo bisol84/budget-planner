@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>budget-tracker</title>
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script src="../js/menu.js" defer></script>
+    <script src="../js/accounts.js" defer></script>
+</head>
+<body>
+
+  <!-- Menu include -->
+  <div id="menu"></div>
+
+  <!-- Accounts -->
+  <div id="accounts" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-4 w-full">
+    
+  </div>
+  <!-- End Accounts -->
+
+  <!-- Add Account -->
+  <div id="add-account" class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <h3 class="font-bold text-lg">Ajouter un compte</h3>  
+    <form id="add-account-form">
+      <label for="input-account-name" class="block text-sm font-medium py-2">Nom</label>
+      <input type="text" id="input-account-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1.5">
+      <label for="input-account-description" class="block text-sm font-medium py-2">Description</label>
+      <input type="text" id="input-account-description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1.5 py-2">
+      <label for="input-account-amount" class="block text-sm font-medium py-2">Montant</label>
+      <input type="number" id="input-account-amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1.5">
+      <label for="input-account-type" class="block text-sm font-medium py-2">Type</label>
+      <select id="input-account-type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1.5">
+        <option value="courant" selected>Courant</option>
+        <option value="credit-card">Carte de crédit</option>
+        <option value="savings">Epargne</option>
+        <option value="investments">Investissements</option>
+        <option value="trading">Trading</option>
+        <option value="crypto">Crypto</option>
+        <option value="2nd piliar">2ème pilier</option>
+        <option value="3nd piliar">3ème pilier</option>
+      </select>
+      <div class="py-4">
+        <button type="button" id="input-account-btn" class="bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium">Ajouter</button>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
