@@ -11,6 +11,7 @@ router.get("/transactions/", function (req, res) {
     t.import_category,
     t.description,
     c.category,
+    c.color,
     a.name
   FROM transactions t
   left outer JOIN categories c on t.id_category = c.ID

@@ -1,13 +1,35 @@
-<header class="bg-white">
-  <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-    <div class="flex lg:flex-1">
-      <a class="-m-1.5 p-1.5" href="#" aria-label="Brand">Budget Planner</a>
-    </div>
-    <div>
-      <a class="text-sm font-semibold leading-6 text-gray-900" href="budgets.html" aria-current="page">Budgets</a> |
-      <a class="text-sm font-semibold leading-6 text-gray-900" href="accounts.html">Comptes</a> |
-      <a class="text-sm font-semibold leading-6 text-gray-900" href="investments.html">Investissements</a> |
-      <a class="text-sm font-semibold leading-6 text-gray-900" href="transactions.html">Transactions</a>
-    </div>
-  </nav>
-</header>
+  <!-- Header -->
+  <div class="min-h-full">
+    <nav class="bg-gray-200">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              Budget Planner
+            </div>
+            <div class="hidden md:block">
+              <div class="ml-10 flex items-baseline space-x-4">
+                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                <a class="hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" href="budgets.html">Budget</a>
+                <a class="hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" href="accounts.html">Comptes</a>
+                <a class="hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" href="investments.html">Investissements</a>
+                <a class="hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" href="transactions.html">Transactions</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Mobile menu, show/hide based on menu state. -->
+      <div class="md:hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+          <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+          <a class="hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium" href="budgets.html">Budget</a>
+          <a class="hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium" href="accounts.html">Comptes</a>
+          <a class="hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium" href="investments.html">Investissements</a>
+          <a class="hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium" href="transactions.html">Transactions</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <!-- Header -->

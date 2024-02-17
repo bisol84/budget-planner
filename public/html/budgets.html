@@ -17,59 +17,53 @@
   <!-- Budget -->
   <div id="budget">
     <!-- Table Section -->
-    <div class=overflow-x-auto> 
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg x-6 py-4">
 
-          <!-- Table -->
-          <table class="min-w-full divide-y divide-gray-200" id="budget-table">
-            <thead class="bg-gray-50">
-              <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+      <!-- Table -->
+      <table id="budget-table" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3">
                   Catégories
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" class="px-6 py-3">
                   Budget
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" class="px-6 py-3">
                   Transactions
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" class="px-6 py-3">
                   Restant
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-
+                <th scope="col" class="px-6 py-3">
+                  
                 </th>
-              </tr>
-            </thead>
-
-            <tbody class="bg-white divide-y divide-gray-200">
-              
-            </tbody>
-          </table>
-          <!-- End Table -->
-        </div>
-      </div>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          
+        </tbody>
+      </table>
+      <!-- End Table -->
     </div>
   </div>
   <!-- End Card -->
 </div>
 
 <!-- Modal to modify budgets -->
-<div id="edit_modal" class="hidden fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
+<div id="edit-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
   <div class="relative w-auto my-6 mx-auto max-w-sm">
-    <!-- Contenu de la modal -->
     <div class="bg-white rounded-lg shadow-lg p-4">
-      <!-- Titre de la modal -->
       <div class="mb-4">
         <h1 class="text-sm font-semibold">Modifier le budget</h1>
       </div>
-      <!-- Contenu de la modal -->
       <div class="text-gray-700">
         <form id="form-edit-budget">
           <label for="input-budget-amount" class="block text-sm mb-2">Montant</label>
           <input type="number" id="input-account-amount" class="text-sm border border-gray-300 rounded-md w-full px-3 py-2">
         </form> 
       </div>
-      <!-- Bouton de fermeture -->
+      <!-- Close button -->
       <div class="mt-6 text-right">
         <button id="save-modal" class="px-4 py-2 bg-gray-200 text-gray-800 text-sm rounded-lg focus:outline-none">Sauvegarder</button>
         <button id="close-modal" class="px-4 py-2 bg-gray-200 text-gray-800 text-sm rounded-lg focus:outline-none">Fermer</button>
@@ -77,6 +71,7 @@
     </div>
   </div>
 </div>
+<!-- End Modal to modify budgets -->
 
 </body>
 </html>

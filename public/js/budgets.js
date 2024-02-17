@@ -1,4 +1,4 @@
-import { createTableLine, createTableCell, addTextContent, addNumericContent, addNumericContentWithColor, addButton } from './utils/array.js';
+import { createTableLine, createTableCell, addTextContent, addTag, addNumericContent, addNumericContentWithColor, addButton } from './utils/array.js';
 
 // Display the budgets categories, the amount and the transaction amount when page loads
 window.addEventListener('DOMContentLoaded', function() {
@@ -33,8 +33,8 @@ function displayBudgetTable(budgets) {
     addNumericContentWithColor(divBudgetAmountLeft, amountLeft)
 
     // Special because of button onClick event
-    const divBudgetSaveButton = createTableCell(budgetLine)
-    const modifyBudgetButton = addButton(divBudgetSaveButton, budget.ID)
+    const divBudgetModifyButton = createTableCell(budgetLine)
+    const modifyBudgetButton = addButton(divBudgetModifyButton, 'Modifier',budget.ID)
     modifyBudgetButton.onclick = function(e) {
       editBudget(budget.ID)
     }
@@ -43,7 +43,7 @@ function displayBudgetTable(budgets) {
 
 // Modal to modify budget
 function editBudget(categoryId) {
-  const editMmodal = document.getElementById('edit_modal');
+  const editMmodal = document.getElementById('edit-modal');
   const inputAmount = document.getElementById('input-account-amount')
   const btnSaveModal = document.getElementById('save-modal')
   const btnCloseModal = document.getElementById('close-modal')
@@ -61,7 +61,7 @@ function editBudget(categoryId) {
 
 function saveBudget(categoryId) {
   const amount = document.getElementById('input-account-amount').value
-  const editMmodal = document.getElementById('edit_modal');
+  const editMmodal = document.getElementById('edit-modal');
   editMmodal.classList.add('hidden');
   const jsonData = {}
   jsonData.amount = amount
