@@ -1,6 +1,7 @@
 import { createTableLine, createTableCell, createElementWithClasses, addTextContent, addTag, addNumericContent, addNumericContentWithColor, addButton } from './utils/array.js';
 
 const transactionsList = document.querySelector('#transactions-list tbody');
+const uploadChooseFile = document.getElementById('file-input')
 
   // Display transaction table
   function displayTransactionTable(transactions) {
@@ -183,3 +184,9 @@ function getAccounts() {
   })
       .then(response => response.json())
 }
+
+// Write filename when changing upload file
+uploadChooseFile.addEventListener('change', function(e) {
+  const fileName = e.target.files[0].name
+  document.getElementById('file-input-name').textContent = fileName
+})
