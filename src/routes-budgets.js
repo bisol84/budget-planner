@@ -30,8 +30,8 @@ router.get("/budgets/:date", function (req, res) {
     b.end_date,
     sum(t.amount) as "transactions_amount"
   FROM categories c
-  LEFT OUTER JOIN budgets b on b.id_category = c.ID and b.start_date <= '${monthFilter}' and b.end_date >= '${monthFilter}'
-  LEFT OUTER JOIN transactions t on t.id_category = c.ID
+  LEFT OUTER JOIN budgets b on b.id_category = c.ID and b.start_date <= '${monthFilter}' and b.end_date > '${monthFilter}'
+  LEFT OUTER JOIN transactions t on t.id_category = c.ID and strftime('%m', t.date) = strftime('%m', '${monthFilter}') and strftime('%Y', t.date) = strftime('%Y', '${monthFilter}')
   GROUP BY
 	  c.category
   `;
@@ -48,16 +48,20 @@ router.get("/budgets/:date", function (req, res) {
   //db.close()
 });
 
-// Update budget amount for a category
+// Update budget for a category (amount)
 router.post("/budgets/:id", function (req, res) {
   const jsonData = req.body.data
   const categoryId = req.params.id
+
+     // Update end date of current budget
+    db.run("UPDATE budgets SET amount = ? WHERE id_category = ?", [
+      jsonData.amount, // month of end date
+      categoryId // id_category
+    ]);
+
   res.json({ message: 'JSON received on server' });
-  db.run("UPDATE budgets SET amount = ? WHERE id_category = ?", [
-    jsonData.amount,  // amount
-    categoryId // id_category
-  ]);
     //db.close()
 });
+
 
 module.exports = router;

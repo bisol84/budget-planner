@@ -4,21 +4,34 @@ const budgetMonth = document.getElementById('budget-month')
 
 // Display the budgets categories, the amount and the transaction amount when page loads
 window.addEventListener('DOMContentLoaded', function() {
-  // Set actuel month to budget date
-  const formatedDate = new Date().toISOString().slice(0, 10)
-  budgetMonth.valueAsDate = new Date();
+
+  // Date for input month
+  const currentDate = new Date()
+
+  // Set actuel month to budget date (day 1)
+  budgetMonth.valueAsDate = currentDate;
 
   // Load budgets
-  getBudgets(formatedDate)
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+  const fullYear = currentDate.getFullYear();
+  const formattedDate = `${fullYear}-${month}-01`;
+  getBudgets(formattedDate)
 })
 
 // Change tbe date
 budgetMonth.addEventListener('change', function(e) {
-  console.log(budgetMonth.valueAsDate)
+  const selectedDate = new Date(budgetMonth.value)
+  const month = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
+  const fullYear = selectedDate.getFullYear();
+  const formattedDate = `${fullYear}-${month}-01`;
+  getBudgets(formattedDate)
+  //const displayMonth = new Date(date.getFullYear(), date.getMonth(), 1)
+  //getBudgets(displayMonth)
 })
 
 // Display budget table
 function displayBudgetTable(budgets) {
+  document.getElementById('budget-table').innerHTML = ''
   const budgetTable = document.getElementById('budget-table');
   budgets.forEach(budget => {
     const budgetLine = createTableLine(budgetTable)
@@ -64,10 +77,12 @@ function editBudget(budgetId) {
 // Save the budget
 function saveBudget(budgetId) {
   const amount = document.getElementById('input-account-amount').value
+  //const budgetMonthSelected = `${budgetMonth.value}-01`;
   const editMmodal = document.getElementById('edit-modal');
   editMmodal.classList.add('hidden');
   const jsonData = {}
   jsonData.amount = amount
+  //jsonData.budgetmonth = budgetMonthSelected
   fetch('http://localhost:3000/budgets/' + budgetId, {
             method: 'POST',
             body: JSON.stringify({ data: jsonData }, null, 2),
@@ -113,5 +128,3 @@ function getBudgetColor(budgetId) {
         console.error('Erreur lors de la réception des budgets :', error);
     })
 }
-
-// Get month
