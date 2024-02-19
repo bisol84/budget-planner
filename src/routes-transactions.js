@@ -30,6 +30,31 @@ router.get("/transactions/", function (req, res) {
   //db.close()
 });
 
+// List top 5 transactions
+router.get("/transactions/top5", function (req, res) {
+  let sql = `SELECT 
+    t.ID,
+    sum(t.amount) as total_transactions,
+    c.category
+  FROM transactions t
+  left outer JOIN categories c on t.id_category = c.ID
+  group by c.category
+  order by sum(amount)
+  limit 5
+  `;
+  const response = [];
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      throw err;
+    }
+    rows.forEach((row) => {
+      response.push(row);
+    });
+    res.send(response)
+  });
+  //db.close()
+});
+
 // Add transactions in bulk
 router.post("/transactions/", function (req, res) {
   const jsonData = req.body.data

@@ -41,6 +41,35 @@ const uploadChooseFile = document.getElementById('file-input')
     })
   }
 
+// Display top 5 transactions
+function displayTop5(data) {
+  const top5div = document.getElementById('top-transactions')
+  data.forEach(topCategory => {
+    top5div.innerHTML += `
+    <div class="flex items-center relative p-4 w-full bg-white rounded-lg overflow-hidden shadow">
+      <div class="w-12 h-12 rounded-full bg-gray-100"></div>
+      <div class="ml-3">
+        <p class="font-medium text-gray-800">${topCategory.category}</p>
+        <p class="text-sm text-gray-600">${Math.round(topCategory.total_transactions)}</p>
+      </div>
+      </div>
+      `
+  })
+}
+
+// Get the top5
+fetch('http://localhost:3000/transactions/top5', {
+  method: 'GET',
+  headers: {
+      'Content-Type': 'application/json'
+  }
+})
+  .then(response => response.json())
+  .then(data => displayTop5(data))
+  .catch(error => {
+      console.error('Erreur lors de la réception des transactions :', error);
+  });
+
 // Get the transactions
 fetch('http://localhost:3000/transactions', {
     method: 'GET',
@@ -53,6 +82,8 @@ fetch('http://localhost:3000/transactions', {
     .catch(error => {
         console.error('Erreur lors de la réception des transactions :', error);
     });
+
+
 
 // Edit transaction
 function editTransaction(e) {
