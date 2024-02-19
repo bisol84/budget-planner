@@ -74,7 +74,7 @@ async function createData(db) {
 
   // Insert each row using a loop
   await db.run(sqlCategories, [firstTransactionCategory.category, firstTransactionCategory.description, firstTransactionCategory.color], function() {
-    console.log("THIS.lastID",this.lastID);
+    console.log("this.lastID",this.lastID);
   })
 
   // Transactions : autres caétgories
