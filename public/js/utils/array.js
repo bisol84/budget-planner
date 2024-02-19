@@ -73,6 +73,15 @@ export function addTag(div, color, value) {
   return span
 }
 
+// Add icon to cell
+export function addIcon(div, icon) {
+  const img = document.createElement('img');
+  img.width = 50
+  img.height = 50 
+  img.src = `../img/icons/${icon}`
+  div.appendChild(img);
+}
+
 // Add button to cell
 export function addButton(div, textContent,categoryId) {
   const button = createElementWithClasses('button', ['inline-flex', 'items-center', 'gap-x-1', 'text-sm', 'text-gray-600', 'decoration-2', 'hover:underline', 'font-medium', 'dark:focus:outline-none', 'dark:focus:ring-1', 'dark:focus:ring-gray-600']);

@@ -32,7 +32,7 @@ function createTable(db) {
         FOREIGN KEY (id_category) REFERENCES categories(ID)
         FOREIGN KEY (id_account) REFERENCES accounts(ID)
       );`)
-      console.log('Table Transactions : OK')
+
     db.exec(`
       CREATE TABLE budgets
       (
@@ -43,16 +43,17 @@ function createTable(db) {
         end_date          DATE,
         FOREIGN KEY (id_category) REFERENCES categories(ID)
       );`)
-      console.log('Table Budgets : OK')
+
     db.exec(`
       CREATE TABLE categories
       (
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
         category      VARCHAR(255),
         description   VARCHAR(255),
-        color         VARCHAR(7)
+        color         VARCHAR(7),
+        icon          VARCHAR(50)
       );`)
-      console.log('Table Categories : OK')
+
     db.exec(`
       CREATE TABLE accounts
       (
@@ -63,53 +64,51 @@ function createTable(db) {
         amount        REAL,
         type          VARCHAR(255)
       );`)
-      console.log('Table Accounts : OK')
 }
 
-function createData(db) {
+async function createData(db) {
   // Transactions : catégories A classer
-  const firstTransactionCategory = { category: 'A classer', description: 'Sans catégorie', color: '#4338ca' }
-      
-  console.log(firstTransactionCategory)
+  const firstTransactionCategory = { category: 'A classer', description: '', color: '#4338ca' }
 
   const sqlCategories = 'INSERT INTO categories (category, description, color) VALUES (?, ?, ?)';
 
   // Insert each row using a loop
-  db.run(sqlCategories, [firstTransactionCategory.category, firstTransactionCategory.description, firstTransactionCategory.color])
-  console.log('Catégorie A classer : OK')
+  await db.run(sqlCategories, [firstTransactionCategory.category, firstTransactionCategory.description, firstTransactionCategory.color], function() {
+    console.log("THIS.lastID",this.lastID);
+  })
 
   // Transactions : autres caétgories
   const categories = [
-    { category: 'Assurance automobile', description: '' },
-    { category: 'Assurance santé', description: '' },
-    { category: 'Train', description: '' },
-    { category: 'Courses', description: '' },
-    { category: 'Restaurants', description: '' },
-    { category: 'Parkings', description: '' },
-    { category: 'Impots', description: '' },
-    { category: 'Loyer', description: '' },
-    { category: 'Eléctricité', description: '' },
-    { category: 'Eau', description: '' },
-    { category: 'Téléphone', description: '' },
-    { category: 'Internet', description: '' },
-    { category: 'Télévision', description: '' },
-    { category: 'Médicaments', description: '' },
-    { category: 'Loisirs', description: '' },
-    { category: 'Habits', description: '' },
-    { category: 'Epargne', description: '' },
-    { category: 'Livres', description: '' },
-    { category: 'Cinéma', description: '' },
-    { category: 'Théâtre', description: '' },
-    { category: 'Ménage', description: '' },
-    { category: 'Dons', description: '' },
-    { category: 'Cadeaux', description: '' },
-    { category: 'Vacances', description: '' },
-    { category: 'Voiture', description: '' }
+    { category: 'Assurance automobile', description: '', color: '#FF5733' },
+    { category: 'Assurance santé', description: '', color: '#33FF57' },
+    { category: 'Train', description: '', color: '#5733FF' },
+    { category: 'Courses', description: '', color: '#33FFBD' },
+    { category: 'Restaurants', description: '', color: '#FFC733' },
+    { category: 'Parkings', description: '', color: '#33C7FF' },
+    { category: 'Impots', description: '', color: '#E933FF' },
+    { category: 'Loyer', description: '', color: '#FF3385' },
+    { category: 'Eléctricité', description: '', color: '#A233FF' },
+    { category: 'Eau', description: '', color: '#33FFED' },
+    { category: 'Téléphone', description: '', color: '#FF33B4' },
+    { category: 'Internet', description: '', color: '#5D33FF' },
+    { category: 'Télévision', description: '', color: '#33FFF6' },
+    { category: 'Médicaments', description: '', color: '#FF336C' },
+    { category: 'Loisirs', description: '', color: '#8DFF33' },
+    { category: 'Habits', description: '', color: '#FFA833' },
+    { category: 'Epargne', description: '', color: '#3380FF' },
+    { category: 'Livres', description: '', color: '#FF33E4' },
+    { category: 'Cinéma', description: '', color: '#33FF72' },
+    { category: 'Théâtre', description: '', color: '#FF5733' },
+    { category: 'Ménage', description: '', color: '#33FF5F' },
+    { category: 'Dons', description: '', color: '#F333FF' },
+    { category: 'Cadeaux', description: '', color: '#33E7FF' },
+    { category: 'Vacances', description: '', color: '#FF333E' },
+    { category: 'Voiture', description: '', color: '#33FF9C' }
   ];
 
   // Insert each row using a loop
   categories.forEach(row => {
-    db.run(sqlCategories, [row.category, row.description], function(err) {
+    db.run(sqlCategories, [row.category, row.description, row.color], function(err) {
         if (err) {
             console.error(err.message);
         } else {
@@ -128,11 +127,9 @@ function createData(db) {
                 }
             });
           });
-          console.log('Catégorie Budget : OK')
         }
     });
   });
-  console.log('Autres catégories : OK')
 }
 
 module.exports = createDbConnection();

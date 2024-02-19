@@ -28,7 +28,7 @@ router.get("/budgets/:date", function (req, res) {
     b.amount,
     b.start_date,
     b.end_date,
-    sum(t.amount) as "transactions_amount"
+    SUM(CASE WHEN c.category = 'A classer' AND t.amount > 0 THEN -t.amount ELSE t.amount END) AS "transactions_amount"
   FROM categories c
   LEFT OUTER JOIN budgets b on b.id_category = c.ID and b.start_date <= '${monthFilter}' and b.end_date > '${monthFilter}'
   LEFT OUTER JOIN transactions t on t.id_category = c.ID and strftime('%m', t.date) = strftime('%m', '${monthFilter}') and strftime('%Y', t.date) = strftime('%Y', '${monthFilter}')
@@ -45,7 +45,6 @@ router.get("/budgets/:date", function (req, res) {
     });
     res.send(response)
   });
-  //db.close()
 });
 
 // Update budget for a category (amount)
@@ -60,7 +59,6 @@ router.post("/budgets/:id", function (req, res) {
     ]);
 
   res.json({ message: 'JSON received on server' });
-    //db.close()
 });
 
 

@@ -1,7 +1,6 @@
-import { createTableLine, createTableCell, createElementWithClasses, addTextContent, addTag, addNumericContent, addNumericContentWithColor, addButton } from './utils/array.js';
+import { createTableLine, createTableCell, addTextContent, addTag, addIcon, addNumericContent, addNumericContentWithColor, addButton } from './utils/array.js';
 
-const transactionsList = document.querySelector('#transactions-list tbody');
-const uploadChooseFile = document.getElementById('file-input')
+  const uploadChooseFile = document.getElementById('file-input')
 
   // Display transaction table
   function displayTransactionTable(transactions) {
@@ -43,14 +42,16 @@ const uploadChooseFile = document.getElementById('file-input')
 
 // Display top 5 transactions
 function displayTop5(data) {
+  //const numericValue = parseFloat(value);
+  //span.textContent = numericValue.toFixed(2);
   const top5div = document.getElementById('top-transactions')
   data.forEach(topCategory => {
     top5div.innerHTML += `
     <div class="flex items-center relative p-4 w-full bg-white rounded-lg overflow-hidden shadow">
-      <div class="w-12 h-12 rounded-full bg-gray-100"></div>
+      <div class="w-12 h-12 rounded-full bg-gray-100"><img src="../img/icons/${topCategory.icon}" /></div>
       <div class="ml-3">
         <p class="font-medium text-gray-800">${topCategory.category}</p>
-        <p class="text-sm text-gray-600">${Math.round(topCategory.total_transactions)}</p>
+        <p class="text-sm text-gray-600">${(topCategory.total_transactions.toFixed(2))} CHF</p>
       </div>
       </div>
       `
@@ -142,8 +143,7 @@ function editTransaction(e) {
   })
 
   // Buttons
-  btnSaveModal.addEventListener('click', function (e) {
-    e.preventDefault()
+  btnSaveModal.addEventListener('click', function () {
     saveTransaction(transactionId)
   })
   btnCloseModal.addEventListener('click', function (e) {

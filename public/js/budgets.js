@@ -1,4 +1,4 @@
-import { createTableLine, createTableCell, addTextContent, addTag, addNumericContent, addNumericContentWithColor, addButton } from './utils/array.js';
+import { createTableLine, createTableCell, addTextContent, addTag, addIcon, addNumericContent, addNumericContentWithColor, addButton } from './utils/array.js';
 
 const budgetMonth = document.getElementById('budget-month')
 
@@ -25,8 +25,6 @@ budgetMonth.addEventListener('change', function(e) {
   const fullYear = selectedDate.getFullYear();
   const formattedDate = `${fullYear}-${month}-01`;
   getBudgets(formattedDate)
-  //const displayMonth = new Date(date.getFullYear(), date.getMonth(), 1)
-  //getBudgets(displayMonth)
 })
 
 // Display budget table
@@ -106,24 +104,6 @@ function getBudgets(dateFilter) {
   })
     .then(response => response.json())
     .then(data => displayBudgetTable(data))
-    .catch(error => {
-        console.error('Erreur lors de la réception des budgets :', error);
-    })
-}
-
-// Get the budget color
-function getBudgetColor(budgetId) {
-  fetch('http://localhost:3000/budgets/', {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json'
-    }
-  })
-    .then(response => response.json())
-    .then(data => {
-      return data.color
-    }
-    )
     .catch(error => {
         console.error('Erreur lors de la réception des budgets :', error);
     })

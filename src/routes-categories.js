@@ -4,7 +4,7 @@ const db = require('./db');
 
 // List all budgets categories
 router.get("/categories", function (req, res) {
-  let sql = 'SELECT ID, category, description, color FROM categories order by 2';
+  let sql = 'SELECT ID, category, description, color, icon FROM categories order by 2';
   const response = [];
   db.all(sql, [], (err, rows) => {
     if (err) {
@@ -13,6 +13,7 @@ router.get("/categories", function (req, res) {
     rows.forEach((row) => {
       response.push(row);
     });
+    console.log(response)
     res.send(response)
   });
   //db.close()

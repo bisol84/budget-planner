@@ -1,4 +1,4 @@
-import { createTableLine, createTableCell, addTextContent, addTag, addNumericContent, addNumericContentWithColor, addButton } from './utils/array.js';
+import { createTableLine, createTableCell, addTextContent, addTag, addIcon, addNumericContent, addNumericContentWithColor, addButton } from './utils/array.js';
 
 // Display the categories, the amount and the transaction amount when page loads
 window.addEventListener('DOMContentLoaded', function() {
@@ -23,11 +23,14 @@ function displayCategoriesTable(categories) {
     const divCategoryName = createTableCell(categoryLine)
     addTextContent(divCategoryName, category.category)
 
-    // Special because of calculation
     const divCategoryColor = createTableCell(categoryLine)
     addTag(divCategoryColor, category.color, '')
 
-    // Special because of button onClick event
+    const divCategoryIcon = createTableCell(categoryLine)
+    console.log(category.icon)
+    addIcon(divCategoryIcon, category.icon)
+
+
     const divCategoryModifyButton = createTableCell(categoryLine)
     const modifyCategoryButton = addButton(divCategoryModifyButton, 'Modifier',category.ID)
     modifyCategoryButton.onclick = function(e) {
