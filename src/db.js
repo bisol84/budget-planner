@@ -68,47 +68,47 @@ function createTable(db) {
 
 async function createData(db) {
   // Transactions : catégories A classer
-  const firstTransactionCategory = { category: 'A classer', description: '', color: '#4338ca' }
+  const firstTransactionCategory = { category: 'A classer', description: '', color: '#4338ca', icon: 'fa-solid fa-question' }
 
-  const sqlCategories = 'INSERT INTO categories (category, description, color) VALUES (?, ?, ?)';
+  const sqlCategories = 'INSERT INTO categories (category, description, color, icon) VALUES (?, ?, ?, ?)';
 
   // Insert each row using a loop
-  await db.run(sqlCategories, [firstTransactionCategory.category, firstTransactionCategory.description, firstTransactionCategory.color], function() {
+  await db.run(sqlCategories, [firstTransactionCategory.category, firstTransactionCategory.description, firstTransactionCategory.color, firstTransactionCategory.icon], function() {
     console.log("this.lastID",this.lastID);
   })
 
   // Transactions : autres caétgories
   const categories = [
-    { category: 'Assurance automobile', description: '', color: '#FF5733' },
-    { category: 'Assurance santé', description: '', color: '#33FF57' },
-    { category: 'Train', description: '', color: '#5733FF' },
-    { category: 'Courses', description: '', color: '#33FFBD' },
-    { category: 'Restaurants', description: '', color: '#FFC733' },
-    { category: 'Parkings', description: '', color: '#33C7FF' },
-    { category: 'Impots', description: '', color: '#E933FF' },
-    { category: 'Loyer', description: '', color: '#FF3385' },
-    { category: 'Eléctricité', description: '', color: '#A233FF' },
-    { category: 'Eau', description: '', color: '#33FFED' },
-    { category: 'Téléphone', description: '', color: '#FF33B4' },
-    { category: 'Internet', description: '', color: '#5D33FF' },
-    { category: 'Télévision', description: '', color: '#33FFF6' },
-    { category: 'Médicaments', description: '', color: '#FF336C' },
-    { category: 'Loisirs', description: '', color: '#8DFF33' },
-    { category: 'Habits', description: '', color: '#FFA833' },
-    { category: 'Epargne', description: '', color: '#3380FF' },
-    { category: 'Livres', description: '', color: '#FF33E4' },
-    { category: 'Cinéma', description: '', color: '#33FF72' },
-    { category: 'Théâtre', description: '', color: '#FF5733' },
-    { category: 'Ménage', description: '', color: '#33FF5F' },
-    { category: 'Dons', description: '', color: '#F333FF' },
-    { category: 'Cadeaux', description: '', color: '#33E7FF' },
-    { category: 'Vacances', description: '', color: '#FF333E' },
-    { category: 'Voiture', description: '', color: '#33FF9C' }
+    { category: 'Assurance automobile', description: '', color: '#FF5733', icon: 'fa fa-car fa-lg' },
+    { category: 'Assurance santé', description: '', color: '#33FF57', icon: 'fas fa-heartbeat fa-lg' },
+    { category: 'Train', description: '', color: '#5733FF', icon: 'fas fa-train fa-lg' },
+    { category: 'Courses', description: '', color: '#33FFBD', icon: 'fas fa-carrot fa-lg' },
+    { category: 'Restaurants', description: '', color: '#FFC733', icon: 'fas fa-hamburger fa-lg' },
+    { category: 'Parkings', description: '', color: '#33C7FF', icon: 'fas fa-map-marker-alt fa-lg' },
+    { category: 'Impots', description: '', color: '#E933FF', icon: 'fas fa-coins fa-lg' },
+    { category: 'Loyer', description: '', color: '#FF3385', icon: 'fas fa-paint-roller fa-lg' },
+    { category: 'Eléctricité', description: '', color: '#A233FF', icon: '' },
+    { category: 'Eau', description: '', color: '#33FFED', icon: 'fa-solid fa-water fa-lg' },
+    { category: 'Téléphone', description: '', color: '#FF33B4', icon: 'fa-solid fa-phone fa-lg' },
+    { category: 'Internet', description: '', color: '#5D33FF', icon: 'fa-solid fa-globe fa-lg' },
+    { category: 'Télévision', description: '', color: '#33FFF6', icon: 'fa-solid fa-tv fa-lg' },
+    { category: 'Médicaments', description: '', color: '#FF336C', icon: '' },
+    { category: 'Loisirs', description: '', color: '#8DFF33', icon: 'fa-solid fa-notes-medical fa-lg' },
+    { category: 'Habits', description: '', color: '#FFA833', icon: 'fa-solid fa-shirt fa-lg' },
+    { category: 'Epargne', description: '', color: '#3380FF', icon: 'fa-solid fa-money-check-dollar fa-lg' },
+    { category: 'Livres', description: '', color: '#FF33E4', icon: 'fa-solid fa-book fa-lg' },
+    { category: 'Cinéma', description: '', color: '#33FF72', icon: 'fa-solid fa-video fa-lg' },
+    { category: 'Théâtre', description: '', color: '#FF5733', icon: 'fa-solid fa-chalkboard-user fa-lg' },
+    { category: 'Ménage', description: '', color: '#33FF5F', icon: 'fa-solid fa-house fa-lg' },
+    { category: 'Dons', description: '', color: '#F333FF', icon: 'fa-solid fa-gift fa-lg' },
+    { category: 'Cadeaux', description: '', color: '#33E7FF', icon: 'fa-solid fa-gift fa-lg' },
+    { category: 'Vacances', description: '', color: '#FF333E', icon: 'fa-solid fa-umbrella-beach fa-lg' },
+    { category: 'Voiture', description: '', color: '#33FF9C', icon: 'fa-solid fa-car fa-lg'}
   ];
 
   // Insert each row using a loop
   categories.forEach(row => {
-    db.run(sqlCategories, [row.category, row.description, row.color], function(err) {
+    db.run(sqlCategories, [row.category, row.description, row.color, row.icon], function(err) {
         if (err) {
             console.error(err.message);
         } else {

@@ -48,7 +48,7 @@ function displayTop5(data) {
   data.forEach(topCategory => {
     top5div.innerHTML += `
     <div class="flex items-center relative p-4 w-full bg-white rounded-lg overflow-hidden shadow">
-      <div class="w-12 h-12 rounded-full bg-gray-100"><img src="../img/icons/${topCategory.icon}" /></div>
+      <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center"><i class="${topCategory.icon} fa-lg"></i></div>
       <div class="ml-3">
         <p class="font-medium text-gray-800">${topCategory.category}</p>
         <p class="text-sm text-gray-600">${(topCategory.total_transactions.toFixed(2))} CHF</p>

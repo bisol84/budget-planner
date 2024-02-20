@@ -74,12 +74,16 @@ export function addTag(div, color, value) {
 }
 
 // Add icon to cell
-export function addIcon(div, icon) {
-  const img = document.createElement('img');
-  img.width = 50
-  img.height = 50 
-  img.src = `../img/icons/${icon}`
-  div.appendChild(img);
+export function addIcon(div, icons) {
+  const i = document.createElement('i');
+  // Split space class
+  if (icons) {
+    const iconSplit = icons.split(' ')
+    iconSplit.forEach(icon => {
+      i.classList.add(''+ icon + '')
+    })
+  }
+  div.appendChild(i);
 }
 
 // Add button to cell
@@ -105,7 +109,7 @@ function getTextColor(hexColor) {
     );
 
     //if (brightness < 127.5) {
-    if (brightness < 130.5) {
+    if (brightness < 190.5) {
       return '#ffffff'
     } else {
       return '#000000'
