@@ -67,6 +67,12 @@ function createTable(db) {
 }
 
 async function createData(db) {
+  // Account
+  const sqlAccount = 'INSERT INTO accounts (name, description, amount, type) VALUES (?, ?, ?, ?)';
+
+  // Insert each row using a loop
+  db.run(sqlAccount, ['Compte 01', '', '0', 'Compte bancaire'])
+
   // Transactions : catégories A classer
   const firstTransactionCategory = { category: 'A classer', description: '', color: '#4338ca', icon: 'fa-solid fa-question' }
 
@@ -79,7 +85,7 @@ async function createData(db) {
 
   // Transactions : autres caétgories
   const categories = [
-    { category: 'Assurance automobile', description: '', color: '#FF5733', icon: 'fa fa-car fa-lg' },
+    { category: 'Assurance automobile', description: '', color: '#FF5733', icon: 'fa-solid fa-car-burst fa-lg' },
     { category: 'Assurance santé', description: '', color: '#33FF57', icon: 'fas fa-heartbeat fa-lg' },
     { category: 'Train', description: '', color: '#5733FF', icon: 'fas fa-train fa-lg' },
     { category: 'Courses', description: '', color: '#33FFBD', icon: 'fas fa-carrot fa-lg' },
@@ -87,20 +93,20 @@ async function createData(db) {
     { category: 'Parkings', description: '', color: '#33C7FF', icon: 'fas fa-map-marker-alt fa-lg' },
     { category: 'Impots', description: '', color: '#E933FF', icon: 'fas fa-coins fa-lg' },
     { category: 'Loyer', description: '', color: '#FF3385', icon: 'fas fa-paint-roller fa-lg' },
-    { category: 'Eléctricité', description: '', color: '#A233FF', icon: '' },
+    { category: 'Eléctricité', description: '', color: '#A233FF', icon: 'fa-solid fa-bolt fa-lg' },
     { category: 'Eau', description: '', color: '#33FFED', icon: 'fa-solid fa-water fa-lg' },
     { category: 'Téléphone', description: '', color: '#FF33B4', icon: 'fa-solid fa-phone fa-lg' },
     { category: 'Internet', description: '', color: '#5D33FF', icon: 'fa-solid fa-globe fa-lg' },
     { category: 'Télévision', description: '', color: '#33FFF6', icon: 'fa-solid fa-tv fa-lg' },
-    { category: 'Médicaments', description: '', color: '#FF336C', icon: '' },
-    { category: 'Loisirs', description: '', color: '#8DFF33', icon: 'fa-solid fa-notes-medical fa-lg' },
+    { category: 'Médicaments', description: '', color: '#FF336C', icon: 'fa-solid fa-notes-medical fa-lg' },
+    { category: 'Loisirs', description: '', color: '#8DFF33', icon: 'fa-solid fa-gamepad fa-lg' },
     { category: 'Habits', description: '', color: '#FFA833', icon: 'fa-solid fa-shirt fa-lg' },
     { category: 'Epargne', description: '', color: '#3380FF', icon: 'fa-solid fa-money-check-dollar fa-lg' },
     { category: 'Livres', description: '', color: '#FF33E4', icon: 'fa-solid fa-book fa-lg' },
     { category: 'Cinéma', description: '', color: '#33FF72', icon: 'fa-solid fa-video fa-lg' },
     { category: 'Théâtre', description: '', color: '#FF5733', icon: 'fa-solid fa-chalkboard-user fa-lg' },
     { category: 'Ménage', description: '', color: '#33FF5F', icon: 'fa-solid fa-house fa-lg' },
-    { category: 'Dons', description: '', color: '#F333FF', icon: 'fa-solid fa-gift fa-lg' },
+    { category: 'Dons', description: '', color: '#F333FF', icon: 'fa-solid fa-hand-holding-dollar fa-lg' },
     { category: 'Cadeaux', description: '', color: '#33E7FF', icon: 'fa-solid fa-gift fa-lg' },
     { category: 'Vacances', description: '', color: '#FF333E', icon: 'fa-solid fa-umbrella-beach fa-lg' },
     { category: 'Voiture', description: '', color: '#33FF9C', icon: 'fa-solid fa-car fa-lg'}
