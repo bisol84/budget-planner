@@ -3,6 +3,23 @@ const { json } = require("body-parser");
 const db = require('./db');
 
 // List all budgets categories
+router.get("/budgets/categories/parents", function (req, res) {
+  let sql = 'SELECT ID, category FROM categories WHERE ID >= 1000 order by 2';
+  const response = [];
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      throw err;
+    }
+    rows.forEach((row) => {
+      response.push(row);
+    });
+    console.log(response)
+    res.send(response)
+  });
+  //db.close()
+});
+
+// List all budgets categories
 router.get("/budgets/categories", function (req, res) {
   let sql = 'SELECT ID, category, description, color FROM categories order by 2';
   const response = [];
@@ -19,12 +36,14 @@ router.get("/budgets/categories", function (req, res) {
 });
 
 // List all budgets by date, categories with transactions amount by category
-router.get("/budgets/:date", function (req, res) {
+router.get("/budgets/:date/:id", function (req, res) {
   const monthFilter = req.params.date
+  const parentID = req.params.id
   let sql = `
   SELECT 
     c.ID,
     c.category,
+    c.parent_category_id,
     b.amount,
     b.start_date,
     b.end_date,
@@ -32,6 +51,7 @@ router.get("/budgets/:date", function (req, res) {
   FROM categories c
   LEFT OUTER JOIN budgets b on b.id_category = c.ID and b.start_date <= '${monthFilter}' and b.end_date > '${monthFilter}'
   LEFT OUTER JOIN transactions t on t.id_category = c.ID and strftime('%m', t.date) = strftime('%m', '${monthFilter}') and strftime('%Y', t.date) = strftime('%Y', '${monthFilter}')
+  WHERE c.parent_category_id = '${parentID}'
   GROUP BY
 	  c.category
   `;
@@ -43,6 +63,7 @@ router.get("/budgets/:date", function (req, res) {
     rows.forEach((row) => {
       response.push(row);
     });
+    console.log(response)
     res.send(response)
   });
 });

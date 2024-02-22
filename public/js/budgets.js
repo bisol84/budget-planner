@@ -28,30 +28,37 @@ budgetMonth.addEventListener('change', function(e) {
 })
 
 // Display budget table
-function displayBudgetTable(budgets) {
-  document.getElementById('budget-table').innerHTML = ''
+function displayBudgetTable(budgets, type) {
+  console.log(budgets.category)
+  //document.getElementById('budget-table').innerHTML = ''
   const budgetTable = document.getElementById('budget-table');
-  budgets.forEach(budget => {
+  if (type == 'parent') {
     const budgetLine = createTableLine(budgetTable)
     const divBudgetCategory = createTableCell(budgetLine)
-    addTextContent(divBudgetCategory, budget.category)
-    const divBudgetAmount = createTableCell(budgetLine)
-    addNumericContent(divBudgetAmount, budget.amount)
-    const divBudgetTransactionsAmount = createTableCell(budgetLine)
-    addNumericContent(divBudgetTransactionsAmount, budget.transactions_amount)
+    addTextContent(divBudgetCategory, budgets.category)
+  } else {
+    budgets.forEach(budget => {
+      const budgetLine = createTableLine(budgetTable)
+      const divBudgetCategory = createTableCell(budgetLine)
+      addTextContent(divBudgetCategory, budget.category)
+      const divBudgetAmount = createTableCell(budgetLine)
+      addNumericContent(divBudgetAmount, budget.amount)
+      const divBudgetTransactionsAmount = createTableCell(budgetLine)
+      addNumericContent(divBudgetTransactionsAmount, budget.transactions_amount)
 
-    // Special because of calculation
-    const amountLeft = Math.sign(budget.transactions_amount) === Math.sign(budget.amount) ? budget.transactions_amount - budget.amount : budget.transactions_amount + budget.amount;
-    const divBudgetAmountLeft = createTableCell(budgetLine)
-    addNumericContentWithColor(divBudgetAmountLeft, amountLeft)
+      // Special because of calculation
+      const amountLeft = Math.sign(budget.transactions_amount) === Math.sign(budget.amount) ? budget.transactions_amount - budget.amount : budget.transactions_amount + budget.amount;
+      const divBudgetAmountLeft = createTableCell(budgetLine)
+      addNumericContentWithColor(divBudgetAmountLeft, amountLeft)
 
-    // Special because of button onClick event
-    const divBudgetModifyButton = createTableCell(budgetLine)
-    const modifyBudgetButton = addButton(divBudgetModifyButton, 'Modifier',budget.ID)
-    modifyBudgetButton.onclick = function(e) {
-      editBudget(budget.ID)
-    }
-  })
+      // Special because of button onClick event
+      const divBudgetModifyButton = createTableCell(budgetLine)
+      const modifyBudgetButton = addButton(divBudgetModifyButton, 'Modifier',budget.ID)
+      modifyBudgetButton.onclick = function(e) {
+        editBudget(budget.ID)
+      }
+    })
+  }
 }
 
 // Modal to modify budget
@@ -93,18 +100,37 @@ function saveBudget(budgetId) {
             console.error('Erreur lors de l\'envoi du JSON au serveur:', error);
         });
 }
-
-// getBudgets
+  
+// Get budgets
 function getBudgets(dateFilter) {
-  fetch('http://localhost:3000/budgets/' + dateFilter, {
+  // Get parent categories
+  fetch('http://localhost:3000/budgets/categories/parents/', {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json'
     }
   })
     .then(response => response.json())
-    .then(data => displayBudgetTable(data))
-    .catch(error => {
-        console.error('Erreur lors de la réception des budgets :', error);
+    .then(parentCategories => {
+      // Process each parent category
+      parentCategories.forEach(parentCategory => {
+        displayBudgetTable(parentCategory, 'parent')
+        console.log(`parent : ${parentCategory.category}`)
+        // Get budget for each parent category
+        fetch(`http://localhost:3000/budgets/${dateFilter}/${parentCategory.ID}`, {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json'
+          }
+        })
+          .then(response => response.json())
+          .then(data => displayBudgetTable(data, 'child'))
+          .catch(error => {
+              console.error('Erreur lors de la réception des budgets :', error);
+          });
+      });
     })
+    .catch(error => {
+        console.error('Erreur lors de la réception des catégories parentes :', error);
+    });
 }
