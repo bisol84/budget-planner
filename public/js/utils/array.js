@@ -4,7 +4,14 @@ export function createTableLine(table) {
     table.appendChild(tr);
     return tr
   }
-  
+
+// Create sub header table line
+export function createTableHeaderLine(table) {
+  const tr = createElementWithClasses('tr', ['bg-[#123123]']);
+  table.appendChild(tr);
+  return tr
+}
+
 // Create an element with classes
 export function createElementWithClasses(tagName, classNames) {
     const element = document.createElement(tagName);

@@ -1,4 +1,4 @@
-import { createTableLine, createTableCell, addTextContent, addTag, addIcon, addNumericContent, addNumericContentWithColor, addButton } from './utils/array.js';
+import { createTableLine, createTableCell, createTableHeaderLine, addTextContent, addTag, addIcon, addNumericContent, addNumericContentWithColor, addButton } from './utils/array.js';
 
 const budgetMonth = document.getElementById('budget-month')
 
@@ -27,37 +27,95 @@ budgetMonth.addEventListener('change', function(e) {
   getBudgets(formattedDate)
 })
 
+
+/*
 // Display budget table
-function displayBudgetTable(budgets, type) {
-  console.log(budgets.category)
-  //document.getElementById('budget-table').innerHTML = ''
+// Display budget table
+function displayBudgetTable(budgets) {
   const budgetTable = document.getElementById('budget-table');
-  if (type == 'parent') {
-    const budgetLine = createTableLine(budgetTable)
+
+  // Afficher les parents
+  for (const parentCategory in budgets) {
+    if (Object.hasOwnProperty.call(budgets, parentCategory)) {
+      const parentBudgetLine = createTableLine(budgetTable);
+      const divParentBudgetCategory = createTableCell(parentBudgetLine);
+      addTextContent(divParentBudgetCategory, parentCategory);
+      // Ajouter d'autres cellules pour les propriétés des catégories parentes si nécessaire
+    }
+  }
+
+  // Afficher les enfants
+  for (const parentCategory in budgets) {
+    if (Object.hasOwnProperty.call(budgets, parentCategory)) {
+      budgets[parentCategory].forEach(childCategory => {
+        const childBudgetLine = createTableLine(budgetTable);
+        const divChildBudgetCategory = createTableCell(childBudgetLine);
+        addTextContent(divChildBudgetCategory, childCategory);
+        // Ajouter d'autres cellules pour les propriétés des catégories enfants si nécessaire
+      });
+    }
+  }
+}
+*/
+
+// Display budget table
+function displayBudgetTable(budgets) {
+  document.getElementById('budget-table').innerHTML = ''
+  const budgetTable = document.getElementById('budget-table');
+  for (const parentCategory in budgets) {
+    const childCategories = budgets[parentCategory];
+    const budgetLine = createTableHeaderLine(budgetTable)
     const divBudgetCategory = createTableCell(budgetLine)
-    addTextContent(divBudgetCategory, budgets.category)
-  } else {
-    budgets.forEach(budget => {
-      const budgetLine = createTableLine(budgetTable)
-      const divBudgetCategory = createTableCell(budgetLine)
-      addTextContent(divBudgetCategory, budget.category)
-      const divBudgetAmount = createTableCell(budgetLine)
-      addNumericContent(divBudgetAmount, budget.amount)
-      const divBudgetTransactionsAmount = createTableCell(budgetLine)
-      addNumericContent(divBudgetTransactionsAmount, budget.transactions_amount)
+    addTextContent(divBudgetCategory, parentCategory)
+    //Display parentcategory
+        if (childCategories.length > 0) {
+          // Display child categories
+            for (let i = 0; i < childCategories.length; i++) {
+              const budgetLine = createTableLine(budgetTable)
+              const divBudgetCategory = createTableCell(budgetLine)
+              addTextContent(divBudgetCategory, childCategories[i].category)
+              const divBudgetAmount = createTableCell(budgetLine)
+              addNumericContent(divBudgetAmount, childCategories[i].amount)
+              const divBudgetTransactionsAmount = createTableCell(budgetLine)
+              addNumericContent(divBudgetTransactionsAmount, childCategories[i].transactions_amount)
+        
+              // Special because of calculation
+              const amountLeft = Math.sign(childCategories[i].transactions_amount) === Math.sign(childCategories[i].amount) ? childCategories[i].transactions_amount - childCategories[i].amount : childCategories[i].transactions_amount + childCategories[i].amount;
+              const divBudgetAmountLeft = createTableCell(budgetLine)
+              addNumericContentWithColor(divBudgetAmountLeft, amountLeft)
+        
+              // Special because of button onClick event
+              const divBudgetModifyButton = createTableCell(budgetLine)
+              const modifyBudgetButton = addButton(divBudgetModifyButton, 'Modifier',childCategories[i].id)
+              modifyBudgetButton.onclick = function(e) {
+                editBudget(childCategories[i].id)
+              } 
+              
 
-      // Special because of calculation
-      const amountLeft = Math.sign(budget.transactions_amount) === Math.sign(budget.amount) ? budget.transactions_amount - budget.amount : budget.transactions_amount + budget.amount;
-      const divBudgetAmountLeft = createTableCell(budgetLine)
-      addNumericContentWithColor(divBudgetAmountLeft, amountLeft)
+            }
+        }
+    
+    //budgets.forEach(budget => {
+      // const budgetLine = createTableLine(budgetTable)
+      // const divBudgetCategory = createTableCell(budgetLine)
+      // addTextContent(divBudgetCategory, category)
+      // const divBudgetAmount = createTableCell(budgetLine)
+      // addNumericContent(divBudgetAmount, category.amount)
+      // const divBudgetTransactionsAmount = createTableCell(budgetLine)
+      // addNumericContent(divBudgetTransactionsAmount, category.transactions_amount)
 
-      // Special because of button onClick event
-      const divBudgetModifyButton = createTableCell(budgetLine)
-      const modifyBudgetButton = addButton(divBudgetModifyButton, 'Modifier',budget.ID)
-      modifyBudgetButton.onclick = function(e) {
-        editBudget(budget.ID)
-      }
-    })
+      // // Special because of calculation
+      // const amountLeft = Math.sign(category.transactions_amount) === Math.sign(category.amount) ? category.transactions_amount - category.amount : category.transactions_amount + category.amount;
+      // const divBudgetAmountLeft = createTableCell(budgetLine)
+      // addNumericContentWithColor(divBudgetAmountLeft, amountLeft)
+
+      // // Special because of button onClick event
+      // const divBudgetModifyButton = createTableCell(budgetLine)
+      // const modifyBudgetButton = addButton(divBudgetModifyButton, 'Modifier',category.ID)
+      // modifyBudgetButton.onclick = function(e) {
+      //   editBudget(budget.ID)
+      // }
+    //})
   }
 }
 
@@ -103,34 +161,58 @@ function saveBudget(budgetId) {
   
 // Get budgets
 function getBudgets(dateFilter) {
+  const jsonCategories = {};
+
   // Get parent categories
   fetch('http://localhost:3000/budgets/categories/parents/', {
     method: 'GET',
     headers: {
-        'Content-Type': 'application/json'
+      'Content-Type': 'application/json'
     }
   })
-    .then(response => response.json())
-    .then(parentCategories => {
-      // Process each parent category
-      parentCategories.forEach(parentCategory => {
-        displayBudgetTable(parentCategory, 'parent')
-        console.log(`parent : ${parentCategory.category}`)
-        // Get budget for each parent category
-        fetch(`http://localhost:3000/budgets/${dateFilter}/${parentCategory.ID}`, {
-          method: 'GET',
-          headers: {
-              'Content-Type': 'application/json'
-          }
-        })
-          .then(response => response.json())
-          .then(data => displayBudgetTable(data, 'child'))
-          .catch(error => {
-              console.error('Erreur lors de la réception des budgets :', error);
-          });
+  .then(response => response.json())
+  .then(parentCategories => {
+    // Process each parent category
+    const fetchPromises = parentCategories.map(parentCategory => {
+      // Initialize the array for children categories
+      jsonCategories[parentCategory.category] = [];
+
+      // Get budget for each parent category
+      return fetch(`http://localhost:3000/budgets/${dateFilter}/${parentCategory.ID}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Process each child category
+        data.forEach(childCategory => {
+          // Add the child category to the parent category in the JSON
+          jsonCategories[parentCategory.category].push({
+            'id': childCategory.ID, 
+            'category': childCategory.category, 
+            'transactions_amount': childCategory.transactions_amount, 
+            'amount': childCategory.amount})
+        });
+      })
+      .catch(error => {
+        console.error('Erreur lors de la réception des budgets pour la catégorie parente:', error);
       });
-    })
-    .catch(error => {
-        console.error('Erreur lors de la réception des catégories parentes :', error);
     });
+
+    // Wait for all promises to resolve
+    Promise.all(fetchPromises)
+      .then(() => {
+        // Display the JSON containing all parent and child categories
+        // Call displayBudgetTable with the JSON
+        displayBudgetTable(jsonCategories);
+      })
+      .catch(error => {
+        console.error('Erreur lors de la réception des catégories parentes :', error);
+      });
+  })
+  .catch(error => {
+    console.error('Erreur lors de la réception des catégories parentes :', error);
+  });
 }

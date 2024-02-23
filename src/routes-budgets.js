@@ -51,7 +51,7 @@ router.get("/budgets/:date/:id", function (req, res) {
   FROM categories c
   LEFT OUTER JOIN budgets b on b.id_category = c.ID and b.start_date <= '${monthFilter}' and b.end_date > '${monthFilter}'
   LEFT OUTER JOIN transactions t on t.id_category = c.ID and strftime('%m', t.date) = strftime('%m', '${monthFilter}') and strftime('%Y', t.date) = strftime('%Y', '${monthFilter}')
-  WHERE c.parent_category_id = '${parentID}'
+  WHERE c.parent_category_id = ${parentID}
   GROUP BY
 	  c.category
   `;
@@ -63,7 +63,6 @@ router.get("/budgets/:date/:id", function (req, res) {
     rows.forEach((row) => {
       response.push(row);
     });
-    console.log(response)
     res.send(response)
   });
 });
