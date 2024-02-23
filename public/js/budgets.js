@@ -1,4 +1,4 @@
-import { createTableLine, createTableCell, createTableHeaderLine, addTextContent, addTag, addIcon, addNumericContent, addNumericContentWithColor, addButton } from './utils/array.js';
+import { createTableLine, createTableCell, createTableSubHeaderLine, addTextContent, addTag, addIcon, addNumericContent, addNumericContentWithColor, addButton } from './utils/array.js';
 
 const budgetMonth = document.getElementById('budget-month')
 
@@ -27,95 +27,46 @@ budgetMonth.addEventListener('change', function(e) {
   getBudgets(formattedDate)
 })
 
-
-/*
-// Display budget table
-// Display budget table
-function displayBudgetTable(budgets) {
-  const budgetTable = document.getElementById('budget-table');
-
-  // Afficher les parents
-  for (const parentCategory in budgets) {
-    if (Object.hasOwnProperty.call(budgets, parentCategory)) {
-      const parentBudgetLine = createTableLine(budgetTable);
-      const divParentBudgetCategory = createTableCell(parentBudgetLine);
-      addTextContent(divParentBudgetCategory, parentCategory);
-      // Ajouter d'autres cellules pour les propriétés des catégories parentes si nécessaire
-    }
-  }
-
-  // Afficher les enfants
-  for (const parentCategory in budgets) {
-    if (Object.hasOwnProperty.call(budgets, parentCategory)) {
-      budgets[parentCategory].forEach(childCategory => {
-        const childBudgetLine = createTableLine(budgetTable);
-        const divChildBudgetCategory = createTableCell(childBudgetLine);
-        addTextContent(divChildBudgetCategory, childCategory);
-        // Ajouter d'autres cellules pour les propriétés des catégories enfants si nécessaire
-      });
-    }
-  }
-}
-*/
-
 // Display budget table
 function displayBudgetTable(budgets) {
   document.getElementById('budget-table').innerHTML = ''
   const budgetTable = document.getElementById('budget-table');
   for (const parentCategory in budgets) {
+    // Parent category
     const childCategories = budgets[parentCategory];
-    const budgetLine = createTableHeaderLine(budgetTable)
+    const budgetLine = createTableSubHeaderLine(budgetTable)
     const divBudgetCategory = createTableCell(budgetLine)
     addTextContent(divBudgetCategory, parentCategory)
-    //Display parentcategory
-        if (childCategories.length > 0) {
-          // Display child categories
-            for (let i = 0; i < childCategories.length; i++) {
-              const budgetLine = createTableLine(budgetTable)
-              const divBudgetCategory = createTableCell(budgetLine)
-              addTextContent(divBudgetCategory, childCategories[i].category)
-              const divBudgetAmount = createTableCell(budgetLine)
-              addNumericContent(divBudgetAmount, childCategories[i].amount)
-              const divBudgetTransactionsAmount = createTableCell(budgetLine)
-              addNumericContent(divBudgetTransactionsAmount, childCategories[i].transactions_amount)
-        
-              // Special because of calculation
-              const amountLeft = Math.sign(childCategories[i].transactions_amount) === Math.sign(childCategories[i].amount) ? childCategories[i].transactions_amount - childCategories[i].amount : childCategories[i].transactions_amount + childCategories[i].amount;
-              const divBudgetAmountLeft = createTableCell(budgetLine)
-              addNumericContentWithColor(divBudgetAmountLeft, amountLeft)
-        
-              // Special because of button onClick event
-              const divBudgetModifyButton = createTableCell(budgetLine)
-              const modifyBudgetButton = addButton(divBudgetModifyButton, 'Modifier',childCategories[i].id)
-              modifyBudgetButton.onclick = function(e) {
-                editBudget(childCategories[i].id)
-              } 
-              
+    // Add empty columns
+    createTableCell(budgetLine)
+    createTableCell(budgetLine)
+    createTableCell(budgetLine)
+    createTableCell(budgetLine)
+    // Child category
+    for (let i = 0; i < childCategories.length; i++) {
+      const budgetLine = createTableLine(budgetTable)
+      const divBudgetCategory = createTableCell(budgetLine)
+      addTextContent(divBudgetCategory, childCategories[i].category)
+      const divBudgetAmount = createTableCell(budgetLine)
+      addNumericContent(divBudgetAmount, childCategories[i].amount)
+      const divBudgetTransactionsAmount = createTableCell(budgetLine)
+      addNumericContent(divBudgetTransactionsAmount, childCategories[i].transactions_amount)
 
-            }
-        }
-    
-    //budgets.forEach(budget => {
-      // const budgetLine = createTableLine(budgetTable)
-      // const divBudgetCategory = createTableCell(budgetLine)
-      // addTextContent(divBudgetCategory, category)
-      // const divBudgetAmount = createTableCell(budgetLine)
-      // addNumericContent(divBudgetAmount, category.amount)
-      // const divBudgetTransactionsAmount = createTableCell(budgetLine)
-      // addNumericContent(divBudgetTransactionsAmount, category.transactions_amount)
+      // Special because of calculation
+      const amountLeft = Math.sign(childCategories[i].transactions_amount) === Math.sign(childCategories[i].amount) ? childCategories[i].transactions_amount - childCategories[i].amount : childCategories[i].transactions_amount + childCategories[i].amount;
+      const divBudgetAmountLeft = createTableCell(budgetLine)
+      addNumericContentWithColor(divBudgetAmountLeft, amountLeft)
 
-      // // Special because of calculation
-      // const amountLeft = Math.sign(category.transactions_amount) === Math.sign(category.amount) ? category.transactions_amount - category.amount : category.transactions_amount + category.amount;
-      // const divBudgetAmountLeft = createTableCell(budgetLine)
-      // addNumericContentWithColor(divBudgetAmountLeft, amountLeft)
+      // Special because of button onClick event
+      const divBudgetModifyButton = createTableCell(budgetLine)
+      const modifyBudgetButton = addButton(divBudgetModifyButton, 'Modifier',childCategories[i].id)
+      modifyBudgetButton.onclick = function(e) {
+        editBudget(childCategories[i].id)
+      } 
+      
 
-      // // Special because of button onClick event
-      // const divBudgetModifyButton = createTableCell(budgetLine)
-      // const modifyBudgetButton = addButton(divBudgetModifyButton, 'Modifier',category.ID)
-      // modifyBudgetButton.onclick = function(e) {
-      //   editBudget(budget.ID)
-      // }
-    //})
+    }
+
   }
 }
 

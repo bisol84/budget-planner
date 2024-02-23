@@ -13,7 +13,6 @@ router.get("/budgets/categories/parents", function (req, res) {
     rows.forEach((row) => {
       response.push(row);
     });
-    console.log(response)
     res.send(response)
   });
   //db.close()

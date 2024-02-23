@@ -92,7 +92,7 @@ async function createData(db) {
     { id: 4, category: 'Train', description: '', color: '#5733FF', icon: 'fas fa-train fa-lg', parent_category_id: 1001 },
     { id: 5, category: 'Courses', description: '', color: '#33FFBD', icon: 'fas fa-carrot fa-lg', parent_category_id: 1000 },
     { id: 6, category: 'Restaurants', description: '', color: '#FFC733', icon: 'fas fa-hamburger fa-lg', parent_category_id: 1003 },
-    { id: 7, category: 'Parkings', description: '', color: '#33C7FF', icon: 'fas fa-map-marker-alt fa-lg', parent_category_id: 1000 },
+    { id: 7, category: 'Parkings', description: '', color: '#33C7FF', icon: 'fas fa-map-marker-alt fa-lg', parent_category_id: 1002 },
     { id: 8, category: 'Impots', description: '', color: '#E933FF', icon: 'fas fa-coins fa-lg', parent_category_id: 1004 },
     { id: 9, category: 'Loyer', description: '', color: '#FF3385', icon: 'fas fa-paint-roller fa-lg', parent_category_id: 1000 },
     { id: 10, category: 'Eléctricité', description: '', color: '#A233FF', icon: 'fa-solid fa-bolt fa-lg', parent_category_id: 1000 },

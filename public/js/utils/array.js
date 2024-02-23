@@ -6,8 +6,8 @@ export function createTableLine(table) {
   }
 
 // Create sub header table line
-export function createTableHeaderLine(table) {
-  const tr = createElementWithClasses('tr', ['bg-[#123123]']);
+export function createTableSubHeaderLine(table) {
+  const tr = createElementWithClasses('tr', ['bg-gray-200', 'rounded-md', 'px-3', 'py-2', 'text-sm', 'font-medium']);
   table.appendChild(tr);
   return tr
 }

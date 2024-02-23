@@ -27,7 +27,6 @@ function displayCategoriesTable(categories) {
     addTag(divCategoryColor, category.color, '')
 
     const divCategoryIcon = createTableCell(categoryLine)
-    console.log(category.icon)
     addIcon(divCategoryIcon, category.icon)
 
     const divCategoryModifyButton = createTableCell(categoryLine)
