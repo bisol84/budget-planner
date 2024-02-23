@@ -76,11 +76,13 @@ function editBudget(budgetId) {
   const inputAmount = document.getElementById('input-account-amount')
   const btnSaveModal = document.getElementById('save-modal')
   const btnCloseModal = document.getElementById('close-modal')
+  const formEditBudget = document.getElementById('form-edit-budget')
   editMmodal.classList.remove('hidden');
   inputAmount.focus()
-  btnSaveModal.addEventListener('click', function (e) {
+  formEditBudget.addEventListener('submit', function (e) {
+    console.log('test')
     e.preventDefault()
-    saveBudget(budgetId)
+    saveBudget(budgetId, e)
   })
   btnCloseModal.addEventListener('click', function (e) {
     e.preventDefault()
