@@ -24,10 +24,6 @@ sendFileForm.addEventListener('submit', function(e) {
             }
         })
         .then(response => response.json())
-        .then(data => {
-            document.getElementById('message').classList.remove('invisible')
-            document.getElementById('message').innerHTML = data.message
-        })
         .catch(error => {
             console.error('Erreur lors de l\'envoi du JSON au serveur:', error);
         });

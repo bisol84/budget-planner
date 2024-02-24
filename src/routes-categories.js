@@ -4,7 +4,7 @@ const db = require('./db');
 
 // List all budgets categories
 router.get("/categories", function (req, res) {
-  let sql = 'SELECT ID, category, description, color, icon FROM categories order by 2';
+  let sql = 'SELECT ID, category, description, color, icon FROM categories WHERE ID < 1000 order by 2';
   const response = [];
   db.all(sql, [], (err, rows) => {
     if (err) {

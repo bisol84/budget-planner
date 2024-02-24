@@ -39,7 +39,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
+        <tbody id="categories-table-content" class="bg-white divide-y divide-gray-200">
           
         </tbody>
       </table>
@@ -56,19 +56,19 @@
       <div class="mb-4">
         <h1 class="text-sm font-semibold">Modifier la catégorie</h1>
       </div>
-      <div class="text-gray-700">
-        <form id="form-edit-category">
+      <form id="form-edit-category">
+        <div class="text-gray-700">
           <label for="input-category-name" class="block text-sm mb-2">Nom</label>
           <input type="text" id="input-category-name" class="text-sm border border-gray-300 rounded-md w-full px-3 py-2">
           <label for="input-category-color" class="block text-sm mb-2">Couleur</label>
           <input type="color" id="input-category-color" />
-        </form> 
-      </div>
-      <!-- Close button -->
-      <div class="mt-6 text-right">
-        <button id="save-modal" class="px-4 py-2 bg-gray-200 text-gray-800 text-sm rounded-lg focus:outline-none">Sauvegarder</button>
-        <button id="close-modal" class="px-4 py-2 bg-gray-200 text-gray-800 text-sm rounded-lg focus:outline-none">Fermer</button>
-      </div>
+        </div>
+        <!-- Close button -->
+        <div class="mt-6 text-right">
+          <button type="submit" id="save-modal" class="px-4 py-2 bg-gray-200 text-gray-800 text-sm rounded-lg focus:outline-none">Sauvegarder</button>
+          <button id="close-modal" class="px-4 py-2 bg-gray-200 text-gray-800 text-sm rounded-lg focus:outline-none">Fermer</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

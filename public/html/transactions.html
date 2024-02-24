@@ -86,7 +86,7 @@
       </thead>
       
       <!-- Table loaded by JS -->
-      <tbody class="bg-white divide-y divide-gray-200">
+      <tbody id="transaction-table-content" class="bg-white divide-y divide-gray-200">
         
       </tbody>
     </table>
@@ -100,19 +100,19 @@
       <div class="mb-4">
         <h1 class="text-sm font-semibold">Modifier la transaction</h1>
       </div>
-      <div class="text-gray-700">
-        <form id="form-edit-transaction">
+      <form id="form-edit-transaction">
+        <div class="text-gray-700">
           <label for="input-transaction-category" class="block text-sm mb-2">Catégorie</label>
           <div id="input-transaction-category"></div>
           <label for="input-transaction-account" class="block text-sm mb-2">Compte</label>
           <div id="input-transaction-account"></div>
-        </form> 
-      </div>
-      <!-- Close button -->
-      <div class="mt-6 text-right">
-        <button type="button" id="save-modal" class="px-4 py-2 bg-gray-200 text-gray-800 text-sm rounded-lg focus:outline-none">Sauvegarder</button>
-        <button type="button" id="close-modal" class="px-4 py-2 bg-gray-200 text-gray-800 text-sm rounded-lg focus:outline-none">Fermer</button>
-      </div>
+        </div>
+        <!-- Close button -->
+        <div class="mt-6 text-right">
+          <button type="submit" id="save-modal" class="px-4 py-2 bg-gray-200 text-gray-800 text-sm rounded-lg focus:outline-none">Sauvegarder</button>
+          <button id="close-modal" class="px-4 py-2 bg-gray-200 text-gray-800 text-sm rounded-lg focus:outline-none">Fermer</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

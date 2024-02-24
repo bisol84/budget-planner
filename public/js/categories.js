@@ -2,22 +2,13 @@ import { createTableLine, createTableCell, addTextContent, addTag, addIcon, addN
 
 // Display the categories, the amount and the transaction amount when page loads
 window.addEventListener('DOMContentLoaded', function() {
-  fetch('http://localhost:3000/categories', {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json'
-    }
-  })
-    .then(response => response.json())
-    .then(data => displayCategoriesTable(data))
-    .catch(error => {
-        console.error('Erreur lors de la réception des catégories :', error);
-    })
+  getCategories()
 })
 
 // Display budget table
 function displayCategoriesTable(categories) {
-  const categoriesTable = document.getElementById('categories-table');
+  const categoriesTable = document.getElementById('categories-table-content');
+  categoriesTable.innerHTML = ''
   categories.forEach(category => {
     const categoryLine = createTableLine(categoriesTable)
     const divCategoryName = createTableCell(categoryLine)
@@ -31,17 +22,37 @@ function displayCategoriesTable(categories) {
 
     const divCategoryModifyButton = createTableCell(categoryLine)
     const modifyCategoryButton = addButton(divCategoryModifyButton, 'Modifier',category.ID)
-    modifyCategoryButton.onclick = function(e) {
+    modifyCategoryButton.onclick = function() {
       editCategory(category.ID,  category.category, category.color)
     }
   })
 }
 
+// Get the categories and display table
+function getCategories() {
+  fetch('http://localhost:3000/categories', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+        displayCategoriesTable(data)
+    })
+    .catch(error => {
+        console.error('Erreur lors de la réception des catégories :', error);
+    })
+  }
+
+
 // Modal to modify budget
 function editCategory(categoryId, categoryName, categoryColor) {
+  console.log(`edit : ${categoryId}`)
   const editMmodal = document.getElementById('edit-modal');
   const btnSaveModal = document.getElementById('save-modal')
   const btnCloseModal = document.getElementById('close-modal')
+  const formEditCategory = document.getElementById('form-edit-category')
 
   editMmodal.classList.remove('hidden');
 
@@ -49,18 +60,19 @@ function editCategory(categoryId, categoryName, categoryColor) {
   document.getElementById('input-category-name').value = categoryName
   document.getElementById('input-category-color').value = categoryColor
 
-  btnSaveModal.addEventListener('click', function (e) {
-    e.preventDefault()
-    saveCategory(categoryId)
-  })
-  btnCloseModal.addEventListener('click', function (e) {
-    e.preventDefault()
+  const saveCategoryHandler = function(event) {
+    event.preventDefault();  
+    saveCategory(categoryId);
+    formEditCategory.removeEventListener('submit', saveCategoryHandler);
+  };
+  formEditCategory.addEventListener('submit', saveCategoryHandler); //TODO : mettre hors de fonction qui se répète pour éviter les modifications en boucle
+  btnCloseModal.addEventListener('click', function () {
     editMmodal.classList.add('hidden');
   })
 }
 
 // Save the budget
-function saveCategory(categoryId) {
+ function saveCategory(categoryId) {
   const categoryName = document.getElementById('input-category-name').value
   const categoryColor = document.getElementById('input-category-color').value
   const editMmodal = document.getElementById('edit-modal');
@@ -79,4 +91,6 @@ function saveCategory(categoryId) {
         .catch(error => {
             console.error('Erreur lors de l\'envoi du JSON au serveur:', error);
         });
+    // reload table
+    getCategories()
 }

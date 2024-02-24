@@ -80,12 +80,10 @@ function editBudget(budgetId) {
   editMmodal.classList.remove('hidden');
   inputAmount.focus()
   formEditBudget.addEventListener('submit', function (e) {
-    console.log('test')
     e.preventDefault()
-    saveBudget(budgetId, e)
+    saveBudget(budgetId)
   })
   btnCloseModal.addEventListener('click', function (e) {
-    e.preventDefault()
     editMmodal.classList.add('hidden');
   })
 }
@@ -106,10 +104,21 @@ function saveBudget(budgetId) {
               'Content-Type': 'application/json'
             }
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json()
+            }
+          )
         .catch(error => {
             console.error('Erreur lors de l\'envoi du JSON au serveur:', error);
         });
+        const selectedDate = new Date(budgetMonth.value)
+        const month = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
+        const fullYear = selectedDate.getFullYear();
+        const formattedDate = `${fullYear}-${month}-01`;
+        getBudgets(formattedDate)
 }
   
 // Get budgets

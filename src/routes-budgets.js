@@ -18,9 +18,9 @@ router.get("/budgets/categories/parents", function (req, res) {
   //db.close()
 });
 
-// List all budgets categories
+// List childs budgets categories
 router.get("/budgets/categories", function (req, res) {
-  let sql = 'SELECT ID, category, description, color FROM categories order by 2';
+  let sql = 'SELECT ID, category, description, color FROM categories WHERE ID < 1000 order by 2';
   const response = [];
   db.all(sql, [], (err, rows) => {
     if (err) {

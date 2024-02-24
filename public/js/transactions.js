@@ -2,9 +2,15 @@ import { createTableLine, createTableCell, addTextContent, addTag, addIcon, addN
 
   const uploadChooseFile = document.getElementById('file-input')
 
+  // Display the budgets categories, the amount and the transaction amount when page loads
+window.addEventListener('DOMContentLoaded', function() {
+  getTransactions()
+})
+
   // Display transaction table
   function displayTransactionTable(transactions) {
-    const transactionTable = document.getElementById('transaction-table');
+    const transactionTable = document.getElementById('transaction-table-content');
+    transactionTable.innerHTML = ''
     transactions.forEach(transaction => {
       const transactionLine = createTableLine(transactionTable)
       const divTransactionDate = createTableCell(transactionLine)
@@ -72,17 +78,19 @@ fetch('http://localhost:3000/transactions/top5', {
   });
 
 // Get the transactions
-fetch('http://localhost:3000/transactions', {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json'
-    }
-})
-    .then(response => response.json())
-    .then(data => displayTransactionTable(data))
-    .catch(error => {
-        console.error('Erreur lors de la réception des transactions :', error);
-    });
+function getTransactions() {
+  fetch('http://localhost:3000/transactions', {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  })
+      .then(response => response.json())
+      .then(data => displayTransactionTable(data))
+      .catch(error => {
+          console.error('Erreur lors de la réception des transactions :', error);
+      });
+  }
 
 
 
@@ -91,6 +99,7 @@ function editTransaction(e) {
   const editMmodal = document.getElementById('edit-modal');
   const btnSaveModal = document.getElementById('save-modal')
   const btnCloseModal = document.getElementById('close-modal')
+  const formEditTransaction = document.getElementById('form-edit-transaction')
   const divSelectCategory = document.getElementById('input-transaction-category')
   const divSelectAccount = document.getElementById('input-transaction-account')
   const row = e.target.closest('tr');
@@ -143,11 +152,11 @@ function editTransaction(e) {
   })
 
   // Buttons
-  btnSaveModal.addEventListener('click', function () {
+  formEditTransaction.addEventListener('submit', function (e) {
+    e.preventDefault()
     saveTransaction(transactionId)
   })
-  btnCloseModal.addEventListener('click', function (e) {
-    e.preventDefault()
+  btnCloseModal.addEventListener('click', function () {
     editMmodal.classList.add('hidden');
   })
 }
@@ -156,6 +165,8 @@ function editTransaction(e) {
 // Save transactions category 
 function saveTransaction(transactionId) {
   //const selectAccount = document.getElementById('')
+  const editMmodal = document.getElementById('edit-modal');
+  editMmodal.classList.add('hidden');
   const selectCategoryList = document.getElementById('select-category-list')
   const selectedCategory = selectCategoryList.value
   const selectAccountList = document.getElementById('select-account-list')
@@ -181,6 +192,9 @@ function saveTransaction(transactionId) {
             console.error('Erreur lors de l\'envoi du JSON au serveur:', error);
         });
   }
+
+  // Update the transactions table
+  getTransactions()
 }
 
 // Delete a transaction
