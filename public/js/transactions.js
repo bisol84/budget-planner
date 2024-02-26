@@ -4,6 +4,7 @@ import { createTableLine, createTableCell, addTextContent, addTag, addIcon, addN
 
   // Display the budgets categories, the amount and the transaction amount when page loads
 window.addEventListener('DOMContentLoaded', function() {
+  getTop5()
   getTransactions()
 })
 
@@ -51,6 +52,7 @@ function displayTop5(data) {
   //const numericValue = parseFloat(value);
   //span.textContent = numericValue.toFixed(2);
   const top5div = document.getElementById('top-transactions')
+  top5div.innerHTML = ''
   data.forEach(topCategory => {
     top5div.innerHTML += `
     <div class="flex items-center relative p-4 w-full bg-white rounded-lg overflow-hidden shadow">
@@ -64,6 +66,7 @@ function displayTop5(data) {
   })
 }
 
+function getTop5() {
 // Get the top5
 fetch('http://localhost:3000/transactions/top5', {
   method: 'GET',
@@ -76,6 +79,7 @@ fetch('http://localhost:3000/transactions/top5', {
   .catch(error => {
       console.error('Erreur lors de la réception des transactions :', error);
   });
+}
 
 // Get the transactions
 function getTransactions() {
@@ -162,6 +166,8 @@ function editTransaction(e) {
   }
   formEditTransaction.addEventListener('submit', saveTransactionHandler)
   btnCloseModal.addEventListener('click', closeModal)
+
+
 }
 
 
@@ -196,19 +202,25 @@ function saveTransaction(transactionId) {
         });
   }
 
-  // Update the transactions table
+  // Update the transactions table + top 5
   getTransactions()
+  getTop5()
 }
 
 // Delete a transaction
 function deleteTransaction(e) {
   const buttonId = e.target.id;
+  console.log(`ID : ${buttonId}`)
   fetch('http://localhost:3000/transactions/' + buttonId, {
       method: 'DELETE',
       headers: {
           'Content-Type': 'application/json'
       }
   })
+
+  // Update the transactions table
+  getTransactions()
+  getTop5()
 }
 
 // Get all the categories

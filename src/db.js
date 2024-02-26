@@ -111,7 +111,8 @@ function createData(db) {
     { id: 23, category: 'Dons', description: '', color: '#F333FF', icon: 'fa-solid fa-hand-holding-dollar fa-lg', parent_category_id: 1005 },
     { id: 24, category: 'Cadeaux', description: '', color: '#33E7FF', icon: 'fa-solid fa-gift fa-lg', parent_category_id: 1000 },
     { id: 25, category: 'Vacances', description: '', color: '#FF333E', icon: 'fa-solid fa-umbrella-beach fa-lg', parent_category_id: 1003 },
-    { id: 26, category: 'Voiture', description: '', color: '#33FF9C', icon: 'fa-solid fa-car fa-lg', parent_category_id: 1001}
+    { id: 26, category: 'Voiture', description: '', color: '#33FF9C', icon: 'fa-solid fa-car fa-lg', parent_category_id: 1001},
+    { id: 27, category: 'Jeux', description: '', color: '#43FD9C', icon: 'fa-solid fa-gamepad fa-lg', parent_category_id: 1003}
   ];
 
   const sqlCategories = 'INSERT INTO categories (id, category, description, color, icon, parent_category_id) VALUES (?, ?, ?, ?, ?, ?)';
