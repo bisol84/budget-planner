@@ -155,10 +155,13 @@ function editTransaction(e) {
     saveTransaction(transactionId)
     formEditTransaction.removeEventListener('submit', saveTransactionHandler);
   };
+  const closeModal = function(event) {
+    event.preventDefault();  
+    editMmodal.classList.add('hidden'); 
+    formEditTransaction.removeEventListener('submit', saveTransactionHandler);
+  }
   formEditTransaction.addEventListener('submit', saveTransactionHandler)
-  btnCloseModal.addEventListener('click', function () {
-    editMmodal.classList.add('hidden');
-  })
+  btnCloseModal.addEventListener('click', closeModal)
 }
 
 

@@ -65,10 +65,13 @@ function editCategory(categoryId, categoryName, categoryColor) {
     saveCategory(categoryId);
     formEditCategory.removeEventListener('submit', saveCategoryHandler);
   };
+  const closeModal = function(event) {
+    event.preventDefault();  
+    editMmodal.classList.add('hidden'); 
+    formEditCategory.removeEventListener('submit', saveCategoryHandler);
+  }
   formEditCategory.addEventListener('submit', saveCategoryHandler); //TODO : mettre hors de fonction qui se répète pour éviter les modifications en boucle
-  btnCloseModal.addEventListener('click', function () {
-    editMmodal.classList.add('hidden');
-  })
+  btnCloseModal.addEventListener('click', closeModal)
 }
 
 // Save the budget

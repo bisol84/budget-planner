@@ -1,7 +1,7 @@
 const sendFileForm = document.getElementById('send-file')
 
 sendFileForm.addEventListener('submit', function(e) {
-    e.preventDefault()
+    //e.preventDefault()
 
     const fileInput = document.getElementById('file-input')
     const file = fileInput.files[0]

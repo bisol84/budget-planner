@@ -79,13 +79,19 @@ function editBudget(budgetId) {
   const formEditBudget = document.getElementById('form-edit-budget')
   editMmodal.classList.remove('hidden');
   inputAmount.focus()
-  formEditBudget.addEventListener('submit', function (e) {
-    e.preventDefault()
+  // Buttons
+  const saveBudgetHandler = function(event) {
+    event.preventDefault();  
     saveBudget(budgetId)
-  })
-  btnCloseModal.addEventListener('click', function (e) {
-    editMmodal.classList.add('hidden');
-  })
+    formEditBudget.removeEventListener('submit', saveBudgetHandler);
+  };
+  const closeModal = function(event) {
+    event.preventDefault();  
+    editMmodal.classList.add('hidden'); 
+    formEditBudget.removeEventListener('submit', saveBudgetHandler);
+  }
+  formEditBudget.addEventListener('submit', saveBudgetHandler)
+  btnCloseModal.addEventListener('click', closeModal)
 }
 
 // Save the budget
