@@ -92,8 +92,6 @@ function getTransactions() {
       });
   }
 
-
-
 // Edit transaction
 function editTransaction(e) {
   const editMmodal = document.getElementById('edit-modal');
@@ -152,10 +150,12 @@ function editTransaction(e) {
   })
 
   // Buttons
-  formEditTransaction.addEventListener('submit', function (e) {
-    e.preventDefault()
+  const saveTransactionHandler = function(event) {
+    event.preventDefault();  
     saveTransaction(transactionId)
-  })
+    formEditTransaction.removeEventListener('submit', saveTransactionHandler);
+  };
+  formEditTransaction.addEventListener('submit', saveTransactionHandler)
   btnCloseModal.addEventListener('click', function () {
     editMmodal.classList.add('hidden');
   })

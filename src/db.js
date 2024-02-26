@@ -1,3 +1,4 @@
+// Database connection file
 const fs = require("fs");
 const sqlite3 = require("sqlite3").verbose();
 const filepath = "../budget-planner.db";
@@ -68,14 +69,14 @@ function createTable(db) {
       );`)
 }
 
-async function createData(db) {
+function createData(db) {
   // Account
   const sqlAccount = 'INSERT INTO accounts (name, description, amount, type) VALUES (?, ?, ?, ?)';
 
   // Insert each row using a loop
   db.run(sqlAccount, ['Compte 01', '', '0', 'Compte bancaire'])
 
-  // Ajout des catégories (1-999 = simple category / 1000+ = parent category)
+  // Add categories (1-999 = simple category / 1000+ = parent category)
   const categories = [
     { id: 1000, category: 'Ménage', description: '', color: '#4338ca', icon: 'fa-solid fa-question' },
     { id: 1001, category: 'Transport', description: '', color: '#4338ca', icon: 'fa-solid fa-question' },
@@ -86,6 +87,7 @@ async function createData(db) {
     { id: 1006, category: 'Personnel', description: '', color: '#4338ca', icon: 'fa-solid fa-question' },
     { id: 1007, category: 'Economies', description: '', color: '#4338ca', icon: 'fa-solid fa-question' },
     { id: 1008, category: 'A classer', description: '', color: '#4338ca', icon: 'fa-solid fa-question' },
+
     { id: 1, category: 'A classer', description: '', color: '#4338ca', icon: 'fa-solid fa-question', parent_category_id: 1008 },
     { id: 2, category: 'Assurance automobile', description: '', color: '#FF5733', icon: 'fa-solid fa-car-burst fa-lg', parent_category_id: 1002 },
     { id: 3, category: 'Assurance santé', description: '', color: '#33FF57', icon: 'fas fa-heartbeat fa-lg', parent_category_id: 1002 },
@@ -121,14 +123,14 @@ async function createData(db) {
             console.error(err.message);
         } else {
           // Budgets : insertion des catégories
-          const firstBudgetCategory = [
+          const budgetBasicInformation = [
             { amount: 0, start_date: '1970-01-01', end_date: '9999-12-31' }
           ]
 
           const sqlBudget = 'INSERT INTO budgets (id_category, amount, start_date, end_date) VALUES (?, ?, ?, ?)';
 
           // Insert each row using a loop
-          firstBudgetCategory.forEach(row => {
+          budgetBasicInformation.forEach(row => {
             db.run(sqlBudget, [this.lastID, row.amount, row.start_date, row.end_date], function(err) {
                 if (err) {
                     console.error(err.message);
