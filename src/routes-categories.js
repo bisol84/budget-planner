@@ -3,7 +3,7 @@ const { json } = require("body-parser");
 const db = require('./db');
 
 // List all budgets categories
-router.get("/categories", function (req, res) {
+router.get("/", function (req, res) {
   let sql = 'SELECT ID, category, description, color, icon FROM categories WHERE ID < 1000 order by 2';
   const response = [];
   db.all(sql, [], (err, rows) => {
@@ -19,7 +19,7 @@ router.get("/categories", function (req, res) {
 });
 
 // Update category with color and text
-router.post("/categories/:id", function (req, res) {
+router.post("/:id", function (req, res) {
   const jsonData = req.body.data
   const categoryId = req.params.id
   res.json({ message: 'JSON received on server' });

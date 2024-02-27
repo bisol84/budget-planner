@@ -3,7 +3,7 @@ const { json } = require("body-parser");
 const db = require('./db');
 
 // List all budgets categories
-router.get("/budgets/categories/parents", function (req, res) {
+router.get("/categories/parents", function (req, res) {
   let sql = 'SELECT ID, category FROM categories WHERE ID >= 1000 order by 2';
   const response = [];
   db.all(sql, [], (err, rows) => {
@@ -15,27 +15,10 @@ router.get("/budgets/categories/parents", function (req, res) {
     });
     res.send(response)
   });
-  //db.close()
-});
-
-// List childs budgets categories
-router.get("/budgets/categories", function (req, res) {
-  let sql = 'SELECT ID, category, description, color FROM categories WHERE ID < 1000 order by 2';
-  const response = [];
-  db.all(sql, [], (err, rows) => {
-    if (err) {
-      throw err;
-    }
-    rows.forEach((row) => {
-      response.push(row);
-    });
-    res.send(response)
-  });
-  //db.close()
 });
 
 // List all budgets by date, categories with transactions amount by category
-router.get("/budgets/:date/:id", function (req, res) {
+router.get("/:date/:id", function (req, res) {
   const monthFilter = req.params.date
   const parentID = req.params.id
   let sql = `
@@ -67,7 +50,7 @@ router.get("/budgets/:date/:id", function (req, res) {
 });
 
 // Update budget for a category (amount)
-router.post("/budgets/:id", function (req, res) {
+router.post("/:id", function (req, res) {
   const jsonData = req.body.data
   const categoryId = req.params.id
 

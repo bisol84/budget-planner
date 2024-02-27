@@ -229,7 +229,7 @@ function deleteTransaction(buttonId) {
 
 // Get all the categories
 function getCategories() {
-  return fetch('http://localhost:3000/budgets/categories', {
+  return fetch('http://localhost:3000/categories', {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json'

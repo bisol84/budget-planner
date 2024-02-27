@@ -3,7 +3,7 @@ const { json } = require("body-parser");
 const db = require('./db');
 
 // List all transactions with category and amount
-router.get("/transactions/", function (req, res) {
+router.get("/", function (req, res) {
   let sql = `SELECT 
     t.ID,
     t.date,
@@ -31,7 +31,7 @@ router.get("/transactions/", function (req, res) {
 });
 
 // List top 5 transactions
-router.get("/transactions/top5", function (req, res) {
+router.get("/top5", function (req, res) {
   let sql = `SELECT 
     t.ID,
     SUM(CASE WHEN c.category = 'A classer' AND t.amount > 0 THEN -t.amount ELSE t.amount END) AS "total_transactions",
@@ -56,7 +56,7 @@ router.get("/transactions/top5", function (req, res) {
 });
 
 // Add transactions in bulk
-router.post("/transactions/", function (req, res) {
+router.post("/", function (req, res) {
   const jsonData = req.body.data
   res.json({ message: 'JSON received on server' });
 
@@ -83,7 +83,7 @@ router.post("/transactions/", function (req, res) {
 });
 
 // Update transaction category and account
-router.post("/transactions/:id", function (req, res) {
+router.post("/:id", function (req, res) {
   const jsonData = req.body.data
   res.json({ message: 'JSON received on server' });
   // Parse JSON
@@ -96,7 +96,7 @@ router.post("/transactions/:id", function (req, res) {
 });
 
 // Delete a transaction
-router.delete("/transactions/:id", function (req, res) {
+router.delete("/:id", function (req, res) {
   db.run('DELETE FROM transactions WHERE ID = ?', req.params.id, function(err) {
     if (err) {
       console.log(err)

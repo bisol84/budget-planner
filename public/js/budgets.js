@@ -62,7 +62,7 @@ function displayBudgetTable(budgets) {
       const modifyBudgetButton = addButton(divBudgetModifyButton, 'Modifier',childCategories[i].id)
       modifyBudgetButton.onclick = function(e) {
         editBudget(childCategories[i].id)
-      } 
+      }
     }
   }
 }
@@ -79,8 +79,8 @@ function editBudget(budgetId) {
   // Buttons
   const saveBudgetHandler = function(event) {
     event.preventDefault();  
-    saveBudget(budgetId)
     formEditBudget.removeEventListener('submit', saveBudgetHandler);
+    saveBudget(budgetId)
   };
   const closeModal = function(event) {
     event.preventDefault();  

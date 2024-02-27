@@ -29,12 +29,14 @@ app.use(bodyParser.json({
 
 // Security
 app.use(helmet());
+
+// Start the API
 app.listen(PORT, () => {
   console.log("Server Listening on PORT:", PORT)
 })
 
 // Decalaration of routes
-app.use("/", routesTransactions);
-app.use("/", routesAccounts);
-app.use("/", routesBudgets);
-app.use("/", routesCategories);
+app.use("/transactions", routesTransactions);
+app.use("/accounts", routesAccounts);
+app.use("/budgets", routesBudgets);
+app.use("/categories", routesCategories);
