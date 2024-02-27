@@ -40,7 +40,7 @@ router.get("/transactions/top5", function (req, res) {
   FROM transactions t
   left outer JOIN categories c on t.id_category = c.ID
   group by c.category
-  order by sum(amount)
+  order by SUM(CASE WHEN c.category = 'A classer' AND t.amount > 0 THEN -t.amount ELSE t.amount END)
   limit 5
   `;
   const response = [];
@@ -102,7 +102,6 @@ router.delete("/transactions/:id", function (req, res) {
       console.log(err)
     } else {
       res.send('');
-      console.log('transaction deleted')    
     }
   })
 });
