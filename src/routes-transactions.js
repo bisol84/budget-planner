@@ -16,6 +16,7 @@ router.get("/transactions/", function (req, res) {
   FROM transactions t
   left outer JOIN categories c on t.id_category = c.ID
   left outer JOIN accounts a on t.id_account = a.ID
+  order by t.date desc
   `;
   const response = [];
   db.all(sql, [], (err, rows) => {
