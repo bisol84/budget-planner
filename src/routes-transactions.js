@@ -97,7 +97,14 @@ router.post("/transactions/:id", function (req, res) {
 
 // Delete a transaction
 router.delete("/transactions/:id", function (req, res) {
-  db.run('DELETE FROM transactions WHERE ID = ?', req.params.id)
+  db.run('DELETE FROM transactions WHERE ID = ?', req.params.id, function(err) {
+    if (err) {
+      console.log(err)
+    } else {
+      res.send('');
+      console.log('transaction deleted')    
+    }
+  })
 });
 
 module.exports = router;

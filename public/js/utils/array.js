@@ -21,7 +21,7 @@ export function createElementWithClasses(tagName, classNames) {
   
 // Create a new cell in budget table
 export function createTableCell(budgetLine) {
-  const td = createElementWithClasses('td', ['px-4', 'py-2']);
+  const td = createElementWithClasses('td', ['px-3', 'py-2']);
   //const div = createElementWithClasses('div', ['px-6', 'py-3'])
   //td.appendChild(div);
   budgetLine.appendChild(td);

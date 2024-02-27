@@ -20,7 +20,7 @@ Server: Node, Express
 
 ## Thanks
 These are the services used to help me during this project
-- https://iconduck.com/ Icon search and downloaf (free)
+- https://iconduck.com/ Icon search and download (free)
 
 ## Support
 <a href="https://www.buymeacoffee.com/bisol" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>

@@ -42,10 +42,17 @@ window.addEventListener('DOMContentLoaded', function() {
       const divtransactionDeleteButton = createTableCell(transactionLine)
       const deleteTransactionButton = addButton(divtransactionDeleteButton, 'Supprimer',transaction.ID)
       deleteTransactionButton.onclick = function(e) {
-        deleteTransaction(e)
+        e.preventDefault()
+        deleteTransaction(e.target.id)
+        hideTransaction(transactionLine)
       }
     })
   }
+
+// Hide transaction in table
+function hideTransaction(targetLine) {
+  targetLine.remove()
+}
 
 // Display top 5 transactions
 function displayTop5(data) {
@@ -156,8 +163,8 @@ function editTransaction(e) {
   // Buttons
   const saveTransactionHandler = function(event) {
     event.preventDefault();  
-    saveTransaction(transactionId)
     formEditTransaction.removeEventListener('submit', saveTransactionHandler);
+    saveTransaction(transactionId)
   };
   const closeModal = function(event) {
     event.preventDefault();  
@@ -169,7 +176,6 @@ function editTransaction(e) {
 
 
 }
-
 
 // Save transactions category 
 function saveTransaction(transactionId) {
@@ -208,9 +214,7 @@ function saveTransaction(transactionId) {
 }
 
 // Delete a transaction
-function deleteTransaction(e) {
-  const buttonId = e.target.id;
-  console.log(`ID : ${buttonId}`)
+function deleteTransaction(buttonId) {
   fetch('http://localhost:3000/transactions/' + buttonId, {
       method: 'DELETE',
       headers: {
@@ -219,7 +223,7 @@ function deleteTransaction(e) {
   })
 
   // Update the transactions table
-  getTransactions()
+  //getTransactions()
   getTop5()
 }
 
