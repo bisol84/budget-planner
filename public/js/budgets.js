@@ -63,10 +63,7 @@ function displayBudgetTable(budgets) {
       modifyBudgetButton.onclick = function(e) {
         editBudget(childCategories[i].id)
       } 
-      
-
     }
-
   }
 }
 
