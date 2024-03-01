@@ -30,7 +30,8 @@
           <h3 class="font-bold text-lg">Importer un fichier (.csv)</h2>
       </div>
 
-      <form id="send-file">
+      
+      <form id="send-file" enctype="multipart/form-data">
           <div class="mt-5 lg:mt-8 flex flex-col items-center gap-2 sm:flex-row sm:gap-3 w-full lg:w-1/2"> <!-- Ajoutez également la classe w-full ici -->
               <div class="w-full relative flex items-center border-solid border">
                   <!-- Masquer le bouton "Choose file" -->
@@ -39,7 +40,7 @@
                   <label for="file-input-name" class="bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer">Choisir un fichier</label>
                   <span id="file-input-name" class="ml-2"></span>
               </div>
-              <input type="submit" value="Envoyer" class="bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium">
+              <input type="submit" value="Envoyer" class="bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer">
           </div>
       </form>
     </div>

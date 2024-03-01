@@ -1,5 +1,9 @@
 const router = require("express").Router();
 const { json } = require("body-parser");
+const multer = require('multer')
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
+const parser = require('csv-parse')
 const db = require('./db');
 
 // List all transactions with category and amount
@@ -56,35 +60,48 @@ router.get("/top5", function (req, res) {
 });
 
 // Add transactions in bulk
-router.post("/", function (req, res) {
-  const jsonData = req.body.data
-  res.json({ message: 'JSON received on server' });
+router.post("/upload", upload.single("file"), (req, res) => {
 
-  // Get Category ID "A classer"
-  db.get("SELECT ID FROM categories WHERE category = 'A classer'", (err, row) => {
+  // File uploaded successfully, parse CSV data
+  const csvData = req.file.buffer.toString(); // Get the CSV data from the buffer
+
+  // Parse the CSV data
+  parser.parse(csvData, {
+    delimiter: ';', // specify the delimiter used in the file
+    columns: true, // treat the first row as headers
+    trim: true // trim whitespace from values
+  }, function (err, records) {
     if (err) {
-      console.error("Error fetching category:", err);
-      return;
+      console.error('Error parsing CSV:', err.message);
+      return res.status(500).send('Error parsing CSV.');
     }
     
-    if (row) {
-      // Parse JSON
-      jsonData.forEach(transaction => {
-        db.run("INSERT INTO transactions(date, amount, import_category, description, id_category) VALUES(?,?,?,?,?)", [
-          transaction.Date,
-          transaction.Amount,
-          transaction.Category,
-          transaction.Description,
-          row.ID // Hardocded - equal to "A classer" category ID
-        ]);
-      });
-    }
+    // Send parsed records as response
+    db.get("SELECT ID FROM categories WHERE category = 'A classer'", (err, row) => {
+      if (err) {
+        console.error("Error fetching category:", err);
+        return;
+      }
+        
+      if (row) {
+        records.forEach(record => {
+          db.run("INSERT INTO transactions(date, amount, import_category, description, id_category) VALUES(?,?,?,?,?)", [
+            record.Date,
+            record.Amount,
+            record.Category,
+            record.Description,
+            row.ID // Hardocded - equal to "A classer" category ID
+          ]);
+        });
+      }
+      res.json({ message: 'JSON received on server' });
+    });
   });
 });
 
 // Update transaction category and account
 router.post("/:id", function (req, res) {
-  const jsonData = req.body.data
+  const jsonData = req.body
   res.json({ message: 'JSON received on server' });
   // Parse JSON
   db.run("UPDATE transactions SET id_category = ?, id_account = ? WHERE ID = ?", [
