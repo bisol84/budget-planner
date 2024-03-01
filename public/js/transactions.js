@@ -106,7 +106,6 @@ function getTransactions() {
 // Edit transaction
 function editTransaction(e) {
   const editMmodal = document.getElementById('edit-modal');
-  const btnSaveModal = document.getElementById('save-modal')
   const btnCloseModal = document.getElementById('close-modal')
   const formEditTransaction = document.getElementById('form-edit-transaction')
   const divSelectCategory = document.getElementById('input-transaction-category')

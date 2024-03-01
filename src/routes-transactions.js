@@ -67,10 +67,10 @@ router.post("/upload", upload.single("file"), (req, res) => {
 
   // Parse the CSV data
   parser.parse(csvData, {
-    delimiter: ';', // specify the delimiter used in the file
-    columns: true, // treat the first row as headers
-    trim: true // trim whitespace from values
-  }, function (err, records) {
+    delimiter: ';',
+    columns: true, // Header on first line
+    trim: true 
+  }, function (err, transactions) {
     if (err) {
       console.error('Error parsing CSV:', err.message);
       return res.status(500).send('Error parsing CSV.');
@@ -84,13 +84,13 @@ router.post("/upload", upload.single("file"), (req, res) => {
       }
         
       if (row) {
-        records.forEach(record => {
+        transactions.forEach(transaction => {
           db.run("INSERT INTO transactions(date, amount, import_category, description, id_category) VALUES(?,?,?,?,?)", [
-            record.Date,
-            record.Amount,
-            record.Category,
-            record.Description,
-            row.ID // Hardocded - equal to "A classer" category ID
+            transaction.Date,
+            transaction.Amount,
+            transaction.Category,
+            transaction.Description,
+            row.ID
           ]);
         });
       }
@@ -101,7 +101,7 @@ router.post("/upload", upload.single("file"), (req, res) => {
 
 // Update transaction category and account
 router.post("/:id", function (req, res) {
-  const jsonData = req.body
+  const jsonData = req.body.data
   res.json({ message: 'JSON received on server' });
   // Parse JSON
   db.run("UPDATE transactions SET id_category = ?, id_account = ? WHERE ID = ?", [
@@ -109,7 +109,6 @@ router.post("/:id", function (req, res) {
     jsonData.id_account,  // id_account
     req.params.id // id_transaction
   ]);
-    //db.close()
 });
 
 // Delete a transaction
