@@ -28,6 +28,7 @@ function createTable(db) {
         amount        REAL,
         import_category  VARCHAR(255),
         description   VARCHAR(255),
+        transaction_type  VARCHAR(100),
         id_category   INTEGER NULL,
         id_account    INTEGER NULL,
         FOREIGN KEY (id_category) REFERENCES categories(ID)

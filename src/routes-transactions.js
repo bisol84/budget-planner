@@ -40,7 +40,8 @@ router.get("/top5", function (req, res) {
     t.ID,
     SUM(CASE WHEN c.category = 'A classer' AND t.amount > 0 THEN -t.amount ELSE t.amount END) AS "total_transactions",
     c.category,
-    c.icon
+    c.icon,
+    c.color
   FROM transactions t
   left outer JOIN categories c on t.id_category = c.ID
   group by c.category
