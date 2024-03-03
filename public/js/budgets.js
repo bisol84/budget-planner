@@ -100,7 +100,7 @@ function saveBudget(budgetId) {
   const jsonData = {}
   jsonData.amount = amount
   //jsonData.budgetmonth = budgetMonthSelected
-  fetch('http://localhost:3000/budgets/' + budgetId, {
+  fetch('http://localhost:3000/api/budgets/' + budgetId, {
             method: 'POST',
             body: JSON.stringify({ data: jsonData }, null, 2),
             headers: {
@@ -129,7 +129,7 @@ function getBudgets(dateFilter) {
   const jsonCategories = {};
 
   // Get parent categories
-  fetch('http://localhost:3000/budgets/categories/parents/', {
+  fetch('http://localhost:3000/api/budgets/categories/parents/', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -143,7 +143,7 @@ function getBudgets(dateFilter) {
       jsonCategories[parentCategory.category] = [];
 
       // Get budget for each parent category
-      return fetch(`http://localhost:3000/budgets/${dateFilter}/${parentCategory.ID}`, {
+      return fetch(`http://localhost:3000/api/budgets/${dateFilter}/${parentCategory.ID}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

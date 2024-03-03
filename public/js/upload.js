@@ -14,7 +14,7 @@ sendFileForm.addEventListener('submit', function(e) {
         return;
     }
 
-    fetch('http://localhost:3000/transactions/upload', {
+    fetch('http://localhost:3000/api/transactions/upload', {
         method: 'POST',
         body: formData
     })

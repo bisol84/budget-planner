@@ -1,6 +1,6 @@
 // Menu loading
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('../html/menu.html')
+    fetch('/menu.html')
         .then(response => response.text())
         .then(menuContent => {
             document.getElementById('menu').innerHTML = menuContent

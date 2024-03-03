@@ -30,7 +30,7 @@ function displayCategoriesTable(categories) {
 
 // Get the categories and display table
 function getCategories() {
-  fetch('http://localhost:3000/categories', {
+  fetch('http://localhost:3000/api/categories', {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json'
@@ -83,7 +83,7 @@ function editCategory(categoryId, categoryName, categoryColor) {
   const jsonData = {}
   jsonData.category = categoryName
   jsonData.color = categoryColor
-  fetch('http://localhost:3000/categories/' + categoryId, {
+  fetch('http://localhost:3000/api/categories/' + categoryId, {
             method: 'POST',
             body: JSON.stringify({ data: jsonData }, null, 2),
             headers: {
