@@ -14,10 +14,9 @@ function insert(db) {
     { id: 1004, category: 'Taxes', description: '', color: '#4338ca', icon: 'fa-solid fa-question' },
     { id: 1005, category: 'Santé', description: '', color: '#4338ca', icon: 'fa-solid fa-question' },
     { id: 1006, category: 'Personnel', description: '', color: '#4338ca', icon: 'fa-solid fa-question' },
-    { id: 1007, category: 'Economies', description: '', color: '#4338ca', icon: 'fa-solid fa-question' },
-    { id: 1008, category: 'A classer', description: '', color: '#4338ca', icon: 'fa-solid fa-question' },
+    { id: 1007, category: 'A classer', description: '', color: '#4338ca', icon: 'fa-solid fa-question' },
 
-    { id: 1, category: 'A classer', description: '', color: '#4338ca', icon: 'fa-solid fa-question', parent_category_id: 1008 },
+    { id: 1, category: 'A classer', description: '', color: '#4338ca', icon: 'fa-solid fa-question', parent_category_id: 1007 },
     { id: 2, category: 'Assurance automobile', description: '', color: '#FF5733', icon: 'fa-solid fa-car-burst fa-lg', parent_category_id: 1002 },
     { id: 3, category: 'Assurance santé', description: '', color: '#33FF57', icon: 'fas fa-heartbeat fa-lg', parent_category_id: 1002 },
     { id: 4, category: 'Train', description: '', color: '#5733FF', icon: 'fas fa-train fa-lg', parent_category_id: 1001 },
@@ -33,7 +32,6 @@ function insert(db) {
     { id: 14, category: 'Télévision', description: '', color: '#33FFF6', icon: 'fa-solid fa-tv fa-lg', parent_category_id: 1000 },
     { id: 15, category: 'Médicaments', description: '', color: '#FF336C', icon: 'fa-solid fa-notes-medical fa-lg', parent_category_id: 1005 },
     { id: 17, category: 'Habits', description: '', color: '#FFA833', icon: 'fa-solid fa-shirt fa-lg', parent_category_id: 1006 },
-    { id: 18, category: 'Epargne', description: '', color: '#3380FF', icon: 'fa-solid fa-money-check-dollar fa-lg', parent_category_id: 1007 },
     { id: 19, category: 'Livres', description: '', color: '#FF33E4', icon: 'fa-solid fa-book fa-lg', parent_category_id: 1003 },
     { id: 20, category: 'Cinéma', description: '', color: '#33FF72', icon: 'fa-solid fa-video fa-lg', parent_category_id: 1003 },
     { id: 21, category: 'Théâtre', description: '', color: '#FF5733', icon: 'fa-solid fa-chalkboard-user fa-lg', parent_category_id: 1003 },
@@ -41,7 +39,9 @@ function insert(db) {
     { id: 24, category: 'Cadeaux', description: '', color: '#33E7FF', icon: 'fa-solid fa-gift fa-lg', parent_category_id: 1000 },
     { id: 25, category: 'Vacances', description: '', color: '#FF333E', icon: 'fa-solid fa-umbrella-beach fa-lg', parent_category_id: 1003 },
     { id: 26, category: 'Voiture', description: '', color: '#33FF9C', icon: 'fa-solid fa-car fa-lg', parent_category_id: 1001},
-    { id: 27, category: 'Jeux', description: '', color: '#43FD9C', icon: 'fa-solid fa-gamepad fa-lg', parent_category_id: 1003}
+    { id: 27, category: 'Jeux', description: '', color: '#43FD9C', icon: 'fa-solid fa-gamepad fa-lg', parent_category_id: 1003},
+    { id: 28, category: 'Médecin', description: '', color: '#53FD9C', icon: 'fa-solid fa-user-doctor fa-lg', parent_category_id: 1005},
+    { id: 31, category: 'Sport', description: '', color: '#53FD9C', icon: 'fa-solid fa-dumbbell fa-lg', parent_category_id: 1005}
   ];
 
   const sqlCategories = 'INSERT INTO categories (id, category, description, color, icon, parent_category_id) VALUES (?, ?, ?, ?, ?, ?)';
