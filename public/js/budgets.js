@@ -5,7 +5,7 @@ const budgetMonth = document.getElementById('budget-month')
 // Display the budgets categories, the amount and the transaction amount when page loads
 window.addEventListener('DOMContentLoaded', function() {
 
-  // Set actuel month to budget date
+  // Set actual month to budget date
   budgetMonth.valueAsDate = new Date();
 
   // Load budgets
