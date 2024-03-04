@@ -5,6 +5,7 @@ const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
 const parser = require('csv-parse')
 const db = require('./db');
+const { default: JSDOMEnvironment } = require("jest-environment-jsdom");
 
 // List all transactions with category and amount
 router.get("/", function (req, res) {
@@ -14,6 +15,7 @@ router.get("/", function (req, res) {
     t.amount,
     t.import_category,
     t.description,
+    t.transaction_type,
     c.category,
     c.color,
     a.name
@@ -103,11 +105,13 @@ router.post("/upload", upload.single("file"), (req, res) => {
 // Update transaction category and account
 router.post("/:id", function (req, res) {
   const jsonData = req.body.data
+  console.log(jsonData)
   res.json({ message: 'JSON received on server' });
   // Parse JSON
-  db.run("UPDATE transactions SET id_category = ?, id_account = ? WHERE ID = ?", [
+  db.run("UPDATE transactions SET id_category = ?, id_account = ?, transaction_type = ? WHERE ID = ?", [
     jsonData.id_category, // id_category
     jsonData.id_account,  // id_account
+    jsonData.transaction_type,
     req.params.id // id_transaction
   ]);
 });

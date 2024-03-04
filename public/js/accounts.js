@@ -1,19 +1,9 @@
 const accountsURL = 'http://localhost:3000/api/accounts'
-const addAccountBtn = document.getElementById('input-account-btn')
+const addAccountForm = document.getElementById('add-account-form')
 
 // Display the accounts cards when page loads
 window.addEventListener('DOMContentLoaded', function() {
-  fetch(accountsURL, {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json'
-    }
-  })
-    .then(response => response.json())
-    .then(data => renderAccountsCards(data))
-    .catch(error => {
-        console.error('Error when rendering accounts cards :', error);
-    })
+  getCards()
 })
 
 // Create the account card
@@ -41,8 +31,26 @@ function renderAccountsCards(accounts) {
   })
 }
 
+// Load and display the account card
+function getCards() {
+  const accountsDiv = document.getElementById('accounts')
+  accountsDiv.innerHTML = ''
+  fetch(accountsURL, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(data => renderAccountsCards(data))
+    .catch(error => {
+        console.error('Error when rendering accounts cards :', error);
+    })
+}
+
 // Add account
-addAccountBtn.addEventListener('click', function() {  
+addAccountForm.addEventListener('submit', function(e) {  
+  e.preventDefault()
   const jsonData = {
     accountName: document.getElementById('input-account-name').value,
     accountDescription: document.getElementById('input-account-description').value,
@@ -59,7 +67,7 @@ addAccountBtn.addEventListener('click', function() {
   })
     .then(response => response.json())
     .then(data => {
-      // Check the data
+      getCards()
     })
     .catch(error => {
       console.error('Error when saving account:', error);

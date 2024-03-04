@@ -183,8 +183,8 @@ function saveTransaction(transactionId) {
   const selectedCategory = selectCategoryList.value
   const selectAccountList = document.getElementById('select-account-list')
   const selectedAccount = selectAccountList.value
-  const transactionType = document.querySelectorAll('input[name="transaction-type"]:checked');
-  console.log(transactionType[0].nextElementSibling.innerText)
+  const transactionTypeArray = document.querySelectorAll('input[name="transaction-type"]:checked');
+  const transactionType = transactionTypeArray[0].nextElementSibling.innerText
 
   const jsonData = {}
   if (selectedCategory || selectedAccount) {
@@ -194,6 +194,7 @@ function saveTransaction(transactionId) {
     if (selectedAccount) {
       jsonData.id_account = selectedAccount
     }
+    jsonData.transaction_type = transactionType
     fetch('http://localhost:3000/api/transactions/' + transactionId, {
       method: 'POST',
             body: JSON.stringify({ data: jsonData }, null, 2),

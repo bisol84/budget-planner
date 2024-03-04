@@ -14,7 +14,6 @@ router.get("/", function (req, res) {
     });
     res.send(response)
   });
-  //db.close()
 });
 
 //Add account
@@ -28,7 +27,6 @@ router.post("/", function (req, res) {
     jsonData.accountAmount,
     jsonData.accountType,
     ]);
-    //db.close()
 
     res.json({ message: 'JSON received on server' });
 

@@ -12,8 +12,7 @@ const app = express ()
 // Middleware
 const corsOptions = {
   credentials: true,
-  // To delete
-  origin: ['http://localhost:3000', 'http://localhost:5500', 'http://127.0.0.1:5500'] // Whitelist the domains you want to allow
+  origin: ['http://localhost:3000'] 
 };
 app.use(cors(corsOptions)); 
 
@@ -26,7 +25,9 @@ app.use(bodyParser.json({
 const cspOptions = {
   directives: {
     defaultSrc: ["'self'"],
-    scriptSrc: ["'self'", "https://cdn.tailwindcss.com/"], // Add the CDN here
+    scriptSrc: ["'self'", "https://cdn.tailwindcss.com", "https://kit.fontawesome.com", "https://ka-f.fontawesome.com"],
+    styleSrc: ["'self'", "https://ka-f.fontawesome.com",  "'unsafe-inline'"],
+    connectSrc: ["'self'", "https://ka-f.fontawesome.com"],
     // Add other directives as needed
   },
 };
