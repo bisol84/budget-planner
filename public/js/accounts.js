@@ -3,10 +3,14 @@ const addAccountForm = document.getElementById('add-account-form')
 
 // Display the accounts cards when page loads
 window.addEventListener('DOMContentLoaded', function() {
-  getCards()
+  getAccountsCards()
 })
 
-// Create the account card
+/**
+ * Create and return an account card
+ * @param {*} account 
+ * @returns 
+ */
 function createAccountCard(account) {
   const accountCard = document.createElement('div');
   accountCard.innerHTML = `
@@ -22,7 +26,10 @@ function createAccountCard(account) {
     return accountCard
 }
 
-// Render all accounts cards
+/**
+ * Render all accounts cards
+ * @param {*} accounts 
+ */
 function renderAccountsCards(accounts) {
   const accountsDiv = document.getElementById('accounts')
   accounts.forEach(account => {
@@ -31,8 +38,10 @@ function renderAccountsCards(accounts) {
   })
 }
 
-// Load and display the account card
-function getCards() {
+/**
+ * Empty the table get the accounts cards
+ */
+function getAccountsCards() {
   const accountsDiv = document.getElementById('accounts')
   accountsDiv.innerHTML = ''
   fetch(accountsURL, {
@@ -48,7 +57,7 @@ function getCards() {
     })
 }
 
-// Add account
+// Add a new account
 addAccountForm.addEventListener('submit', function(e) {  
   e.preventDefault()
   const jsonData = {
@@ -67,7 +76,7 @@ addAccountForm.addEventListener('submit', function(e) {
   })
     .then(response => response.json())
     .then(data => {
-      getCards()
+      getAccountsCards()
     })
     .catch(error => {
       console.error('Error when saving account:', error);

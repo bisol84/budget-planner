@@ -9,7 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error('Error fetching menu:', error))
 });
 
-// Menu selected element
+/**
+ * Set the classes for the current page
+ */
 function menuSetCurrentPage() {
 
   const currentPageURL = window.location.pathname;

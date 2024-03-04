@@ -8,56 +8,63 @@ window.addEventListener('DOMContentLoaded', function() {
   getTransactions()
 })
 
-  // Display transaction table
-  function displayTransactionTable(transactions) {
-    const transactionTable = document.getElementById('transaction-table-content');
-    transactionTable.innerHTML = ''
-    transactions.forEach(transaction => {
-      const transactionLine = createTableLine(transactionTable)
-      const divTransactionDate = createTableCell(transactionLine)
-      const transactionDate = new Date(transaction.date)
-      const formattedDate = transactionDate.toLocaleDateString("fr-CH");
-      addTextContent(divTransactionDate, formattedDate)
-      const divTransactionAmount = createTableCell(transactionLine)
-      addNumericContent(divTransactionAmount, transaction.amount)
-      const divTransactionImportCategory = createTableCell(transactionLine)
-      addTextContent(divTransactionImportCategory, transaction.import_category)
-      const divTransactionSelectedCategory = createTableCell(transactionLine)
-      const cellTransactionSelectedCategory = addTag(divTransactionSelectedCategory, transaction.color, transaction.category)
-      cellTransactionSelectedCategory.classList.add('selected-category')
-      //addTextContent(divTransactionSelectedCategory, transaction.category)
-      const divTransactionDescription = createTableCell(transactionLine)
-      addTextContent(divTransactionDescription, transaction.description)
-      const divTransactionAccount = createTableCell(transactionLine)
-      const cellTransactionAccount = addTextContent(divTransactionAccount, transaction.name)
-      cellTransactionAccount.classList.add('account')
+/**
+ * Display transaction table
+ * @param {*} transactions 
+ */
+function displayTransactionTable(transactions) {
+  const transactionTable = document.getElementById('transaction-table-content');
+  transactionTable.innerHTML = ''
+  transactions.forEach(transaction => {
+    const transactionLine = createTableLine(transactionTable)
+    const divTransactionDate = createTableCell(transactionLine)
+    const transactionDate = new Date(transaction.date)
+    const formattedDate = transactionDate.toLocaleDateString("fr-CH");
+    addTextContent(divTransactionDate, formattedDate)
+    const divTransactionAmount = createTableCell(transactionLine)
+    addNumericContent(divTransactionAmount, transaction.amount)
+    const divTransactionImportCategory = createTableCell(transactionLine)
+    addTextContent(divTransactionImportCategory, transaction.import_category)
+    const divTransactionSelectedCategory = createTableCell(transactionLine)
+    const cellTransactionSelectedCategory = addTag(divTransactionSelectedCategory, transaction.color, transaction.category)
+    cellTransactionSelectedCategory.classList.add('selected-category')
+    //addTextContent(divTransactionSelectedCategory, transaction.category)
+    const divTransactionDescription = createTableCell(transactionLine)
+    addTextContent(divTransactionDescription, transaction.description)
+    const divTransactionAccount = createTableCell(transactionLine)
+    const cellTransactionAccount = addTextContent(divTransactionAccount, transaction.name)
+    cellTransactionAccount.classList.add('account')
 
-      // Special because of button onClick event
-      const divtransactionModifyButton = createTableCell(transactionLine)
-      const modifyTransactionButton = addButton(divtransactionModifyButton, 'Modifier',transaction.ID)
-      modifyTransactionButton.onclick = function(e) {
-        editTransaction(e)
-      }
-      // Special because of button onClick event
-      const divtransactionDeleteButton = createTableCell(transactionLine)
-      const deleteTransactionButton = addButton(divtransactionDeleteButton, 'Supprimer',transaction.ID)
-      deleteTransactionButton.onclick = function(e) {
-        e.preventDefault()
-        deleteTransaction(e.target.id)
-        hideTransaction(transactionLine)
-      }
-    })
-  }
+    // Special because of button onClick event
+    const divtransactionModifyButton = createTableCell(transactionLine)
+    const modifyTransactionButton = addButton(divtransactionModifyButton, 'Modifier',transaction.ID)
+    modifyTransactionButton.onclick = function(e) {
+      editTransaction(e)
+    }
+    // Special because of button onClick event
+    const divtransactionDeleteButton = createTableCell(transactionLine)
+    const deleteTransactionButton = addButton(divtransactionDeleteButton, 'Supprimer',transaction.ID)
+    deleteTransactionButton.onclick = function(e) {
+      e.preventDefault()
+      deleteTransaction(e.target.id)
+      hideTransaction(transactionLine)
+    }
+  })
+}
 
-// Hide transaction in table
+/**
+ * Hide transaction in table
+ * @param {*} targetLine 
+ */
 function hideTransaction(targetLine) {
   targetLine.remove()
 }
 
-// Display top 5 transactions
+/**
+ * Display top 5 transactions
+ * @param {*} data 
+ */
 function displayTop5(data) {
-  //const numericValue = parseFloat(value);
-  //span.textContent = numericValue.toFixed(2);
   const top5div = document.getElementById('top-transactions')
   top5div.innerHTML = ''
   data.forEach(topCategory => {
@@ -73,6 +80,9 @@ function displayTop5(data) {
   })
 }
 
+/**
+ * Get the top 5 transactions
+ */
 function getTop5() {
 // Get the top5
 fetch('http://localhost:3000/api/transactions/top5', {
@@ -88,7 +98,9 @@ fetch('http://localhost:3000/api/transactions/top5', {
   });
 }
 
-// Get the transactions
+/**
+ * Get all the transactions
+ */
 function getTransactions() {
   fetch('http://localhost:3000/api/transactions', {
       method: 'GET',
@@ -103,7 +115,10 @@ function getTransactions() {
       });
   }
 
-// Edit transaction
+/**
+ * Display modal to edit the transaction
+ * @param {*} e 
+ */
 function editTransaction(e) {
   const editMmodal = document.getElementById('edit-modal');
   const btnCloseModal = document.getElementById('close-modal')
@@ -174,7 +189,10 @@ function editTransaction(e) {
   btnCloseModal.addEventListener('click', closeModal)
 }
 
-// Save transactions category 
+/**
+ * Save the transaction with information from modal
+ * @param {*} transactionId 
+ */
 function saveTransaction(transactionId) {
   //const selectAccount = document.getElementById('')
   const editMmodal = document.getElementById('edit-modal');
@@ -213,7 +231,10 @@ function saveTransaction(transactionId) {
   getTop5()
 }
 
-// Delete a transaction
+/**
+ * Delete a transaction
+ * @param {*} buttonId 
+ */
 function deleteTransaction(buttonId) {
   fetch('http://localhost:3000/api/transactions/' + buttonId, {
       method: 'DELETE',
@@ -222,12 +243,14 @@ function deleteTransaction(buttonId) {
       }
   })
 
-  // Update the transactions table
-  //getTransactions()
+  // Update the top 5
   getTop5()
 }
 
-// Get all the categories
+/**
+ * Get all the categories
+ * @returns 
+ */
 function getCategories() {
   return fetch('http://localhost:3000/api/categories', {
       method: 'GET',
@@ -238,7 +261,10 @@ function getCategories() {
       .then(response => response.json())
 }
 
-// Get all the accounts
+/**
+ * Get all the accounts
+ * @returns 
+ */
 function getAccounts() {
   return fetch('http://localhost:3000/api/accounts', {
       method: 'GET',

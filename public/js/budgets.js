@@ -5,26 +5,29 @@ const budgetMonth = document.getElementById('budget-month')
 // Display the budgets categories, the amount and the transaction amount when page loads
 window.addEventListener('DOMContentLoaded', function() {
 
-  // Date for input month
-  const currentDate = new Date()
-
-  // Set actuel month to budget date (day 1)
-  budgetMonth.valueAsDate = currentDate;
+  // Set actuel month to budget date
+  budgetMonth.valueAsDate = new Date();
 
   // Load budgets
-  const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-  const fullYear = currentDate.getFullYear();
-  const formattedDate = `${fullYear}-${month}-01`;
-  getBudgets(formattedDate)
+  getBudgets(firstDayOfMonth())
 })
 
-// Change tbe date
-budgetMonth.addEventListener('change', function(e) {
-  const selectedDate = new Date(budgetMonth.value)
-  const month = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
-  const fullYear = selectedDate.getFullYear();
+/**
+ * Return the first day of month
+ * @param {*} date 
+ * @returns string
+ */
+function firstDayOfMonth(date = new Date()) {
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const fullYear = date.getFullYear();
   const formattedDate = `${fullYear}-${month}-01`;
-  getBudgets(formattedDate)
+  return formattedDate
+}
+
+// Refresh the budget when modifying tbe date
+budgetMonth.addEventListener('change', function() {
+  const selectedDate = new Date(budgetMonth.value)
+  getBudgets(firstDayOfMonth(selectedDate))
 })
 
 // Display budget table
@@ -67,11 +70,13 @@ function displayBudgetTable(budgets) {
   }
 }
 
-// Modal to modify budget
+/**
+ * Get the information and load the modal to change the budget
+ * @param {*} budgetId 
+ */
 function editBudget(budgetId) {
   const editMmodal = document.getElementById('edit-modal');
   const inputAmount = document.getElementById('input-account-amount')
-  const btnSaveModal = document.getElementById('save-modal')
   const btnCloseModal = document.getElementById('close-modal')
   const formEditBudget = document.getElementById('form-edit-budget')
   editMmodal.classList.remove('hidden');
@@ -91,7 +96,10 @@ function editBudget(budgetId) {
   btnCloseModal.addEventListener('click', closeModal)
 }
 
-// Save the budget
+/**
+ * Save the budget
+ * @param {*} budgetId 
+ */
 function saveBudget(budgetId) {
   const amount = document.getElementById('input-account-amount').value
   //const budgetMonthSelected = `${budgetMonth.value}-01`;
@@ -124,7 +132,10 @@ function saveBudget(budgetId) {
         getBudgets(formattedDate)
 }
   
-// Get budgets
+/**
+ * Get the budgets for a given date (month)
+ * @param {*} dateFilter 
+ */
 function getBudgets(dateFilter) {
   const jsonCategories = {};
 

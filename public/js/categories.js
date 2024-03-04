@@ -5,7 +5,10 @@ window.addEventListener('DOMContentLoaded', function() {
   getCategories()
 })
 
-// Display budget table
+/**
+ * Display budget table
+ * @param {*} categories 
+ */
 function displayCategoriesTable(categories) {
   const categoriesTable = document.getElementById('categories-table-content');
   categoriesTable.innerHTML = ''
@@ -28,7 +31,9 @@ function displayCategoriesTable(categories) {
   })
 }
 
-// Get the categories and display table
+/**
+ * Get the categories and display table
+ */
 function getCategories() {
   fetch('http://localhost:3000/api/categories', {
     method: 'GET',
@@ -46,7 +51,12 @@ function getCategories() {
   }
 
 
-// Modal to modify budget
+/**
+ * Modal to modify budget
+ * @param {*} categoryId 
+ * @param {*} categoryName 
+ * @param {*} categoryColor 
+ */
 function editCategory(categoryId, categoryName, categoryColor) {
   console.log(`edit : ${categoryId}`)
   const editMmodal = document.getElementById('edit-modal');
@@ -74,7 +84,10 @@ function editCategory(categoryId, categoryName, categoryColor) {
   btnCloseModal.addEventListener('click', closeModal)
 }
 
-// Save the budget
+/**
+ * Save the category
+ * @param {*} categoryId 
+ */
  function saveCategory(categoryId) {
   const categoryName = document.getElementById('input-category-name').value
   const categoryColor = document.getElementById('input-category-color').value
@@ -94,6 +107,5 @@ function editCategory(categoryId, categoryName, categoryColor) {
         .catch(error => {
             console.error('Erreur lors de l\'envoi du JSON au serveur:', error);
         });
-    // reload table
     getCategories()
 }
