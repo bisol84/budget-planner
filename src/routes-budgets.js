@@ -39,6 +39,7 @@ router.get("/:date/:id", function (req, res) {
   `;
   const params = [monthFilter, monthFilter, monthFilter, monthFilter, parentID];
   const response = [];
+  // Added security
   db.all(sql, params, (err, rows) => {
     if (err) {
       throw err;
