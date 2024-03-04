@@ -1,5 +1,5 @@
-const router      = require("express").Router();
-const db          = require('./db');
+const router = require("express").Router();
+const db = require('../database/db');
 
 // List all budgets categories
 router.get("/categories/parents", function (req, res) {

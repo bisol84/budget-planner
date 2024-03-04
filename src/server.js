@@ -52,10 +52,10 @@ app.listen(PORT, () => {
 app.use(express.static(path.join(__dirname, '../public')));
 
 // Routes required
-const routesTransactions = require("./routes-transactions.js")
-const routesAccounts = require("./routes-accounts.js")
-const routesBudgets = require("./routes-budgets.js")
-const routesCategories = require("./routes-categories.js")
+const routesTransactions = require("./routes/routes-transactions.js")
+const routesAccounts = require("./routes/routes-accounts.js")
+const routesBudgets = require("./routes/routes-budgets.js")
+const routesCategories = require("./routes/routes-categories.js")
 
 // Decalaration of routes
 app.use("/api/transactions", routesTransactions);

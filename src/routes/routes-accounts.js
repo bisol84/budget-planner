@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const db = require('./db');
+const db = require('../database/db');
 
 // List all accounts
 router.get("/", function (req, res) {
