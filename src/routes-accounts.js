@@ -3,7 +3,7 @@ const db = require('./db');
 
 // List all accounts
 router.get("/", function (req, res) {
-  let sql = 'SELECT * FROM accounts';
+  let sql = 'SELECT name, description, amount, type FROM accounts';
   const response = [];
   db.all(sql, [], (err, rows) => {
     if (err) {

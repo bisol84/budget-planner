@@ -74,7 +74,7 @@ function createData(db) {
   // Account
   const sqlAccount = 'INSERT INTO accounts (name, description, amount, type) VALUES (?, ?, ?, ?)';
 
-  // Insert each row using a loop
+  // Insert demo account
   db.run(sqlAccount, ['Compte 01', '', '0', 'Compte bancaire'])
 
   // Add categories (1-999 = simple category / 1000+ = parent category)
