@@ -1,11 +1,9 @@
 const router = require("express").Router();
-const { json } = require("body-parser");
+const db = require('./db');
 const multer = require('multer')
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
 const parser = require('csv-parse')
-const db = require('./db');
-const { default: JSDOMEnvironment } = require("jest-environment-jsdom");
 
 // List all transactions with category and amount
 router.get("/", function (req, res) {
@@ -66,7 +64,7 @@ router.get("/top5", function (req, res) {
 router.post("/upload", upload.single("file"), (req, res) => {
 
   // File uploaded successfully, parse CSV data
-  const csvData = req.file.buffer.toString(); // Get the CSV data from the buffer
+  const csvData = req.file.buffer.toString();
 
   // Parse the CSV data
   parser.parse(csvData, {
@@ -105,9 +103,7 @@ router.post("/upload", upload.single("file"), (req, res) => {
 // Update transaction category and account
 router.post("/:id", function (req, res) {
   const jsonData = req.body.data
-  console.log(jsonData)
   res.json({ message: 'JSON received on server' });
-  // Parse JSON
   db.run("UPDATE transactions SET id_category = ?, id_account = ?, transaction_type = ? WHERE ID = ?", [
     jsonData.id_category, // id_category
     jsonData.id_account,  // id_account

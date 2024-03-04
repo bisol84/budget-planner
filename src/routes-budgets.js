@@ -1,5 +1,4 @@
 const router      = require("express").Router();
-const { json }    = require("body-parser");
 const db          = require('./db');
 
 // List all budgets categories
@@ -20,7 +19,7 @@ router.get("/categories/parents", function (req, res) {
 // List all budgets by date, categories with transactions amount by category
 router.get("/:date/:id", function (req, res) {
   const monthFilter = req.params.date
-  const parentID = req.params.id
+  const parentCategoryId = req.params.id
   let sql = `
     SELECT 
     c.ID,
@@ -37,9 +36,8 @@ router.get("/:date/:id", function (req, res) {
   GROUP BY
     c.category
   `;
-  const params = [monthFilter, monthFilter, monthFilter, monthFilter, parentID];
+  const params = [monthFilter, monthFilter, monthFilter, monthFilter, parentCategoryId];
   const response = [];
-  // Added security
   db.all(sql, params, (err, rows) => {
     if (err) {
       throw err;

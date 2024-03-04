@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const { json } = require("body-parser");
 const db = require('./db');
 
 // List all budgets categories
@@ -15,7 +14,6 @@ router.get("/", function (req, res) {
     });
     res.send(response)
   });
-  //db.close()
 });
 
 // Update category with color and text
@@ -28,7 +26,6 @@ router.post("/:id", function (req, res) {
     jsonData.color,  // category color
     categoryId // id_category
   ]);
-    //db.close()
 });
 
 module.exports = router;
