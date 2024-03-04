@@ -22,7 +22,7 @@ router.get("/:date/:id", function (req, res) {
   const monthFilter = req.params.date
   const parentID = req.params.id
   let sql = `
-  SELECT 
+    SELECT 
     c.ID,
     c.category,
     c.parent_category_id,
@@ -31,14 +31,15 @@ router.get("/:date/:id", function (req, res) {
     b.end_date,
     SUM(CASE WHEN c.category = 'A classer' AND t.amount > 0 THEN -t.amount ELSE t.amount END) AS "transactions_amount"
   FROM categories c
-  LEFT OUTER JOIN budgets b on b.id_category = c.ID and b.start_date <= '${monthFilter}' and b.end_date > '${monthFilter}'
-  LEFT OUTER JOIN transactions t on t.id_category = c.ID and strftime('%m', t.date) = strftime('%m', '${monthFilter}') and strftime('%Y', t.date) = strftime('%Y', '${monthFilter}')
-  WHERE c.parent_category_id = ${parentID}
+  LEFT OUTER JOIN budgets b on b.id_category = c.ID and b.start_date <= ? and b.end_date > ?
+  LEFT OUTER JOIN transactions t on t.id_category = c.ID and strftime('%m', t.date) = strftime('%m', ?) and strftime('%Y', t.date) = strftime('%Y', ?)
+  WHERE c.parent_category_id = ?
   GROUP BY
-	  c.category
+    c.category
   `;
+  const params = [monthFilter, monthFilter, monthFilter, monthFilter, parentID];
   const response = [];
-  db.all(sql, [], (err, rows) => {
+  db.all(sql, params, (err, rows) => {
     if (err) {
       throw err;
     }
