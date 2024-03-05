@@ -56,9 +56,11 @@ const routesTransactions = require("./routes/routes-transactions.js")
 const routesAccounts = require("./routes/routes-accounts.js")
 const routesBudgets = require("./routes/routes-budgets.js")
 const routesCategories = require("./routes/routes-categories.js")
+const routesDashboard = require("./routes/routes-dashboard.js")
 
 // Decalaration of routes
 app.use("/api/transactions", routesTransactions);
 app.use("/api/accounts", routesAccounts);
 app.use("/api/budgets", routesBudgets);
 app.use("/api/categories", routesCategories);
+app.use("/api/dashboard", routesDashboard);

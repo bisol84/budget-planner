@@ -49,6 +49,36 @@ router.get("/:date/:id", function (req, res) {
   });
 });
 
+
+// Return the total budget for given month
+router.get("/total/:date/", function (req, res) {
+  const monthFilter = req.params.date
+  console.log(monthFilter)
+  let sql = `
+    SELECT 
+    c.ID,
+    c.category,
+    c.parent_category_id,
+    SUM(CASE WHEN c.category = 'A classer' AND t.amount > 0 THEN -t.amount ELSE t.amount END) AS "transactions_amount"
+  FROM categories c
+  LEFT OUTER JOIN transactions t on t.id_category = c.ID and strftime('%m', t.date) = strftime('%m', ?) and strftime('%Y', t.date) = strftime('%Y', ?)
+  WHERE c.parent_category_id = ?
+  GROUP BY
+    c.category
+  `;
+  const params = [monthFilter, monthFilter, monthFilter, monthFilter, parentCategoryId];
+  const response = [];
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      throw err;
+    }
+    rows.forEach((row) => {
+      response.push(row);
+    });
+    res.send(response)
+  });
+});
+
 // Update budget for a category (amount)
 router.post("/:id", function (req, res) {
   const jsonData = req.body.data
