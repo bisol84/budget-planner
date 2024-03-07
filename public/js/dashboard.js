@@ -3,13 +3,21 @@ const dashboardMonth = document.getElementById('dashboard-month')
 // Display the expenses / income for the current month by default
 window.addEventListener('DOMContentLoaded', function() {
 
-  // Set actual month 
-  dashboardMonth.valueAsDate = new Date();
+  // Load budgets
+  const savedMonth = localStorage.getItem('selectedMonth')
+  if (savedMonth) {
+    dashboardMonth.value = savedMonth;
+    getBudget(firstDayOfMonth(new Date(dashboardMonth.value)))
+  } else {
+    dashboardMonth.valueAsDate = new Date();
+    getBudget(firstDayOfMonth())
+  }
 })
 
 // Refresh the dashboard
 dashboardMonth.addEventListener('change', function() {
   const selectedDate = new Date(dashboardMonth.value)
+  localStorage.setItem('selectedMonth', dashboardMonth.value);
   getBudget(firstDayOfMonth(selectedDate))
 })
 

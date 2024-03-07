@@ -5,11 +5,15 @@ const budgetMonth = document.getElementById('budget-month')
 // Display the budgets categories, the amount and the transaction amount when page loads
 window.addEventListener('DOMContentLoaded', function() {
 
-  // Set actual month to budget date
-  budgetMonth.valueAsDate = new Date();
-
   // Load budgets
-  getBudgets(firstDayOfMonth())
+  const savedMonth = localStorage.getItem('selectedMonth')
+  if (savedMonth) {
+    budgetMonth.value = savedMonth;
+    getBudgets(firstDayOfMonth(new Date(savedMonth)))
+  } else {
+    budgetMonth.valueAsDate = new Date();
+    getBudgets(firstDayOfMonth())
+  }
 })
 
 /**
@@ -27,6 +31,7 @@ function firstDayOfMonth(date = new Date()) {
 // Refresh the budget when modifying tbe date
 budgetMonth.addEventListener('change', function() {
   const selectedDate = new Date(budgetMonth.value)
+  localStorage.setItem('selectedMonth', budgetMonth.value);
   getBudgets(firstDayOfMonth(selectedDate))
 })
 
