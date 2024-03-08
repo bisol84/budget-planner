@@ -18,71 +18,63 @@
   <div id="menu"></div>
 
   <!-- Select Month -->
-  <div class="">
-    <div class="">
-    <label for="start"></label>
+  <div class="box-small">
     <input type="month" id="budget-month" class="datepicker-input" />
-    </div>
   </div>
 
   <!-- Budget -->
   <div id="budget">
-    <!-- Table Section -->
-    <div class="">
 
-      <!-- Table -->
-      <table class="">
-        <thead class="">
-            <tr>
-                <th scope="col" class="">
-                  Catégories
-                </th>
-                <th scope="col" class="">
-                  Budget
-                </th>
-                <th scope="col" class="">
-                  Transactions
-                </th>
-                <th scope="col" class="">
-                  Restant
-                </th>
-                <th scope="col" class="">
-                  
-                </th>
-            </tr>
-        </thead>
-        <tbody id="budget-table" class="">
-          
-        </tbody>
-      </table>
-      <!-- End Table -->
-    </div>
+    <!-- Table -->
+    <table class="table-styled">
+      <thead>
+          <tr>
+              <th scope="col">
+                Catégories
+              </th>
+              <th scope="col">
+                Budget
+              </th>
+              <th scope="col">
+                Transactions
+              </th>
+              <th scope="col">
+                Restant
+              </th>
+              <th scope="col">
+                
+              </th>
+          </tr>
+      </thead>
+      <tbody id="budget-table">
+        
+      </tbody>
+    </table>
+    <!-- End Table -->
   </div>
-  <!-- End Card -->
-</div>
 
-<!-- Modal to modify budgets -->
-<div id="edit-modal" class="hidden">
-  <div class="">
+  <!-- Modal to modify budgets -->
+  <div id="edit-modal" class="hidden">
     <div class="">
       <div class="">
-        <h1 class="">Modifier le budget</h1>
-      </div>
-      <form id="form-edit-budget">
         <div class="">
-          <label for="input-budget-amount" class="">Montant</label>
-          <input type="number" step="any" id="input-account-amount" class=""> 
+          <h1 class="">Modifier le budget</h1>
         </div>
-        <!-- Close button -->
-        <div class="mt-6 text-right">
-          <button type="submit" id="save-modal" class="">Sauvegarder</button>
-          <button type="button" id="close-modal" class="">Fermer</button>
-        </div>
-      </form>
+        <form id="form-edit-budget">
+          <div class="">
+            <label for="input-budget-amount" class="">Montant</label>
+            <input type="number" step="any" id="input-account-amount" class=""> 
+          </div>
+          <!-- Close button -->
+          <div class="mt-6 text-right">
+            <button type="submit" id="save-modal" class="">Sauvegarder</button>
+            <button type="button" id="close-modal" class="">Fermer</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
-<!-- End Modal to modify budgets -->
+  <!-- End Modal to modify budgets -->
 
 </body>
 </html>

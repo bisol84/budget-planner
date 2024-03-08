@@ -9,6 +9,8 @@
   --dark-gray: #8A8A8A;
   --gray: #C0C0C0;
   --light-gray: #F3F3F3;
+  --green: #157d09;
+  --red: #ff4343;
 }
 
 /* 
@@ -100,6 +102,7 @@ Date Picker
   padding: 2px;
   cursor: pointer;
   border: none;
+  font-family: "Roboto", sans-serif;
 }
 
 /*
@@ -147,4 +150,57 @@ Texts
   color: var(--gray);
   font-size: 14px;
   font-weight: bold;
+}
+
+/*
+
+Tables
+
+*/
+.table-styled {
+  border-collapse: collapse;
+  font-size: 0.9em;
+  width: 100%;
+}
+
+.table-styled thead tr {
+  background-color: var(--dark-gray);
+  color: #ffffff;
+  text-align: left;
+}
+
+.table-styled th,
+.table-styled td {
+    padding: 12px 20px;
+}
+
+.table-styled tbody tr {
+  border-bottom: 1px solid var(--gray);
+}
+
+.table-styled tbody tr:last-of-type {
+  border-bottom: 2px solid var(--dark-gray);
+}
+
+/*
+
+Budget
+
+*/
+#budget {
+  width: 95%;
+  margin-left: 25px;
+  margin-bottom: 20px;
+}
+
+.subheader {
+  background-color: var(--gray) !important;
+}
+
+.budget-up {
+  color:var(--green)
+}
+
+.budget-down {
+  color:var(--red)
 }

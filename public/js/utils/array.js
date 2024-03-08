@@ -17,7 +17,7 @@ export function createTableLine(table) {
  */
 export function createTableSubHeaderLine(table) {
   //const tr = createElementWithClasses('tr', ['bg-gray-200', 'rounded-md', 'px-3', 'py-2', 'font-bold']);
-  const tr = createElementWithClasses('tr', []);
+  const tr = createElementWithClasses('tr', ['subheader']);
   table.appendChild(tr);
   return tr
 }
@@ -95,9 +95,11 @@ export function addNumericContentWithColor(div, value) {
   if (value == 0) {
     //span.classList.add('text-gray-600')
   } else if (value < 0) {
+    span.classList.add('budget-down')
     // span.classList.add('text-red-600')
     // span.classList.remove('text-gray-600', 'dark:text-gray-400')
   } else {
+    span.classList.add('budget-up')
     // span.classList.add('text-green-600')
     // span.classList.remove('text-gray-600', 'dark:text-gray-400')
   }
