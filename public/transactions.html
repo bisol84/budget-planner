@@ -4,17 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>budget-tracker</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/a7b97c66c9.js" crossorigin="anonymous"></script>
     <script src="/js/menu.js" defer></script>
     <script src="/js/upload.js" defer></script>
     <script src="/js/utils/array.js" type="module"></script>
     <script src="/js/transactions.js" type="module"></script>   
-    
-    <!-- Data Tables -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
-    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
-
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -22,69 +20,69 @@
   <div id="menu"></div>
 
     <!-- Top 5 transactions -->
-    <div id="top-transactions" class="grid grid-cols-5 gap-4">
+    <div id="top-transactions" class="">
       
     </div>
     <!-- End Top 5 transactions -->
 
   
     <!-- File selection -->
-    <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <div class="">
       <!-- <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14"> -->
-      <div class="mb-5 w-full lg:w-1/3"> <!-- Ajoutez la classe w-full pour prendre toute la largeur sur les écrans plus petits -->
-          <h3 class="font-bold text-lg">Importer un fichier (.csv)</h2>
+      <div class=""> <!-- Ajoutez la classe w-full pour prendre toute la largeur sur les écrans plus petits -->
+          <h3 class="">Importer un fichier (.csv)</h2>
       </div>
 
       
       <form id="send-file" enctype="multipart/form-data">
-          <div class="mt-5 lg:mt-8 flex flex-col items-center gap-2 sm:flex-row sm:gap-3 w-full lg:w-1/2"> <!-- Ajoutez également la classe w-full ici -->
-              <div class="w-full relative flex items-center border-solid border">
+          <div class=""> <!-- Ajoutez également la classe w-full ici -->
+              <div class="">
                   <!-- Masquer le bouton "Choose file" -->
-                  <input type="file" id="file-input" accept=".csv" name="file-input" class="absolute inset-0 opacity-0 cursor-pointer">
+                  <input type="file" id="file-input" accept=".csv" name="file-input" class="">
                   <!-- Bouton stylisé personnalisé -->
-                  <label for="file-input-name" class="bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer">Choisir un fichier</label>
-                  <span id="file-input-name" class="ml-2"></span>
+                  <label for="file-input-name" class="">Choisir un fichier</label>
+                  <span id="file-input-name" class=""></span>
               </div>
-              <input type="submit" value="Envoyer" class="bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer">
+              <input type="submit" value="Envoyer" class="">
           </div>
       </form>
     </div>
   <!-- End File selection-->
 
   <!-- Table -->
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg x-6 py-4">
-    <table id="transaction-table" class="table-auto w-full text-sm text-left rtl:text-right text-gray-500">
-      <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+  <div class="">
+    <table id="transaction-table" class="">
+      <thead class="">
         <tr>
-          <th scope="col" class="px-3 py-3">
+          <th scope="col" class="">
             Date
           </th>
-          <th scope="col" class="px-3 py-3">
+          <th scope="col" class="">
             Montant
           </th>
-          <th scope="col" class="px-3 py-3">
+          <th scope="col" class="">
             Catégorie importée
           </th>
-          <th scope="col" class="px-3 py-3">
+          <th scope="col" class="">
             Catégorie sélectionnée
           </th>
-          <th scope="col" class="px-3 py-3">
+          <th scope="col" class="">
             Description
           </th>
-          <th scope="col" class="px-3 py-3">
+          <th scope="col" class="">
             Compte
           </th>
-          <th scope="col" class="px-3 py-3">
+          <th scope="col" class="">
 
           </th>
-          <th scope="col" class="px-3 py-3">
+          <th scope="col" class="">
 
           </th>
         </tr>
       </thead>
       
       <!-- Table loaded by JS -->
-      <tbody id="transaction-table-content" class="bg-white divide-y divide-gray-200">
+      <tbody id="transaction-table-content" class="">
         
       </tbody>
     </table>
@@ -92,28 +90,28 @@
   <!-- End Table -->
 
   <!-- Modal to modify transactions -->
-<div id="edit-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
-  <div class="relative w-auto my-6 mx-auto max-w-sm">
-    <div class="bg-white rounded-lg shadow-lg p-4">
-      <div class="mb-4">
-        <h1 class="text-sm font-semibold">Modifier la transaction</h1>
+<div id="edit-modal" class="hidden ">
+  <div class="">
+    <div class="">
+      <div class="">
+        <h1 class="">Modifier la transaction</h1>
       </div>
       <form id="form-edit-transaction">
-        <div class="text-gray-700">
-          <p class="block text-sm mb-2">Catégorie</p>
+        <div class="">
+          <p class="">Catégorie</p>
           <div id="input-transaction-category"></div>
-          <p class="block text-sm mb-2">Compte</p>
+          <p class="">Compte</p>
           <div id="input-transaction-account"></div>
-          <label class="block text-sm mb-2">Type</label>
+          <label class="">Type</label>
           <input type="radio" id="type-entrant" name="transaction-type" />
           <label for="type-entrant">Entrant</label>
           <input type="radio" id="type-sortant" name="transaction-type" checked />
           <label for="type-sortant">Sortant</label>
         </div>
         <!-- Close button -->
-        <div class="mt-6 text-right">
-          <button type="submit" id="save-modal" class="px-4 py-2 bg-gray-200 text-gray-800 text-sm rounded-lg focus:outline-none">Sauvegarder</button>
-          <button type="button" id="close-modal" class="px-4 py-2 bg-gray-200 text-gray-800 text-sm rounded-lg focus:outline-none">Fermer</button>
+        <div class="">
+          <button type="submit" id="save-modal" class="">Sauvegarder</button>
+          <button type="button" id="close-modal" class="">Fermer</button>
         </div>
       </form>
     </div>

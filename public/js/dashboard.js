@@ -3,7 +3,7 @@ const dashboardMonth = document.getElementById('dashboard-month')
 // Display the expenses / income for the current month by default
 window.addEventListener('DOMContentLoaded', function() {
 
-  // Load budgets
+  // Load Total income / outcome
   const savedMonth = localStorage.getItem('selectedMonth')
   if (savedMonth) {
     dashboardMonth.value = savedMonth;
@@ -55,13 +55,12 @@ function createTotalCard(data) {
   const transactionsAmount = data[0].transactions_amount
   const percentageUsed = percentage(transactionsAmount, budgetsAmount)
   totalCard.innerHTML = `
-  <div class="flex items-center relative p-4 w-full bg-white rounded-lg overflow-hidden shadow">
-    <div class="w-12 h-12 rounded-full bg-gray-100"></div>
-    <div class="ml-3">
-      <p class="font-medium text-gray-800">Total</p>
-      <p class="text-sm text-gray-600">Budgets : ${budgetsAmount}</p>
-      <p class="text-sm text-gray-600">Transactions : ${transactionsAmount}</p>
-      <div class="percentage">${percentageUsed}%</div>
+  <div class="box-small">
+    <div class="">
+      <p class="text-title">Total</p>
+      <p class="text-content">Budgets : ${budgetsAmount}</p>
+      <p class="text-content">Transactions : ${transactionsAmount}</p>
+      <div class="text-subcontent">${percentageUsed}%</div>
     </div>
   </div>
     `

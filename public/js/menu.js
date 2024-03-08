@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', function () {
 function menuSetCurrentPage() {
 
   const currentPageURL = window.location.pathname;
-  const menuLinks = document.querySelectorAll('#menu a')
+  const menuLinks = document.querySelectorAll('.menu a')
 
   menuLinks.forEach(menuLink => {
     if(menuLink.href.indexOf(currentPageURL) > -1) {
-      menuLink.classList.add('bg-gray-700', 'text-white')
+      menuLink.classList.add('menu-selected')
     }
   });
 

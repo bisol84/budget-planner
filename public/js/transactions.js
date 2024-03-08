@@ -69,11 +69,11 @@ function displayTop5(data) {
   top5div.innerHTML = ''
   data.forEach(topCategory => {
     top5div.innerHTML += `
-    <div class="flex items-center relative p-4 w-full bg-white rounded-lg overflow-hidden shadow">
-      <div class="w-12 h-12 rounded-full bg-[${topCategory.color}] flex items-center justify-center"><i class="${topCategory.icon} fa-lg"></i></div>
-      <div class="ml-3">
-        <p class="font-medium text-gray-800">${topCategory.category}</p>
-        <p class="text-sm text-gray-600">${(topCategory.total_transactions.toFixed(2))} CHF</p>
+    <div class="">
+      <div class=""><i class="${topCategory.icon} fa-lg"></i></div>
+      <div class="">
+        <p class="">${topCategory.category}</p>
+        <p class="">${(topCategory.total_transactions.toFixed(2))} CHF</p>
       </div>
       </div>
       `
@@ -141,7 +141,7 @@ function editTransaction(e) {
     selectAccountList.remove()
   }
   const selectCategory = document.createElement('select');
-  selectCategory.classList.add('bg-gray-50', 'border', 'border-gray-300', 'text-gray-900', 'text-sm', 'rounded-lg', 'focus:ring-blue-500', 'focus:border-blue-500', 'block', 'p-1.5');
+  // selectCategory.classList.add('bg-gray-50', 'border', 'border-gray-300', 'text-gray-900', 'text-sm', 'rounded-lg', 'focus:ring-blue-500', 'focus:border-blue-500', 'block', 'p-1.5');
   selectCategory.id = 'select-category-list'
   divSelectCategory.appendChild(selectCategory);
 
@@ -159,7 +159,7 @@ function editTransaction(e) {
 
   // Fills the accounts select list
   const selectAccount = document.createElement('select');
-  selectAccount.classList.add('bg-gray-50', 'border', 'border-gray-300', 'text-gray-900', 'text-sm', 'rounded-lg', 'focus:ring-blue-500', 'focus:border-blue-500', 'block', 'p-1.5');
+  //selectAccount.classList.add('bg-gray-50', 'border', 'border-gray-300', 'text-gray-900', 'text-sm', 'rounded-lg', 'focus:ring-blue-500', 'focus:border-blue-500', 'block', 'p-1.5');
   selectAccount.id = 'select-account-list'
   divSelectAccount.appendChild(selectAccount);
   getAccounts().then(accounts => {

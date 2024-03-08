@@ -4,7 +4,8 @@
  * @returns 
  */
 export function createTableLine(table) {
-    const tr = createElementWithClasses('tr', ['odd:bg-white', 'even:bg-gray-50', 'border-b']);
+    // const tr = createElementWithClasses('tr', ['odd:bg-white', 'even:bg-gray-50', 'border-b']);
+    const tr = createElementWithClasses('tr', []);
     table.appendChild(tr);
     return tr
   }
@@ -15,7 +16,8 @@ export function createTableLine(table) {
  * @returns 
  */
 export function createTableSubHeaderLine(table) {
-  const tr = createElementWithClasses('tr', ['bg-gray-200', 'rounded-md', 'px-3', 'py-2', 'font-bold']);
+  //const tr = createElementWithClasses('tr', ['bg-gray-200', 'rounded-md', 'px-3', 'py-2', 'font-bold']);
+  const tr = createElementWithClasses('tr', []);
   table.appendChild(tr);
   return tr
 }
@@ -38,7 +40,8 @@ export function createElementWithClasses(tagName, classNames) {
  * @returns 
  */
 export function createTableCell(budgetLine) {
-  const td = createElementWithClasses('td', ['px-3', 'py-2']);
+  //const td = createElementWithClasses('td', ['px-3', 'py-2']);
+  const td = createElementWithClasses('td', []);
   budgetLine.appendChild(td);
   return td;
 }
@@ -50,7 +53,8 @@ export function createTableCell(budgetLine) {
  * @returns 
  */
 export function addTextContent(div, value) {
-  const span = createElementWithClasses('span', ['text-sm', 'text-gray-600', 'dark:text-gray-400']);
+  //const span = createElementWithClasses('span', ['text-sm', 'text-gray-600', 'dark:text-gray-400']);
+  const span = createElementWithClasses('span', []);
   span.textContent = value;
   div.appendChild(span);
   return span
@@ -62,7 +66,8 @@ export function addTextContent(div, value) {
  * @param {*} value 
  */
 export function addNumericContent(div, value) {
-  const span = createElementWithClasses('span', ['text-sm', 'text-gray-600', 'dark:text-gray-400']);
+  //const span = createElementWithClasses('span', ['text-sm', 'text-gray-600', 'dark:text-gray-400']);
+  const span = createElementWithClasses('span', []);
   if (value == null) {
     span.textContent = '0.00'
   } else {
@@ -78,7 +83,8 @@ export function addNumericContent(div, value) {
  * @param {*} value 
  */
 export function addNumericContentWithColor(div, value) {
-  const span = createElementWithClasses('span', ['text-sm', 'text-gray-600', 'dark:text-gray-400']);
+  //const span = createElementWithClasses('span', ['text-sm', 'text-gray-600', 'dark:text-gray-400']);
+  const span = createElementWithClasses('span', []);
   if (value == null) {
     span.textContent = '0.00'
   } else {
@@ -87,13 +93,13 @@ export function addNumericContentWithColor(div, value) {
   }
 
   if (value == 0) {
-    span.classList.add('text-gray-600')
+    //span.classList.add('text-gray-600')
   } else if (value < 0) {
-    span.classList.add('text-red-600')
-    span.classList.remove('text-gray-600', 'dark:text-gray-400')
+    // span.classList.add('text-red-600')
+    // span.classList.remove('text-gray-600', 'dark:text-gray-400')
   } else {
-    span.classList.add('text-green-600')
-    span.classList.remove('text-gray-600', 'dark:text-gray-400')
+    // span.classList.add('text-green-600')
+    // span.classList.remove('text-gray-600', 'dark:text-gray-400')
   }
   div.appendChild(span);
 }
@@ -108,7 +114,8 @@ export function addNumericContentWithColor(div, value) {
 export function addTag(div, color, value) {
   const bgcolor = color
   const txtcolor = getTextColor(color)
-  const span = createElementWithClasses('span', [`bg-[${bgcolor}]`, `text-[${txtcolor}]`, 'text-xs', 'font-medium', 'me-2', 'px-2.5', 'py-0.5', 'rounded']);
+  // const span = createElementWithClasses('span', [`bg-[${bgcolor}]`, `text-[${txtcolor}]`, 'text-xs', 'font-medium', 'me-2', 'px-2.5', 'py-0.5', 'rounded']);
+  const span = createElementWithClasses('span', []);
   span.textContent = value;
   div.appendChild(span);
   return span
@@ -138,7 +145,8 @@ export function addIcon(div, icons) {
  * @returns 
  */
 export function addButton(div, textContent,categoryId) {
-  const button = createElementWithClasses('button', ['inline-flex', 'items-center', 'gap-x-1', 'text-sm', 'text-gray-600', 'decoration-2', 'hover:underline', 'font-medium', 'dark:focus:outline-none', 'dark:focus:ring-1', 'dark:focus:ring-gray-600']);
+  //const button = createElementWithClasses('button', ['inline-flex', 'items-center', 'gap-x-1', 'text-sm', 'text-gray-600', 'decoration-2', 'hover:underline', 'font-medium', 'dark:focus:outline-none', 'dark:focus:ring-1', 'dark:focus:ring-gray-600']);
+  const button = createElementWithClasses('button', []);
   button.textContent = textContent;
   button.id = categoryId;
   div.appendChild(button);

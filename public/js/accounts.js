@@ -14,12 +14,12 @@ window.addEventListener('DOMContentLoaded', function() {
 function createAccountCard(account) {
   const accountCard = document.createElement('div');
   accountCard.innerHTML = `
-  <div class="flex items-center relative p-4 w-full bg-white rounded-lg overflow-hidden shadow">
-    <div class="w-12 h-12 rounded-full bg-gray-100"></div>
-    <div class="ml-3">
-      <p class="font-medium text-gray-800">${account.name}</p>
-      <p class="text-sm text-gray-600">${account.description}</p>
-      <p class="text-sm text-gray-600">${account.type}</p>
+  <div class="">
+    <div class=""></div>
+    <div class="">
+      <p class="">${account.name}</p>
+      <p class="">${account.description}</p>
+      <p class="">${account.type}</p>
     </div>
     </div>
     `
