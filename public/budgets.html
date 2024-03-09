@@ -54,24 +54,21 @@
   </div>
 
   <!-- Modal to modify budgets -->
-  <div id="edit-modal" class="hidden">
-    <div class="">
-      <div class="">
-        <div class="">
-          <h1 class="">Modifier le budget</h1>
-        </div>
-        <form id="form-edit-budget">
-          <div class="">
-            <label for="input-budget-amount" class="">Montant</label>
-            <input type="number" step="any" id="input-account-amount" class=""> 
-          </div>
-          <!-- Close button -->
-          <div class="mt-6 text-right">
-            <button type="submit" id="save-modal" class="">Sauvegarder</button>
-            <button type="button" id="close-modal" class="">Fermer</button>
-          </div>
-        </form>
+  <div id="edit-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="">Modifier le budget</h1>
       </div>
+      <form id="form-edit-budget">
+        <div class="modal-body">
+          <!-- <label for="input-budget-amount" class="">Montant</label> -->
+          <input type="number" step="any" id="input-account-amount" placeholder="Montant"> 
+        </div>
+        <div class="modal-footer">
+          <button type="submit" id="save-modal" class="">Sauvegarder</button>
+          <button type="button" id="close-modal" class="">Fermer</button>
+        </div>
+      </form> 
     </div>
   </div>
   <!-- End Modal to modify budgets -->

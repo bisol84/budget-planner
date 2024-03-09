@@ -69,11 +69,11 @@ function displayTop5(data) {
   top5div.innerHTML = ''
   data.forEach(topCategory => {
     top5div.innerHTML += `
-    <div class="">
-      <div class=""><i class="${topCategory.icon} fa-lg"></i></div>
-      <div class="">
-        <p class="">${topCategory.category}</p>
-        <p class="">${(topCategory.total_transactions.toFixed(2))} CHF</p>
+    <div class="box-fixed">
+      <div><i class="${topCategory.icon} fa-lg"></i></div>
+      <div>
+        <p class="text-title">${topCategory.category}</p>
+        <p class="text-subcontent">${(topCategory.total_transactions.toFixed(2))} CHF</p>
       </div>
       </div>
       `
@@ -133,7 +133,7 @@ function editTransaction(e) {
   const selectAccountList = document.getElementById('select-account-list')
 
   // Display modal
-  editMmodal.classList.remove('hidden');
+  editMmodal.style.display = 'block'
 
   // Fills the categories select list
   if (selectCategoryList != null) {
@@ -182,7 +182,7 @@ function editTransaction(e) {
   };
   const closeModal = function(event) {
     event.preventDefault();  
-    editMmodal.classList.add('hidden'); 
+    editMmodal.style.display = 'none' 
     formEditTransaction.removeEventListener('submit', saveTransactionHandler);
   }
   formEditTransaction.addEventListener('submit', saveTransactionHandler)
@@ -196,7 +196,7 @@ function editTransaction(e) {
 function saveTransaction(transactionId) {
   //const selectAccount = document.getElementById('')
   const editMmodal = document.getElementById('edit-modal');
-  editMmodal.classList.add('hidden');
+  editMmodal.style.display = 'none'
   const selectCategoryList = document.getElementById('select-category-list')
   const selectedCategory = selectCategoryList.value
   const selectAccountList = document.getElementById('select-account-list')

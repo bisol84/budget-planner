@@ -69,7 +69,7 @@ function displayBudgetTable(budgets) {
       const divBudgetModifyButton = createTableCell(budgetLine)
       const modifyBudgetButton = addButton(divBudgetModifyButton, 'Modifier',childCategories[i].id)
       modifyBudgetButton.onclick = function(e) {
-        editBudget(childCategories[i].id)
+        editBudget(childCategories[i].id, parseFloat(childCategories[i].amount).toFixed(2))
       }
     }
   }
@@ -79,13 +79,14 @@ function displayBudgetTable(budgets) {
  * Get the information and load the modal to change the budget
  * @param {*} budgetId 
  */
-function editBudget(budgetId) {
+function editBudget(budgetId, actualBudget) {
   const editMmodal = document.getElementById('edit-modal');
   const inputAmount = document.getElementById('input-account-amount')
   const btnCloseModal = document.getElementById('close-modal')
   const formEditBudget = document.getElementById('form-edit-budget')
-  editMmodal.classList.remove('hidden');
+  editMmodal.style.display = 'block'
   inputAmount.focus()
+  inputAmount.value = actualBudget
   // Buttons
   const saveBudgetHandler = function(event) {
     event.preventDefault();  
@@ -94,7 +95,7 @@ function editBudget(budgetId) {
   };
   const closeModal = function(event) {
     event.preventDefault();  
-    editMmodal.classList.add('hidden'); 
+    editMmodal.style.display = 'none'
     formEditBudget.removeEventListener('submit', saveBudgetHandler);
   }
   formEditBudget.addEventListener('submit', saveBudgetHandler)
@@ -109,7 +110,7 @@ function saveBudget(budgetId) {
   const amount = document.getElementById('input-account-amount').value
   //const budgetMonthSelected = `${budgetMonth.value}-01`;
   const editMmodal = document.getElementById('edit-modal');
-  editMmodal.classList.add('hidden');
+  editMmodal.style.display = 'none'
   const jsonData = {}
   jsonData.amount = amount
   //jsonData.budgetmonth = budgetMonthSelected

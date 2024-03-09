@@ -5,7 +5,7 @@
  */
 export function createTableLine(table) {
     // const tr = createElementWithClasses('tr', ['odd:bg-white', 'even:bg-gray-50', 'border-b']);
-    const tr = createElementWithClasses('tr', []);
+    const tr = createElementWithClasses('tr', ['standard']);
     table.appendChild(tr);
     return tr
   }

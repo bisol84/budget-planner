@@ -19,70 +19,44 @@
   <!-- Menu include -->
   <div id="menu"></div>
 
-    <!-- Top 5 transactions -->
-    <div id="top-transactions" class="">
-      
-    </div>
-    <!-- End Top 5 transactions -->
-
-  
-    <!-- File selection -->
-    <div class="">
-      <!-- <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14"> -->
-      <div class=""> <!-- Ajoutez la classe w-full pour prendre toute la largeur sur les écrans plus petits -->
-          <h3 class="">Importer un fichier (.csv)</h2>
-      </div>
-
-      
-      <form id="send-file" enctype="multipart/form-data">
-          <div class=""> <!-- Ajoutez également la classe w-full ici -->
-              <div class="">
-                  <!-- Masquer le bouton "Choose file" -->
-                  <input type="file" id="file-input" accept=".csv" name="file-input" class="">
-                  <!-- Bouton stylisé personnalisé -->
-                  <label for="file-input-name" class="">Choisir un fichier</label>
-                  <span id="file-input-name" class=""></span>
-              </div>
-              <input type="submit" value="Envoyer" class="">
-          </div>
-      </form>
-    </div>
-  <!-- End File selection-->
+  <!-- Top 5 transactions -->
+  <div id="top-transactions" class=""></div>
+  <!-- End Top 5 transactions -->
 
   <!-- Table -->
-  <div class="">
-    <table id="transaction-table" class="">
-      <thead class="">
+  <div id="transactions">
+    <table id="transaction-table" class="table-styled">
+      <thead>
         <tr>
-          <th scope="col" class="">
+          <th scope="col">
             Date
           </th>
-          <th scope="col" class="">
+          <th scope="col">
             Montant
           </th>
-          <th scope="col" class="">
+          <th scope="col">
             Catégorie importée
           </th>
-          <th scope="col" class="">
+          <th scope="col">
             Catégorie sélectionnée
           </th>
-          <th scope="col" class="">
+          <th scope="col">
             Description
           </th>
-          <th scope="col" class="">
+          <th scope="col">
             Compte
           </th>
-          <th scope="col" class="">
+          <th scope="col">
 
           </th>
-          <th scope="col" class="">
+          <th scope="col">
 
           </th>
         </tr>
       </thead>
       
       <!-- Table loaded by JS -->
-      <tbody id="transaction-table-content" class="">
+      <tbody id="transaction-table-content">
         
       </tbody>
     </table>
@@ -90,34 +64,54 @@
   <!-- End Table -->
 
   <!-- Modal to modify transactions -->
-<div id="edit-modal" class="hidden ">
-  <div class="">
-    <div class="">
-      <div class="">
-        <h1 class="">Modifier la transaction</h1>
+  <div id="edit-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Modifier la transaction</h1>
       </div>
       <form id="form-edit-transaction">
-        <div class="">
-          <p class="">Catégorie</p>
+        <div class="modal-body">
+          <p>Catégorie</p>
           <div id="input-transaction-category"></div>
-          <p class="">Compte</p>
+          <p>Compte</p>
           <div id="input-transaction-account"></div>
-          <label class="">Type</label>
+          <label>Type</label>
           <input type="radio" id="type-entrant" name="transaction-type" />
           <label for="type-entrant">Entrant</label>
           <input type="radio" id="type-sortant" name="transaction-type" checked />
           <label for="type-sortant">Sortant</label>
         </div>
-        <!-- Close button -->
-        <div class="">
-          <button type="submit" id="save-modal" class="">Sauvegarder</button>
-          <button type="button" id="close-modal" class="">Fermer</button>
+        <div class="modal-footer">
+          <button type="submit" id="save-modal">Sauvegarder</button>
+          <button type="button" id="close-modal">Fermer</button>
         </div>
       </form>
     </div>
   </div>
-</div>
-<!-- End Modal to modify transactions -->
+  <!-- End Modal to modify transactions -->
+
+  <!-- File selection -->
+  <div>
+    <!-- <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14"> -->
+    <div> <!-- Ajoutez la classe w-full pour prendre toute la largeur sur les écrans plus petits -->
+        <h3>Importer un fichier (.csv)</h2>
+    </div>
+
+    
+    <form id="send-file" enctype="multipart/form-data">
+        <div> <!-- Ajoutez également la classe w-full ici -->
+            <div>
+                <!-- Masquer le bouton "Choose file" -->
+                <input type="file" id="file-input" accept=".csv" name="file-input">
+                <!-- Bouton stylisé personnalisé -->
+                <label for="file-input-name">Choisir un fichier</label>
+                <span id="file-input-name"></span>
+            </div>
+            <input type="submit" value="Envoyer">
+        </div>
+    </form>
+  </div>
+<!-- End File selection-->
 
 </body>
 </html>

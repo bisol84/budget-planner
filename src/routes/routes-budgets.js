@@ -53,7 +53,6 @@ router.get("/:date/:id", function (req, res) {
 // Return the total budget for given month
 router.get("/total/:date/", function (req, res) {
   const monthFilter = req.params.date
-  console.log(monthFilter)
   let sql = `
     SELECT 
     c.ID,
