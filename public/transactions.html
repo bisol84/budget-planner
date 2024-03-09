@@ -71,15 +71,19 @@
       </div>
       <form id="form-edit-transaction">
         <div class="modal-body">
-          <p>Catégorie</p>
+          <label for="input-transaction-category">Catégorie</label>
           <div id="input-transaction-category"></div>
-          <p>Compte</p>
+          <div class="separator"></div>
+          <label for="input-transaction-account">Compte</label>
           <div id="input-transaction-account"></div>
-          <label>Type</label>
-          <input type="radio" id="type-entrant" name="transaction-type" />
-          <label for="type-entrant">Entrant</label>
-          <input type="radio" id="type-sortant" name="transaction-type" checked />
-          <label for="type-sortant">Sortant</label>
+          <div class="separator"></div>
+          <label for="transaction-type">Type</label>
+          <div class="radio-buttons">
+            <input type="radio" id="type-entrant" name="transaction-type" />
+            <label for="type-entrant">Entrant</label>
+            <input type="radio" id="type-sortant" name="transaction-type" checked />
+            <label for="type-sortant">Sortant</label>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="submit" id="save-modal">Sauvegarder</button>
@@ -92,18 +96,14 @@
 
   <!-- File selection -->
   <div>
-    <!-- <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14"> -->
-    <div> <!-- Ajoutez la classe w-full pour prendre toute la largeur sur les écrans plus petits -->
+    <div> 
         <h3>Importer un fichier (.csv)</h2>
     </div>
 
-    
     <form id="send-file" enctype="multipart/form-data">
-        <div> <!-- Ajoutez également la classe w-full ici -->
+        <div> 
             <div>
-                <!-- Masquer le bouton "Choose file" -->
                 <input type="file" id="file-input" accept=".csv" name="file-input">
-                <!-- Bouton stylisé personnalisé -->
                 <label for="file-input-name">Choisir un fichier</label>
                 <span id="file-input-name"></span>
             </div>
