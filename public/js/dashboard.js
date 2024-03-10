@@ -71,7 +71,7 @@ function createTotalCard(data) {
  * Get amount of budget / transaction for selected month
  */
 function getBudget(dateFilter) {
-  fetch(`http://localhost:3000/api/dashboard/totalAmounts/${dateFilter}`, {
+  fetch(`/api/dashboard/totalAmounts/${dateFilter}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'

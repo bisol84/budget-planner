@@ -22,7 +22,7 @@ app.use(limiter)
 // Middleware
 const corsOptions = {
   credentials: true,
-  origin: ['http://localhost:3000'] 
+  origin: [''] 
 };
 app.use(cors(corsOptions)); 
 

@@ -84,7 +84,7 @@ function displayTop5(data) {
  */
 function getTop5() {
 // Get the top5
-fetch('http://localhost:3000/api/transactions/top5', {
+fetch('/api/transactions/top5', {
   method: 'GET',
   headers: {
       'Content-Type': 'application/json'
@@ -101,7 +101,7 @@ fetch('http://localhost:3000/api/transactions/top5', {
  * Get all the transactions
  */
 function getTransactions() {
-  fetch('http://localhost:3000/api/transactions', {
+  fetch('/api/transactions', {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json'
@@ -221,7 +221,7 @@ function saveTransaction(transactionId) {
       jsonData.id_account = selectedAccount
     }
     jsonData.transaction_type = transactionType
-    fetch('http://localhost:3000/api/transactions/' + transactionId, {
+    fetch('/api/transactions/' + transactionId, {
       method: 'POST',
             body: JSON.stringify({ data: jsonData }, null, 2),
             headers: {
@@ -244,7 +244,7 @@ function saveTransaction(transactionId) {
  * @param {*} buttonId 
  */
 function deleteTransaction(buttonId) {
-  fetch('http://localhost:3000/api/transactions/' + buttonId, {
+  fetch('/api/transactions/' + buttonId, {
       method: 'DELETE',
       headers: {
           'Content-Type': 'application/json'
@@ -260,7 +260,7 @@ function deleteTransaction(buttonId) {
  * @returns 
  */
 function getCategories() {
-  return fetch('http://localhost:3000/api/categories', {
+  return fetch('/api/categories', {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json'
@@ -274,7 +274,7 @@ function getCategories() {
  * @returns 
  */
 function getAccounts() {
-  return fetch('http://localhost:3000/api/accounts', {
+  return fetch('/api/accounts', {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json'

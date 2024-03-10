@@ -1,4 +1,4 @@
-const accountsURL = 'http://localhost:3000/api/accounts'
+const accountsURL = '/api/accounts'
 const addAccountForm = document.getElementById('add-account-form')
 
 // Display the accounts cards when page loads
