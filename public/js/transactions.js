@@ -113,7 +113,16 @@ function getTransactions() {
       .catch(error => {
           console.error('Erreur lors de la réception des transactions :', error);
       });
-  }
+}
+
+/**
+ * Upload transaction modal
+ * @param {*} e 
+ */
+function displayUploadTransactionModal(e) {
+  const uploadTransactionModal = document.getElementById('upload_modal')
+  uploadTransactionModal.style.display = 'block'
+}
 
 /**
  * Display modal to edit the transaction
@@ -279,4 +288,21 @@ function getAccounts() {
 uploadChooseFile.addEventListener('change', function(e) {
   const fileName = e.target.files[0].name
   document.getElementById('file-input-name').textContent = fileName
+})
+
+//Display modal when clicking on + icon
+const addTransactionIcon = document.getElementById('add-transaction-btn')
+addTransactionIcon.addEventListener('click', () => {
+  
+})
+
+//Display modal when clicking on + icon
+const uploadTransactionIcon = document.getElementById('upload-transaction-btn')
+const btnCloseUploadModal = document.getElementById('close-upload-modal')
+uploadTransactionIcon.addEventListener('click', () => {
+  displayUploadTransactionModal()
+})
+btnCloseUploadModal.addEventListener('click', () => {
+  const uploadTransactionModal = document.getElementById('upload_modal')
+  uploadTransactionModal.style.display = 'none'
 })

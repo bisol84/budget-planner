@@ -40,7 +40,9 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-button {
+button,
+input[type="submit"]
+{
   background-color: var(--light-blue);
   border-radius: .5rem;
   border: none;
@@ -50,6 +52,10 @@ button {
   text-align: center;
   text-decoration: none;
   cursor: pointer;
+}
+
+input[type="file"] {
+  display: none;
 }
 
 /*
@@ -247,8 +253,15 @@ Transactions
 }
 
 #top-transactions {
-  width: 95%;
+  width: 97%;
   display: flex;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
 }
 
 /* 
@@ -265,6 +278,15 @@ Modal
   display: none;
 }
 
+.modal-large {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 550px;
+  display: none;
+}
+
 .modal-content {
   background-color: var(--white);
   margin: auto;
@@ -273,7 +295,8 @@ Modal
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
-.modal h1 {
+.modal h1,
+.modal-large h1 {
   font-size: 1.2rem;
 }
 
@@ -304,7 +327,7 @@ Modal
 }
 
 .modal-body .separator {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .modal-footer {
@@ -312,7 +335,9 @@ Modal
   text-align: center;
 }
 
-.modal-footer button {
+.modal-footer button,
+.modal-footer input[type="submit"]
+{
   padding: 10px;
   background-color: var(--light-blue);
 }

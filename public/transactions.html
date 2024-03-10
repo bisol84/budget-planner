@@ -28,6 +28,11 @@
     <table id="transaction-table" class="table-styled">
       <thead>
         <tr>
+          <th><h1>Transactions</h1></th>
+          <th colspan="6"></th>
+          <th><button style="width: 26px;" id="add-transaction-btn">+</button>&nbsp;<button id="upload-transaction-btn"><i class="fa-solid fa-cloud-arrow-up"></i></button></th>
+        </tr>
+        <tr>
           <th scope="col">
             Date
           </th>
@@ -95,21 +100,24 @@
   <!-- End Modal to modify transactions -->
 
   <!-- File selection -->
-  <div>
-    <div> 
-        <h3>Importer un fichier (.csv)</h2>
+  <div id="upload_modal" class="modal-large">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Importer un fichier (.csv)</h1>
+      </div>
+      <div class="modal-body">
+        <form id="send-file" enctype="multipart/form-data">
+          <input type="file" id="file-input" accept=".csv" name="file-input">
+          <label for="file-input" class="custom-file-upload"><b>Choisir un fichier</b></label>
+          <span id="file-input-name"></span>
+      </div>
+      <div class="modal-footer">
+        <input type="submit" value="Envoyer">
+        <button type="button" id="close-upload-modal">Fermer</button>
+      </div>
+        </form>
+      </div>
     </div>
-
-    <form id="send-file" enctype="multipart/form-data">
-        <div> 
-            <div>
-                <input type="file" id="file-input" accept=".csv" name="file-input">
-                <label for="file-input-name">Choisir un fichier</label>
-                <span id="file-input-name"></span>
-            </div>
-            <input type="submit" value="Envoyer">
-        </div>
-    </form>
   </div>
 <!-- End File selection-->
 
