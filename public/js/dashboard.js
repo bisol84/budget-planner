@@ -56,7 +56,7 @@ function createTotalCard(data) {
   const percentageUsed = percentage(transactionsAmount, budgetsAmount)
   totalCard.innerHTML = `
   <div class="box-small">
-    <div class="">
+    <div class="box-content">
       <p class="text-title">Total</p>
       <p class="text-content">Budgets : ${budgetsAmount}</p>
       <p class="text-content">Transactions : ${transactionsAmount}</p>

@@ -9,6 +9,7 @@
   --dark-gray: #8A8A8A;
   --gray: #C0C0C0;
   --light-gray: #F3F3F3;
+  --very-light-gray: #F9FAFB;
   --green: #157d09;
   --red: #ff4343;
   --blue: #495be0;
@@ -123,6 +124,7 @@ Date Picker
   cursor: pointer;
   border: none;
   font-family: "Roboto", sans-serif;
+  border-radius: 15px;
 }
 
 /*
@@ -133,6 +135,7 @@ Container
 .container {
   display: flex;
   flex-direction: column;
+  margin-bottom: 15px;
 }
 
 /*
@@ -143,19 +146,29 @@ Boxes
 .box-small {
   background-color: var(--white);
   width: fit-content;
-  padding: 10px;
-  border-radius: 15px;
   margin-left: 25px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  border-radius: 15px;
 }
 
 .box-fixed {
   background-color: var(--white);
   width: 20%;
-  padding: 10px;
-  border-radius: 15px;
   margin-left: 25px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+}
+
+.box-header {
+  width:100%;
+  height:28px;
+  color: var(--white);
+  padding: 5px;
+  border-radius: 15px 15px 0 0;
+}
+
+.box-content {
+  padding: 8px;
 }
 
 /*
@@ -164,13 +177,13 @@ Texts
 
 */
 .text-title {
-  color: var(--dark-gray);
+  color: var(----black);
   font-size: 16px;
   font-weight: bold;
 }
 
 .text-content {
-  color: var(--black);
+  color: var(--dark-gray);
   font-size: 24px;
   font-weight: bold;
 }
@@ -187,29 +200,39 @@ Tables
 
 */
 .table-styled {
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   background-color: var(--white);
   font-size: 0.9em;
   width: 100%;
+  border: 1px solid var(--gray);
+  border-radius: 15px;
 }
 
 .table-styled thead tr {
-  /* background-color: var(--dark-gray); */
-  color: var(--dark-gray);
+  color: var(--black);
   text-align: left;
+  border: 1px solid var(--gray);
+  text-transform: uppercase;
 }
 
 .table-styled th,
 .table-styled td {
     padding: 5px 20px;
+    border-bottom: 1px solid var(--gray);
+}
+
+/* fix last line */
+.table-styled tr:last-child td {
+  border-bottom: none; 
 }
 
 .standard {
-  color: var(--gray);
+  color: var(--dark-gray);
 }
 
 .table-styled tbody tr {
-  border-bottom: 1px solid var(--light-gray);
+  border: 1px solid var(--gray);
 }
 
 .table-styled tbody tr:last-of-type {
@@ -228,9 +251,11 @@ Budget
 }
 
 .subheader {
-  color: var(--gray) !important;
+  color: var(--dark-gray) !important;
   font-weight: bold !important;
   height: 50px;
+  text-transform: uppercase;
+  background-color: var(--very-light-gray);
 }
 
 .budget-up {
@@ -253,7 +278,7 @@ Transactions
 }
 
 #top-transactions {
-  width: 97%;
+  width:98%;
   display: flex;
 }
 

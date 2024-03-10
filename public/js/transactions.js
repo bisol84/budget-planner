@@ -1,4 +1,4 @@
-import { createTableLine, createTableCell, addTextContent, addTag, addIcon, addNumericContent, addNumericContentWithColor, addButton } from './utils/array.js';
+import { createTableLine, createTableCell, addTextContent, addTag, addIcon, addNumericContent, addNumericContentWithColor, addButton, getTextColor } from './utils/array.js';
 
   const uploadChooseFile = document.getElementById('file-input')
 
@@ -70,12 +70,11 @@ function displayTop5(data) {
   data.forEach(topCategory => {
     top5div.innerHTML += `
     <div class="box-fixed">
-      <div><i class="${topCategory.icon} fa-lg"></i></div>
-      <div>
-        <p class="text-title">${topCategory.category}</p>
+      <div class="box-header" style="background-color:${topCategory.color}; color:${getTextColor(topCategory.color)} !important"><i class="${topCategory.icon} fa-lg"></i>&nbsp;<span>${topCategory.category}</span></div>
+      <div class="box-content">
         <p class="text-subcontent">${(topCategory.total_transactions.toFixed(2))} CHF</p>
       </div>
-      </div>
+    </div>
       `
   })
 }

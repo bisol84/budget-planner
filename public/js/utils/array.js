@@ -160,25 +160,23 @@ export function addButton(div, textContent,categoryId) {
  * @param {*} hexColor 
  * @returns 
  */
-function getTextColor(hexColor) {
-  if (hexColor) {
-    const decimalColor = parseInt(hexColor.replace(/^#/, ''), 16);
+export function getTextColor(rgbaColor) {
+  console.log(rgbaColor);
+  if (rgbaColor) {
+    const rgbaValues = rgbaColor.match(/(\d+(\.\d+)?)/g);
 
-    const r = (decimalColor >> 16) & 255;
-    const g = (decimalColor >> 8) & 255;
-    const b = decimalColor & 255;
+    const [r, g, b] = rgbaValues.map(value => parseInt(value));
 
     const brightness = Math.sqrt(
-        0.299 * (r ** 2) + 0.587 * (g ** 2) + 0.114 * (b ** 2)
+      0.299 * (r ** 2) + 0.587 * (g ** 2) + 0.114 * (b ** 2)
     );
 
-    //if (brightness < 127.5) {
-    if (brightness < 190.5) {
-      return '#ffffff'
+    if (brightness < 127.5) {
+      return 'rgba(255, 255, 255, 1)';
     } else {
-      return '#000000'
+      return 'rgba(0, 0, 0, 1)';
     }
   } else {
-    return '#000000'
+    return 'rgba(0, 0, 0, 1)';
   }
 }
