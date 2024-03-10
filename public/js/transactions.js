@@ -204,13 +204,13 @@ function editTransaction(e) {
 function saveTransaction(transactionId) {
   //const selectAccount = document.getElementById('')
   const editMmodal = document.getElementById('edit-modal');
-  editMmodal.style.display = 'none'
   const selectCategoryList = document.getElementById('select-category-list')
   const selectedCategory = selectCategoryList.value
   const selectAccountList = document.getElementById('select-account-list')
   const selectedAccount = selectAccountList.value
   const transactionTypeArray = document.querySelectorAll('input[name="transaction-type"]:checked');
   const transactionType = transactionTypeArray[0].nextElementSibling.innerText
+  editMmodal.style.display = 'none'
 
   const jsonData = {}
   if (selectedCategory || selectedAccount) {

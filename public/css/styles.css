@@ -59,6 +59,10 @@ input[type="file"] {
   display: none;
 }
 
+h1 {
+  font-size: 1.2rem;
+}
+
 /*
 
 Header & Navigation
@@ -214,12 +218,13 @@ Tables
   text-align: left;
   border: 1px solid var(--gray);
   text-transform: uppercase;
+  height: 40px;
 }
 
 .table-styled th,
 .table-styled td {
-    padding: 5px 20px;
-    border-bottom: 1px solid var(--gray);
+  padding: 5px 20px;
+  border-bottom: 1px solid var(--gray);
 }
 
 /* fix last line */
@@ -278,7 +283,7 @@ Transactions
 }
 
 #top-transactions {
-  width:98%;
+  width:97%;
   display: flex;
 }
 
@@ -327,13 +332,13 @@ Modal
 
 .modal-header {
   padding: 2px 16px;
-  color:var(--dark-gray);
+  color:var(--black);
   margin-bottom: 12px;
 }
 
 .modal-body {
   padding: 2px 16px;
-  color: var(--gray);
+  color: var(--dark-gray);
 }
 
 .modal-body select,
@@ -365,4 +370,15 @@ Modal
 {
   padding: 10px;
   background-color: var(--light-blue);
+}
+
+/*
+
+Catgories
+
+*/
+#categories {
+  width: 95%;
+  margin-left: 25px;
+  margin-bottom: 20px;
 }

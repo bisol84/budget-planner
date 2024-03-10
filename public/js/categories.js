@@ -58,13 +58,12 @@ function getCategories() {
  * @param {*} categoryColor 
  */
 function editCategory(categoryId, categoryName, categoryColor) {
-  console.log(`edit : ${categoryId}`)
   const editMmodal = document.getElementById('edit-modal');
   const btnSaveModal = document.getElementById('save-modal')
   const btnCloseModal = document.getElementById('close-modal')
   const formEditCategory = document.getElementById('form-edit-category')
 
-  editMmodal.classList.remove('hidden');
+  editMmodal.style.display = 'block';
 
   // Fill the fields with existing value
   document.getElementById('input-category-name').value = categoryName
@@ -77,7 +76,7 @@ function editCategory(categoryId, categoryName, categoryColor) {
   };
   const closeModal = function(event) {
     event.preventDefault();  
-    editMmodal.classList.add('hidden'); 
+    editMmodal.style.display = 'none' 
     formEditCategory.removeEventListener('submit', saveCategoryHandler);
   }
   formEditCategory.addEventListener('submit', saveCategoryHandler); //TODO : mettre hors de fonction qui se répète pour éviter les modifications en boucle
@@ -92,7 +91,7 @@ function editCategory(categoryId, categoryName, categoryColor) {
   const categoryName = document.getElementById('input-category-name').value
   const categoryColor = document.getElementById('input-category-color').value
   const editMmodal = document.getElementById('edit-modal');
-  editMmodal.classList.add('hidden');
+  editMmodal.style.display = 'none' 
   const jsonData = {}
   jsonData.category = categoryName
   jsonData.color = categoryColor

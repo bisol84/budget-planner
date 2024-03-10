@@ -21,58 +21,56 @@
   <!-- Budget -->
   <div id="categories">
     <!-- Table Section -->
-    <div class="">
 
       <!-- Table -->
-      <table id="categories-table" class="">
-        <thead class="">
+      <table id="categories-table" class="table-styled">
+        <thead>
             <tr>
-                <th scope="col" class="">
+                <th scope="col">
                   Catégories
                 </th>
-                <th scope="col" class="">
+                <th scope="col">
                   Couleur
                 </th>
-                <th scope="col" class="">
+                <th scope="col">
                   Icone
                 </th>
                 </th>
-                <th scope="col" class="">
+                <th scope="col">
                   
                 </th>
             </tr>
         </thead>
-        <tbody id="categories-table-content" class="">
+        <tbody id="categories-table-content">
           
         </tbody>
       </table>
       <!-- End Table -->
     </div>
-  </div>
   <!-- End Card -->
 </div>
 
 <!-- Modal to modify categories -->
-<div id="edit-modal" class="hidden ">
-  <div class="">
-    <div class="">
-      <div class="">
-        <h1 class="">Modifier la catégorie</h1>
+<div id="edit-modal" class="modal">
+  <div class="modal-content">
+      <div class="modal-header">
+        <h1>Modifier la catégorie</h1>
       </div>
       <form id="form-edit-category">
-        <div class="">
-          <label for="input-category-name" class="">Nom</label>
-          <input type="text" id="input-category-name" class="text-sm border border-gray-300 rounded-md w-full px-3 py-2">
-          <label for="input-category-color" class="">Couleur</label>
-          <input type="color" id="input-category-color" />
+        <div class="modal-body">
+            <label for="input-category-name">Nom</label>
+            <input type="text" id="input-category-name" class="text-sm border border-gray-300 rounded-md w-full px-3 py-2">
+            <label for="input-category-color">Couleur</label>
+            <input type="color" id="input-category-color" />
         </div>
         <!-- Close button -->
-        <div class="mt-6 text-right">
-          <button type="submit" id="save-modal" class="">Sauvegarder</button>
-          <button type="button" id="close-modal" class="">Fermer</button>
+        <div class="modal-footer">
+          <div class="mt-6 text-right">
+            <button type="submit" id="save-modal">Sauvegarder</button>
+            <button type="button" id="close-modal">Fermer</button>
+          </div>
         </div>
-      </form>
-    </div>
+    </form>
   </div>
 </div>
 <!-- End Modal to modify categories -->

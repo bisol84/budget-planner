@@ -118,6 +118,9 @@ export function addTag(div, color, value) {
   const txtcolor = getTextColor(color)
   // const span = createElementWithClasses('span', [`bg-[${bgcolor}]`, `text-[${txtcolor}]`, 'text-xs', 'font-medium', 'me-2', 'px-2.5', 'py-0.5', 'rounded']);
   const span = createElementWithClasses('span', []);
+  span.style.backgroundColor = bgcolor
+  span.style.padding = '3px'
+  span.style.color = txtcolor
   span.textContent = value;
   div.appendChild(span);
   return span
@@ -161,7 +164,6 @@ export function addButton(div, textContent,categoryId) {
  * @returns 
  */
 export function getTextColor(rgbaColor) {
-  console.log(rgbaColor);
   if (rgbaColor) {
     const rgbaValues = rgbaColor.match(/(\d+(\.\d+)?)/g);
 
