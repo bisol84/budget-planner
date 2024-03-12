@@ -62,12 +62,13 @@ function editCategory(categoryId, categoryName, categoryColor) {
   const btnSaveModal = document.getElementById('save-modal')
   const btnCloseModal = document.getElementById('close-modal')
   const formEditCategory = document.getElementById('form-edit-category')
+  const categoryColorHex = convertRGBToHex(categoryColor)
 
   editMmodal.style.display = 'block';
 
   // Fill the fields with existing value
   document.getElementById('input-category-name').value = categoryName
-  document.getElementById('input-category-color').value = categoryColor
+  document.getElementById('input-category-color').value = categoryColorHex
 
   const saveCategoryHandler = function(event) {
     event.preventDefault();  
@@ -84,6 +85,35 @@ function editCategory(categoryId, categoryName, categoryColor) {
 }
 
 /**
+ * Convert RGB color to hex
+ * @param {*} params 
+ */
+function convertHexToRGB(colorHex) {
+  colorHex = colorHex.replace(/^#/, '')
+
+  var r = parseInt(colorHex.substring(0, 2), 16);
+  var g = parseInt(colorHex.substring(2, 4), 16);
+  var b = parseInt(colorHex.substring(4, 6), 16);
+
+  return `rgba(${r}, ${g}, ${b}, 0.75)`;
+}
+
+/**
+ * Convert hex color to RGB
+ * @param {*} params 
+ */
+function convertRGBToHex(colorRGB) {
+  const match = colorRGB.match(/rgba?\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/);
+
+  const r = parseInt(match[1]);
+  const g = parseInt(match[2]);
+  const b = parseInt(match[3]);
+  const alpha = parseFloat(match[4]);
+
+  return '#' + r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2, '0');
+}
+
+/**
  * Save the category
  * @param {*} categoryId 
  */
@@ -94,7 +124,7 @@ function editCategory(categoryId, categoryName, categoryColor) {
   editMmodal.style.display = 'none' 
   const jsonData = {}
   jsonData.category = categoryName
-  jsonData.color = categoryColor
+  jsonData.color = convertHexToRGB(categoryColor)
   fetch('/api/categories/' + categoryId, {
             method: 'POST',
             body: JSON.stringify({ data: jsonData }, null, 2),

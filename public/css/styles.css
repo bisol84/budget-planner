@@ -382,3 +382,15 @@ Catgories
   margin-left: 25px;
   margin-bottom: 20px;
 }
+
+/*
+
+Tags
+
+*/
+.tags {
+  padding: 0.125rem 0.625rem;
+  font-size: .75rem;
+  line-height: 1rem;
+  border-radius: 0.25rem;
+}

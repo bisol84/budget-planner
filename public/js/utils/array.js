@@ -117,9 +117,8 @@ export function addTag(div, color, value) {
   const bgcolor = color
   const txtcolor = getTextColor(color)
   // const span = createElementWithClasses('span', [`bg-[${bgcolor}]`, `text-[${txtcolor}]`, 'text-xs', 'font-medium', 'me-2', 'px-2.5', 'py-0.5', 'rounded']);
-  const span = createElementWithClasses('span', []);
+  const span = createElementWithClasses('span', ['tags']);
   span.style.backgroundColor = bgcolor
-  span.style.padding = '3px'
   span.style.color = txtcolor
   span.textContent = value;
   div.appendChild(span);
@@ -173,7 +172,8 @@ export function getTextColor(rgbaColor) {
       0.299 * (r ** 2) + 0.587 * (g ** 2) + 0.114 * (b ** 2)
     );
 
-    if (brightness < 127.5) {
+    // if (brightness < 127.5) {
+      if (brightness < 87.5) {
       return 'rgba(255, 255, 255, 1)';
     } else {
       return 'rgba(0, 0, 0, 1)';
