@@ -173,7 +173,7 @@ export function getTextColor(rgbaColor) {
     );
 
     // if (brightness < 127.5) {
-      if (brightness < 87.5) {
+      if (brightness < 127.5) {
       return 'rgba(255, 255, 255, 1)';
     } else {
       return 'rgba(0, 0, 0, 1)';

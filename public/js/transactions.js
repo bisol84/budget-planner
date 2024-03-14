@@ -70,8 +70,9 @@ function displayTop5(data) {
   data.forEach(topCategory => {
     top5div.innerHTML += `
     <div class="box-fixed">
-      <div class="box-header" style="background-color:${topCategory.color}; color:${getTextColor(topCategory.color)} !important"><i class="${topCategory.icon} fa-lg"></i>&nbsp;<span>${topCategory.category}</span></div>
       <div class="box-content">
+        <div class="box-icon" style="background-color:${topCategory.color}; color:${getTextColor(topCategory.color)} !important"><i class="${topCategory.icon} fa-lg"></i>&nbsp;</div>
+        <p classe="text-content">${topCategory.category}</p>
         <p class="text-subcontent">${(topCategory.total_transactions.toFixed(2))} CHF</p>
       </div>
     </div>
