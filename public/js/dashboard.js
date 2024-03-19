@@ -24,7 +24,6 @@ async function displayBudgetInformation() {
   try {
     const totalBudget = await getBudgetTotal();
     const totalTransactions = await getTransactionsTotal();
-    console.log(totalTransactions)
     createBudgetCard(totalBudget, totalTransactions);
   } catch (error) {
     console.error('Error:', error);
