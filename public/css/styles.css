@@ -125,6 +125,17 @@ Header & Navigation
   border-radius: 20px;
 }
 
+.menu button {
+  background-color: var(--gray);
+}
+
+#submenu {
+  background-color: var(--white);
+  padding: 15px;
+  position: absolute;
+  right: 0;
+}
+
 /*
 
 

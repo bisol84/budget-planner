@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(menuContent => {
             document.getElementById('menu').innerHTML = menuContent
             menuSetCurrentPage()
+            const paramButton = document.querySelector('.menu button')
+            paramButton.addEventListener('click', manageParamsMenu)
         })
         .catch(error => console.error('Error fetching menu:', error))
 });
@@ -23,4 +25,16 @@ function menuSetCurrentPage() {
     }
   });
 
+}
+
+/**
+ * Display parameters sub-menu
+ */
+function manageParamsMenu() {
+  const paramsSubMenu = document.querySelector('#submenu')
+  if (paramsSubMenu.style.display == 'none') {
+    paramsSubMenu.style.display = 'block'
+  } else {
+    paramsSubMenu.style.display = 'none'
+  }
 }

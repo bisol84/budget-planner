@@ -3,35 +3,7 @@ const dashboardMonth = document.getElementById('dashboard-month')
 // Display the expenses / income for the current month by default
 window.addEventListener('DOMContentLoaded', function() {
 
-  // Load Total income / outcome
-  const savedMonth = localStorage.getItem('selectedMonth')
-  if (savedMonth) {
-    dashboardMonth.value = savedMonth;
-    getBudget(firstDayOfMonth(new Date(dashboardMonth.value)))
-  } else {
-    dashboardMonth.valueAsDate = new Date();
-    getBudget(firstDayOfMonth())
-  }
 })
-
-// Refresh the dashboard
-dashboardMonth.addEventListener('change', function() {
-  const selectedDate = new Date(dashboardMonth.value)
-  localStorage.setItem('selectedMonth', dashboardMonth.value);
-  getBudget(firstDayOfMonth(selectedDate))
-})
-
-/**
- * Return the first day of month
- * @param {*} date 
- * @returns string
- */
-function firstDayOfMonth(date = new Date()) {
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const fullYear = date.getFullYear();
-  const formattedDate = `${fullYear}-${month}-01`;
-  return formattedDate
-}
 
 /**
  * Return percentage
@@ -70,8 +42,8 @@ function createTotalCard(data) {
 /**
  * Get amount of budget / transaction for selected month
  */
-function getBudget(dateFilter) {
-  fetch(`/api/dashboard/totalAmounts/${dateFilter}`, {
+function getBudget() {
+  fetch(`/api/dashboard/totalAmounts/`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
