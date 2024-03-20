@@ -35,7 +35,7 @@ app.use(bodyParser.json({
 const cspOptions = {
   directives: {
     defaultSrc: ["'self'"],
-    scriptSrc: ["'self'", "https://cdn.tailwindcss.com", "https://kit.fontawesome.com", "https://ka-f.fontawesome.com", "https://cdn.datatables.net/"],
+    scriptSrc: ["'self'", "https://cdn.tailwindcss.com", "https://kit.fontawesome.com", "https://ka-f.fontawesome.com", "https://cdn.datatables.net/", "https://cdnjs.cloudflare.com"],
     styleSrc: ["'self'", "https://ka-f.fontawesome.com",  "'unsafe-inline'", "https://cdn.datatables.net/", "https://fonts.googleapis.com/"],
     connectSrc: ["'self'", "https://ka-f.fontawesome.com"],
     // Add other directives as needed
