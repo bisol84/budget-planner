@@ -35,4 +35,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/budget-planner:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/budget-planner:latest
