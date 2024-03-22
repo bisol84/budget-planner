@@ -111,7 +111,7 @@ var myChart = new Chart(canvas, {
     labels: ['2024-01-01', '2024-02-01', '2024-03-01'], // Dates for the x-axis
     datasets: [{
       label: 'Dataset 1',
-      data: [10, 20, 30], // Example data for the bars
+      data: [10, 20, 31], // Example data for the bars
       backgroundColor: 'rgba(255, 99, 132, 0.5)', // Example color
       borderColor: 'rgba(255, 99, 132, 1)', // Example border color
       borderWidth: 1
