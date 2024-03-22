@@ -104,30 +104,45 @@ async function displayTransactionsTotal() {
   }
 }
 
-(async function() {
-  const data = [
-    { year: 2010, count: 10 },
-    { year: 2011, count: 20 },
-    { year: 2012, count: 15 },
-    { year: 2013, count: 25 },
-    { year: 2014, count: 22 },
-    { year: 2015, count: 30 },
-    { year: 2016, count: 28 },
-  ];
-
-  new Chart(
-    document.getElementById('acquisitions'),
-    {
-      type: 'bar',
-      data: {
-        labels: data.map(row => row.year),
-        datasets: [
-          {
-            label: 'Acquisitions by year',
-            data: data.map(row => row.count)
-          }
-        ]
+var canvas = document.getElementById('canvas');
+var myChart = new Chart(canvas, {
+  type: 'bar',
+  data: {
+    labels: ['2024-01-01', '2024-02-01', '2024-03-01'], // Dates for the x-axis
+    datasets: [{
+      label: 'Dataset 1',
+      data: [10, 20, 30], // Example data for the bars
+      backgroundColor: 'rgba(255, 99, 132, 0.5)', // Example color
+      borderColor: 'rgba(255, 99, 132, 1)', // Example border color
+      borderWidth: 1
+    }, {
+      label: 'Dataset 2',
+      data: [15, 25, 35], // Example data for the second set of bars
+      backgroundColor: 'rgba(54, 162, 235, 0.5)', // Example color
+      borderColor: 'rgba(54, 162, 235, 1)', // Example border color
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      x: {
+        type: 'time',
+        time: {
+          unit: 'month', // Display by day
+          parser: 'yyyy-MM-dd' // Format of the date labels
+        },
+        title: {
+          display: true,
+          text: 'Date'
+        }
+      },
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Value'
+        }
       }
     }
-  );
-})();
+  }
+});
