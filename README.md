@@ -1,3 +1,8 @@
+## Important note
+This project is not finished but it's a good knowledge for me.
+I am now trying to do the same tool with nextjs / react.
+I will post this soon as this is so easy and fun to use tailwindcss, nextui etc.
+
 ## Budget planner
 
 Budget planner is an application designed to track one's budget on a monthly, quarterly, or yearly basis, as well as by categories. Additionally, this application will be capable of monitoring investments.
